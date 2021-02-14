@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+            <meta charset="UTF-8">
+            <title>모두화가</title>
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="../header.css">
+            <link rel="stylesheet" href="./feedstyle.css">
+            <meta name="description" content="우리 모두는 화가입니다.">
+    </head>
+    <body>
+        <!-- Header -->
+       
+        <div id="header_all">
+            <header class="page-header wrapper">
+                <div id=header_main>
+                    <h1 class="bold logo"><a href="../main.html">모두화가</a></h1>
+                    <form class="search-container">
+                        <input type="text" id="search-bar" placeholder="오늘은 어떤 그림을 구경할래요?">
+                        <button type="submit" class="searchButton">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+                <div id=header_account>
+                    <a href="#">로그인</a>
+                    <a href="#">회원가입</a>
+                </div>
+            </header>
+            <nav class="top-nav bold">
+                <div id=topnav-container>
+                    <a href="../main.html">Home</a>
+                    <a href="../topic/index.html">주제</a>
+                    <a href="../workboard.html">워크보드</a>
+                    <a href="./post.html">피드</a>
+                    <a href="#">경매</a>
+                </div>
+            </nav>
+        </div>
+        <!-- SideBar -->
+        <main>
+            <div class="sidebar-container">
+                <div class="sidebar-logo">
+                <u class="medium">User</u> 님, 안녕하세요!
+                </div>
+                <ul class="sidebar-navigation">
+                <li class="header medium">피드 선택</li>
+                <li>
+                    <a href="./post.html">
+                    <i class="fa fa-quote-left" aria-hidden="true"></i> 작가노트
+                    </a>
+                </li>
+                <li>
+                    <a href="./gallary.html">
+                    <i class="fa fa-picture-o" aria-hidden="true"></i> 갤러리
+                    </a>
+                </li>
+                <li class="header medium">구독</li>
+                <li>
+                    <a href="#">
+                     발밤
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                     이연
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                     노마드
+                    </a>
+                </li>
+                </ul>
+            </div>
+
+            <!-- Main Contents -->
+            <section class="feed">
+                <ul>
+                    <li>
+                        <article class="gallary-container">
+                            <div class="post-info">
+                                <div class=post-maininfo>
+                                    <img class="user-profile" src="../../resources/arab.jpg" alt=프로필>
+                                    <h2 class="title text bold">잃어버린 원형</h2>
+                                    <p class="username text medium">박수만</p>
+                                </div>
+                                <div class="post-subinfo">
+                                    <p class="update">3시간 전</p>
+                                    <p class="pageview">5000회</p>
+                                </div>
+                            </div>
+                            <div class="body-contents">
+                                <img class="body-image" src="../../resources/201209041758074514.jpg" alt="작품">
+                            </div>
+                            <div class="icon-bar">
+                                <a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a> 
+                                <!-- 좋아요 -->
+                                <a><i class="fa fa-shopping-bag" aria-hidden="true"></i></a>
+                                <!-- 쇼핑 -->
+                                <a><i class="fa fa-expand" aria-hidden="true"></i></a>
+                                <!--  -->
+                            </div>
+                            <div class="body-contents">
+                                <p>Simple Statement</p>
+                            </div>
+                        </article>
+                            <div class="comments-container">
+                                <div class="comments-header">
+                                    <div class=group>
+                                        <h3 class="text">Comments</h3>
+                                        <p class="count text regular">97</p>
+                                    </div>
+                                    <p class="comment-filter">정렬 기준</p>
+                                </div>
+                                <div class="my-comment">
+                                    <img class="user-profile" src="../../resources/judo.png" alt="덧글프로필">
+                                    <form class="comments-post-container">
+                                        <input type="text" id="comment-bar" placeholder="댓글 추가...">
+                                        <button type="submit" class="comment-button medium">
+                                            댓글
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="other-comments-container">
+                                    <ul>
+                                        <li class="other-comments first">
+                                            <img class="user-profile" src="../../resources/judo.png" alt="덧글프로필">
+                                            <div class="none-image">
+                                                <p class="medium text ">Username</p>
+                                                <p class="update text">2시간 전</p>
+                                                <div class="comment-bar">
+                                                    <p>너무 좋은 글입니다. 잘보고 갑니다! :D</p>
+                                                </div>
+                                                <button type="submit" class="comment-comment-button medium">
+                                                    답글
+                                                </button>
+                                            </div>
+                                        </li>
+                                        <li class="other-comments">
+                                            <img class="user-profile" src="../../resources/judo.png" alt="덧글프로필">
+                                            <div class="none-image">
+                                                <p class="medium text ">Username</p>
+                                                <p class="update text">2시간 전</p>
+                                                <div class="comment-bar">
+                                                    <p>너무 좋은 글입니다. 잘보고 갑니다! :D</p>
+                                                </div>
+                                                <button type="submit" class="comment-comment-button medium">
+                                                    답글
+                                                </button>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                    </li>
+                </ul>
+            </section>
+            <aside>
+                <div>
+                    Here is Aside
+                </div>
+            </aside>
+        </main>
+       
+        
+
+    </body>
+</html>
