@@ -68,7 +68,6 @@ div .title{
 .popular_works{
     background: #eeeeee;
     padding: 30px 30px 20px;
-    text-align:center;
 }
 #workboard .popular_works{
     background: #eeeeee;
@@ -92,7 +91,7 @@ div .title{
     height:218px;
     object-fit:cover;
 }
-/* 1-2. Popular gallaries */
+/* 1-2. Popular exhibition */
 /* 1-3. Popular artists */
 .popular_sub{
     display:flex;
@@ -108,7 +107,7 @@ div .title{
     padding: 30px 30px;
     
 }
-.popular_gallaries{
+.popular_exhibition{
     width:1010px;
     background: #eeeeee;
     padding: 30px 30px;
@@ -143,19 +142,19 @@ div .title{
 .container_artists .user_intro{
     font-size:0.8rem;
 }
-/* popular gallaries */
-.contatiner_gallaries{
+/* popular exhibition */
+.contatiner_exhibition{
     display: flex;
     padding-top:10px;
     padding-bottom:10px;
     align-items:center;
 }
-.contatiner_gallaries img{
+.contatiner_exhibition img{
     height: 380px;
     width:auto;
     object-fit:cover;
 }
-.contatiner_gallaries .button{
+.contatiner_exhibition .button{
     background-color: #c2c2c2;
     padding:20px;
     margin-left:20px;
