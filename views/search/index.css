@@ -78,8 +78,6 @@ main>p{
 .works-container .item{
     display:block;
     margin:0px auto;
-    text-align: center;
-    background-color: blueviolet;
 }
 .works-container img{
     width:100%;
@@ -273,3 +271,20 @@ main>p{
 }
 
 /* shop grid */
+#shop-container .item{
+    display:block;
+    text-align: none;
+    overflow: hidden;
+}
+#shop-container .goods-info{
+    padding:10px;
+    padding-bottom:11px;
+    background-color: rgb(238, 238, 238);
+}
+#shop-container .goods-info .subinfo{
+    display:flex;
+    justify-content: space-between;
+}
+#shop-container .price, #shop-container .artist{
+    display:flex;
+}
