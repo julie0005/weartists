@@ -89,10 +89,18 @@ div .title{
     grid-template-columns: repeat(4,1fr);
     background: #eeeeee;
 }
-.container_works img{
+.container_works a{
+    display:block;
+    padding:0px;
+    margin: 0 auto;
     width:324px;
-    height:218px;
+    height: 228px;
+}
+.container_works img{
+    width:100%;
+    height:100%;
     object-fit:cover;
+    margin: 0 auto;
 }
 /* 1-2. Popular exhibition */
 /* 1-3. Popular artists */
