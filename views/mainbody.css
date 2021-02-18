@@ -1,4 +1,10 @@
-
+/* footer */
+footer{
+    padding:10px;
+    text-align: center;
+    background-color: rgb(110, 183, 185);
+    font-size:14px;
+}
 /* Main Menu */
 .top-nav{
     background: #f1f1f1;;
