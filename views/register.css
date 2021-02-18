@@ -1,13 +1,17 @@
+@charset "utf-8";
+@import url(//fonsts.googleapis.com/earlyaccess/notosanskr.css);
+
 /* 레이아웃 틀 */
 html {
     height: 100%;
 }
-
+*{
+    font-family: "Noto Sans CJK KR", Noto Sans KR, sans-serif;
+}
 body {
     margin: 0;
     height: 100%;
     background: #f5f6f7;
-    font-family: Dotum,'돋움',Helvetica,sans-serif;
 }
 #logo {
     width: 240px;
@@ -15,7 +19,26 @@ body {
     cursor: pointer;
 }
 
-#header {
+a{
+    text-decoration:none;
+    outline:none;
+}
+a:visited { text-decoration: none; }
+a:hover { text-decoration: none; }
+a:focus { text-decoration: none; }
+a:hover, a:active { text-decoration: none; }
+
+input:focus {outline:none;}
+button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border:none;
+    outline:none;
+  }
+  .medium {font-weight : 500;}
+  .bold {font-weight : 700;}
+header {
     padding-top: 62px;
     padding-bottom: 20px;
     text-align: center;
@@ -26,15 +49,11 @@ body {
 }
 
 #content {
-    position: absolute;
-    left: 50%;
+    position: relative;
+    margin:0px 50%;
     transform: translate(-50%);
-    width: 460px;
+    width: 430px;
 }
-
-
-
-
 /* 입력폼 */
 
 
@@ -50,7 +69,7 @@ h3 {
     width: 100%;
     height: 51px;
     border: solid 1px #dadada;
-    padding: 10px 14px 10px 14px;
+    padding: 10px;
     box-sizing: border-box;
     background: #fff;
     position: relative;
@@ -62,34 +81,10 @@ h3 {
     width: 100%;
     height: 29px;
     border: none;
-    background: #fff;
+    background: rgb(255, 255, 255);
     font-size: 15px;
 }
 
-input {
-    font-family: Dotum,'돋움',Helvetica,sans-serif;    
-}
-
-.box.int_id {
-    padding-right: 110px;
-}
-
-.box.int_pass {
-    padding-right: 40px;
-}
-
-.box.int_pass_check {
-    padding-right: 40px;
-}
-
-.step_url {
-    /*@naver.com*/
-    position: absolute;
-    top: 16px;
-    right: 13px;
-    font-size: 15px;
-    color: #8e8e8e;
-}
 
 .pswdImg {
     width: 18px;
@@ -100,46 +95,6 @@ input {
     right: 16px;
     margin-top: -10px;
     cursor: pointer;
-}
-
-#bir_wrap {
-    display: table;
-    width: 100%;
-}
-
-#bir_yy {
-    display: table-cell;
-    width: 147px;
-    
-}
-
-#bir_mm {
-    display: table-cell;
-    width: 147px;
-    vertical-align: middle;
-}
-
-#bir_dd {
-    display: table-cell;
-    width: 147px;
-}
-
-#bir_mm, #bir_dd {
-    padding-left: 10px;
-}
-
-select {
-    width: 100%;
-    height: 29px;
-    font-size: 15px;
-    background: #fff url(https://static.nid.naver.com/images/join/pc/sel_arr_2x.gif) 100% 50% no-repeat;
-    background-size: 20px 8px;
-    -webkit-appearance: none;
-    display: inline-block;
-    text-align: start;
-    border: none;
-    cursor: default;
-    font-family: Dotum,'돋움',Helvetica,sans-serif;
 }
 
 /* 에러메세지 */
@@ -153,8 +108,8 @@ select {
 
 #alertTxt {
     position: absolute;
-    top: 19px;
-    right: 38px;
+    top: 15px;
+    right: 15px;
     font-size: 12px;
     color: red;
     display: none;
@@ -163,17 +118,24 @@ select {
 /* 버튼 */
 
 .btn_area {
-    margin: 30px 0 91px;
+    margin: 30px 0 20px;
 }
 
-#btnJoin {
-    width: 100%;
-    padding: 21px 0 17px;
-    border: 0;
+#btnJoin{
+	width: 100%;
+	height :50px;
+	font-size: 18px;
     cursor: pointer;
-    color: #fff;
-    background-color: #08a600;
-    font-size: 20px;
-    font-weight: 400;
-    font-family: Dotum,'돋움',Helvetica,sans-serif;
+	background: rgb(191, 216, 238);
+	color: black;
+}
+/* 로그인 링크 */
+#content .link{
+    text-align: center;
+}
+.already-member{
+    display:inline-block;
+    color:#4e4e4e;
+    font-size:14px;
+    margin:0px auto;
 }

@@ -27,6 +27,7 @@ button{
     border:none;
     cursor:pointer;
 }
+input:focus {outline:none;}
 body{
 	background:var(--body-background-color);
 }
@@ -184,8 +185,9 @@ footer{
 	flex-direction: column;
 	align-items: center;
 	height: 15px;
-
-
+}
+.login-stay-sign-in .checkbox:checked{
+	background-color: black;
 }
 footer .copyright-wrap span img{
 	width: 59px;
