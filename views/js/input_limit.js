@@ -1,7 +1,7 @@
 // 검색부분 입력 가공 : 한글, 영어(대소문자), 숫자, <, >, :, "" 외 지움
 function checkSearch(){
     let searchcontent=document.querySelector("#search-bar").value;
-    searchcontent=searchcontent.replace(/[^0-9a-zㄱ-ㅎㅏ-ㅣ가-힣\!\?\<\>\:\s"]/gi,'');
+    searchcontent=searchcontent.replace(/[^0-9a-zㄱ-ㅎㅏ-ㅣ가-힣\!\?\<\>\:\s'"]/gi,'');
     console.log('user searches for '+searchcontent);
     return true;
 }
@@ -20,6 +20,10 @@ function checkImg(){
     for(let i=0; i<imgFile.length; i++){
         if(!imgFile[i]){
             alert('이미지를 선택해주세요');
+            return false;
+        }
+        if(/[\\\/\:\*\?"<>|]/.test(imgFile[i].name)){
+            alert('파일 이름에 \,/,:,?,",<,>,|는 포함될 수 없습니다.');
             return false;
         }
         if(!regex.test(imgFile[i].name)){

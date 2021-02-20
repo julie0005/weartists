@@ -39,7 +39,7 @@ function checkPw() {
         error[2].style.display = "block";
         msg[1].style.display="none";
     } else if(!pwPattern.test(pw1.value)) {
-        error[2].innerHTML = "영문 대소문자, 숫자, 특수문자를 포함한 8~16자 비밀번호를 사용해주세요.";
+        error[2].innerHTML = "영문 소문자(대문자), 숫자, 특수문자를 포함한 8~16자 비밀번호를 사용해주세요.";
         msg[1].innerHTML = "사용불가";
         msg[1].style.color = "red";
         error[2].style.display = "block";
