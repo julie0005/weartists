@@ -92,7 +92,7 @@
   .feed{
     background-color: rgb(213, 224, 224);
       position:relative;
-      width:990px;
+      width:65%;
 	  overflow:auto;
   }
   .topic .feed{

@@ -115,9 +115,9 @@ main .title{
   text-align: center;
 }
 .container_items .topic{
-  width:280px;
-  height:218px;
-  background-color: rgba(197, 194, 212, 0.849);
+  width:100%;
+  height:100%;
+  background-color: rgba(174, 184, 214, 0.849);
   padding:90px 0;
   font-size:1.2rem;
 }
@@ -127,7 +127,8 @@ main .title{
   object-fit:cover;
 }
 .container_items .topic:hover{
-  background-color: rgba(173, 164, 221, 0.849);
+  background-color: rgba(191, 203, 236, 0.849);
+  padding:90px 0;
 }
 
 /* Topic Detail Page */

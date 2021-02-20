@@ -14,19 +14,21 @@
 			</div>
 		</header>
 		<section class="login-input-section-wrap">
+			<form id="login-form" onsubmit="return loginCheck()">
 			<div class="login-input-wrap">	
-				<input placeholder="아이디" type="text"></input>
+				<input id="id" placeholder="아이디" type="text"></input>
 			</div>
 			<div class="login-input-wrap password-wrap">	
-				<input placeholder="비밀번호" type="password"></input>
+				<input id="password" placeholder="비밀번호" type="password"></input>
 			</div>
 			<div class="login-button-wrap">
-				<button class="bold">로그인</button>
+				<button class="bold" type="submit">로그인</button>
 			</div>
 			<div class="login-stay-sign-in">
 				<input id="check" type="checkbox" class="checkbox" checked>
 				<label for="check">&nbsp;로그인 유지</label>
 			</div>
+			</form>
 		</section>
 		<section class="Easy-sgin-in-wrap">
 			<h2>소셜로그인</h2>
@@ -39,4 +41,14 @@
 		</section>
 		</div>
 	</div>
+	<script>
+		function loginCheck(){
+			let idValue=document.querySelector('#id').value;
+			let psValue=document.querySelector('#password').value;
+			if(idValue==='' || psValue===''){
+				alert("아이디나 패스워드를 입력하지 않았습니다.");
+			}
+			return false;
+		}
+	</script>
 </body>

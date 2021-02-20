@@ -32,14 +32,14 @@ function checkId() {
 }
 
 function checkPw() {
-    var pwPattern=/^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+    var pwPattern=/^(?=.*[a-z])(?=.*\d)(?=.*\W).{8,16}$/i;
 
     if(pw1.value === "") {
         error[2].innerHTML = "필수 정보입니다.";
         error[2].style.display = "block";
         msg[1].style.display="none";
     } else if(!pwPattern.test(pw1.value)) {
-        error[2].innerHTML = "8~16자 영문 대소문자, 숫자, 특수문자를 사용하세요.";
+        error[2].innerHTML = "영문 대소문자, 숫자, 특수문자를 포함한 8~16자 비밀번호를 사용해주세요.";
         msg[1].innerHTML = "사용불가";
         msg[1].style.color = "red";
         error[2].style.display = "block";
@@ -68,7 +68,7 @@ function comparePw() {
 
 
 function isEmailCorrect() {
-    var emailPattern = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+    var emailPattern = /^[\w\.]+@[\w](\.?[\w])*\.[a-z]{2,3}$/i;
 
     if(email.value === ""){ 
         error[1].innerHTML = "필수 정보입니다.";

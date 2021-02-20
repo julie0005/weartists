@@ -110,7 +110,7 @@
                                 </div>
                                 <div class="my-comment">
                                     <img class="user-profile" src="../../resources/judo.png" alt="덧글프로필">
-                                    <form class="comments-post-container">
+                                    <form class="comments-post-container" id="comments-post" onsubmit="return checkTag()">
                                         <input type="text" id="comment-bar" placeholder="댓글 추가...">
                                         <button type="submit" class="comment-button medium">
                                             댓글
@@ -157,12 +157,6 @@
                 </div>
             </aside>
         </main>
-       
-        
-            
-
-        
-        
-
+        <script src="../js/input_limit.js"></script>
     </body>
 </html>

@@ -1,13 +1,13 @@
 /* footer */
 footer{
-    padding:10px;
+    padding:20px;
     text-align: center;
-    background-color: rgb(110, 183, 185);
-    font-size:14px;
+    background-color: #f1f1f1;;
+    font-size:12px;
 }
 /* Main Menu */
 .top-nav{
-    background: #f1f1f1;;
+    background: #f1f1f1;
     padding: 15px 15px;
     border-top: 2px solid #999999;
     border-bottom: 2px solid #999999;
@@ -56,10 +56,6 @@ main{
     padding-bottom:20px;
     background: #c2d2e9;
 }
-main#workboard{
-    height:1100px;
-    background: #c2d2e9;
-}
 main .title{
     background: #fdbfbfd3;
     padding: 5px 20px;
@@ -75,28 +71,43 @@ div .title{
     background: #eeeeee;
     padding: 30px 30px 20px;
 }
-#workboard .popular_works{
+#workboard.popular_works{
     background: #eeeeee;
 }
-#workboard .works-header{
+#workboard.works-header{
     display:flex;
     align-items: center;
 }
-.container_works{
+#workboard .container_works{
+    margin: 0px auto;
+    margin-top:10px;
+    padding:10px;
+}
+#workboard .container_works .mason-item{
+    display:inline-block;
+    height:auto;
+    width:325px;
+}
+#workboard .container_works img{
+    width:100%;
+    height:100%;
+}
+#main_popular.container_works{
     margin-top:20px;
     display: grid;
     gap:10px;
     grid-template-columns: repeat(4,1fr);
     background: #eeeeee;
+    place-content: center;
 }
-.container_works a{
+#main_popular.container_works a{
     display:block;
     padding:0px;
     margin: 0 auto;
-    width:324px;
-    height: 228px;
+    width:100%;
+    height: 233px;
 }
-.container_works img{
+#main_popular.container_works img{
     width:100%;
     height:100%;
     object-fit:cover;
@@ -110,16 +121,17 @@ div .title{
     text-align:left;
     height:470px;
     margin-top:20px;
+    width:100%;
     
 }
 .popular_artists{
     background: #eeeeee;
-    width:370px;
+    width:28%;
     padding: 30px 30px;
     
 }
 .popular_exhibition{
-    width:1010px;
+    width:70%;
     background: #eeeeee;
     padding: 30px 30px;
 }

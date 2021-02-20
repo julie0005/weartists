@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="ko">
     <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
             <meta charset="UTF-8">
             <title>모두화가</title>
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
             <link rel="stylesheet" href="header.css">
             <link rel="stylesheet" href="mainbody.css">
             <meta name="description" content="우리 모두는 화가입니다.">
+            
+            <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
+            <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.js"></script>
     </head>
     <body>
         <!-- Header -->
@@ -61,30 +65,28 @@
                 </div>
                 
                 <div class="container_works">
-                    <a href="#"><img src="../resources/starry_night.jpg" alt="별이 빛나는 밤"></a>
-                    <a href="#"><img src="../resources/tiger.jpg" alt="호랑이"></a>
-                    <a href="#"><img src="../resources/23identity.jpg" alt="다중인격"></a>
-                    <a href="#"><img src="../resources/forest.jpg" alt="숲"></a>
-                    <a href="#"><img src="../resources/superrealistic.jpg" alt="초현실"></a>
-                    <a href="#"><img src="../resources/wolf.jpg" alt="늑대"></a>
-                    <a href="#"><img src="../resources/withchild.jpg" alt="아이와함께"></a>
-                    <a href="#"><img src="../resources/moon_in_yard.jpg" alt="초원의달"></a>
-                    <a href="#"><img src="../resources/starry_night.jpg" alt="별이 빛나는 밤"></a>
-                    <a href="#"><img src="../resources/tiger.jpg" alt="호랑이"></a>
-                    <a href="#"><img src="../resources/23identity.jpg" alt="다중인격"></a>
-                    <a href="#"><img src="../resources/forest.jpg" alt="숲"></a>
-                    <a href="#"><img src="../resources/superrealistic.jpg" alt="초현실"></a>
-                    <a href="#"><img src="../resources/wolf.jpg" alt="늑대"></a>
-                    <a href="#"><img src="../resources/withchild.jpg" alt="아이와함께"></a>
-                    <a href="#"><img src="../resources/moon_in_yard.jpg" alt="초원의달"></a>
+                    <a href="#" class="mason-item"><img class="mason-image" src="../resources/starry_night.jpg" alt="별이 빛나는 밤"></a>
+                    <a href="#" class="mason-item"><img class="mason-image" src="../resources/tiger.jpg" alt="호랑이"></a>
+                    <a href="#" class="mason-item"><img class="mason-image" src="../resources/23identity.jpg" alt="다중인격"></a>
+                    <a href="#" class="mason-item"><img class="mason-image" src="../resources/forest.jpg" alt="숲"></a>
+                    <a href="#" class="mason-item"><img class="mason-image" src="../resources/superrealistic.jpg" alt="초현실"></a>
+                    <a href="#" class="mason-item"><img class="mason-image" src="../resources/wolf.jpg" alt="늑대"></a>
+                    <a href="#" class="mason-item"><img class="mason-image" src="../resources/withchild.jpg" alt="아이와함께"></a>
+                    <a href="#" class="mason-item"><img class="mason-image" src="../resources/moon_in_yard.jpg" alt="초원의달"></a>
+                    <a href="#" class="mason-item"><img class="mason-image" src="../resources/starry_night.jpg" alt="별이 빛나는 밤"></a>
+                    <a href="#" class="mason-item"><img class="mason-image" src="../resources/tiger.jpg" alt="호랑이"></a>
+                    <a href="#" class="mason-item"><img class="mason-image" src="../resources/23identity.jpg" alt="다중인격"></a>
+                    <a href="#" class="mason-item"><img class="mason-image" src="../resources/forest.jpg" alt="숲"></a>
+                    <a href="#" class="mason-item"><img class="mason-image" src="../resources/superrealistic.jpg" alt="초현실"></a>
+                    <a href="#" class="mason-item"><img class="mason-image" src="../resources/wolf.jpg" alt="늑대"></a>
+                    <a href="#" class="mason-item"><img class="mason-image" src="../resources/withchild.jpg" alt="아이와함께"></a>
+                    <a href="#" class="mason-item"><img class="mason-image" src="../resources/moon_in_yard.jpg" alt="초원의달"></a>
                 </div>
             </div>
             
 
         </main>     
-
-        
-        
-
+        <script src="./js/input_limit.js"></script>
+        <script src="./js/masonry.js"></script>
     </body>
 </html>
