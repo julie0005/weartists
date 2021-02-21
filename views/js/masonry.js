@@ -3,7 +3,7 @@ let $grid= $('.container_works').imagesLoaded(function(){
     
     $grid.masonry({
         itemSelector: '.mason-item',
-        fitwidth:true,
+        fitWidth:true,
         gutter:5,
     });
 });

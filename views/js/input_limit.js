@@ -10,7 +10,6 @@ function checkTag(){
     let content=document.querySelector("#comment-bar").value;
     content=content.replace(/(<([^>]+)>)/ig,'');
     console.log('user comment : '+content);
-    alert(content);
     return true;
 }
 //사진 첨부 제한 : size는 30mb 이하, 확장자는 jpg, png, jpeg, ai, bmp, gif

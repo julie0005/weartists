@@ -56,12 +56,15 @@ main{
     padding-bottom:20px;
     background: #c2d2e9;
 }
-main .title{
+main a.title{
     background: #fdbfbfd3;
     padding: 5px 20px;
     text-align:center;
 }
-div .title{
+main div.title{
+    background: #fdbfbfd3;
+    padding: 5px 20px;
+    text-align:center;
     display:inline-block;
 }
 
@@ -82,15 +85,58 @@ div .title{
     margin: 0px auto;
     margin-top:10px;
     padding:10px;
+    width:auto;
 }
+#workboard .text_content{
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.5);
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: center;
+    opacity:0;
+    transition: opacity 0.25s;
+}
+#workboard .text_content:hover{
+    opacity:1;
+}
+#workboard .text_content *{
+    color:white;
+}
+#workboard .text_content .title{
+    font-size:1.1rem;
+    margin-bottom:10px;
+}
+#workboard .text_content .artists::before{
+    content: "- ";
+    color:white;
+    
+}
+#workboard .text_content .artists{
+    margin-bottom:10px;
+}
+.text_content .sub_description{
+    display:flex;
+}
+
 #workboard .container_works .mason-item{
     display:inline-block;
     height:auto;
-    width:325px;
+    width:24%;
+    position:relative;
+    line-height:1;
+    margin-bottom:5px;
 }
 #workboard .container_works img{
     width:100%;
     height:100%;
+    object-fit: cover;
+    vertical-align: bottom;
+    
 }
 #main_popular.container_works{
     margin-top:20px;
