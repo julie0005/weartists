@@ -29,9 +29,9 @@ img{
     max-width: 100%;
 }
 .wrapper{
-    width:1440px;
+    width:100%;
     margin: 0 auto;
-    padding: 3% 0% 2% 0%;
+    padding: 3% 2% 2% 2%;  
 }
 
 /*Header*/
@@ -41,11 +41,17 @@ img{
 .page-header{
     display: flex;
     justify-content: space-between;
-    
+}
+#user .page-header.wrapper{
+    border-bottom: 1px solid #dbdbdb;
+    margin: 0 0;
+    width:100%;
+    padding: 2% 2% 1.5%;
+
 }
 #header_main{
     display:flex;
-    width:680px;
+    width:48%;
     justify-content: space-between;
     margin-left:60px;
 }
@@ -54,7 +60,6 @@ img{
     width:160px;
     justify-content: space-between;
     margin-right:60px;
-    
 }
 #header_account a{
     margin: auto 0;
@@ -73,6 +78,31 @@ img{
     margin-left:60px;
     justify-content: space-between;
 }
+
+#user .top-nav{
+    /* background: #f1f1f1; */
+    background: #f1f1f1;;
+    padding: 0 0;
+    border: 1px solid #dbdbdb;
+    border-top:none;
+    width:5%;
+    height:100%;
+}
+#user #topnav-container{
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    width:100%;
+    padding:10px;
+    padding-top:40px;
+    gap:70px;
+    margin:0 0;
+    text-align: center;
+}
+#user #topnav-container a{
+    line-height: 1.2;
+}
+
 /* search */
 .search-container{
     width: 490px;
@@ -94,10 +124,17 @@ input#search-bar{
     width: 50px;
     height: 45px;
     border: 1px solid #D0CFCE;
-    background: #D0CFCE;
+    background: #dadada;
     text-align: center;
     color: rgb(0, 0, 0);
     border-radius: 0 5px 5px 0;
     cursor: pointer;
     font-size: 20px;
+}
+/* footer */
+footer{
+    padding:20px;
+    text-align: center;
+    background-color: #f1f1f1;;
+    font-size:12px;
 }
