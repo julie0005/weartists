@@ -3,16 +3,18 @@
 }
 html, body{
     width:100%;
+    height:100%;
 }
 main{
     display: flex;
     width:100%;
-    height:90%;
     background-color: #eeeeee;
+    height:100%;
 }
 #main-contents{
     width:100%;
 }
+
 
 /* User-header */
 .user-nav{
@@ -31,7 +33,7 @@ main{
 .user-info{
     background-color: rgb(248, 248, 248);
     margin: 0 0;
-    padding:30px 10% 30px;
+    padding:30px var(--main-side) 30px;
     display:flex;
     align-items:center;
     width:100%;
@@ -58,7 +60,8 @@ main{
     gap:10px;
 }
 
-/* Dropdown */
+/* Dropdown and button design*/
+
 .dropdown {
     display: inline-block;
     position: relative;
@@ -75,7 +78,8 @@ main{
     border:none;
   }
   button.dd-button{
-    padding: 7px 10px 7px 10px;
+    padding: 7px 10px;
+    text-align: center;
   }
   
   .dropdown .dd-button:after {
@@ -126,3 +130,179 @@ main{
   .dd-menu li:hover {
     background-color: #f6f6f6;
   }
+/* Wrapper */
+
+#user #main-contents .wrapper{
+    padding: 30px 5% 0px;
+    width:100%;
+    background-color: #eeeeee;
+}
+#user #main-contents .subcontainer{
+  padding-bottom:20px;
+  border-bottom: 1px solid #c9c9c9;
+}
+.container-wrapper .subcontainer{
+  display:flex;
+  border-bottom: none;
+}
+.container-wrapper{
+  width:100%;
+  padding:0 5%;
+  background-color: #eeeeee;
+}
+#artist-wrapper{
+  border-right: 1px solid #c9c9c9;
+  width:30%;
+  padding: 30px 0 10px;
+}
+/* shop wrapper */
+#shop-wrapper{
+  padding: 30px 8px 10px;
+  width:70%;
+}
+
+  /* Home */
+  .user-title{
+    display:flex;
+    align-items:center;
+    padding: 15px 29px 0px 18px;
+    position:relative;
+    justify-content: space-between;
+    width:100%;
+}
+.user-title .titleinfo{
+    display:flex;
+    align-items:center;
+}
+.user-title .maininfo{
+    font-size:1.0rem;
+    margin-right:10px;
+}
+.user-title .more{
+  font-size:0.9rem;
+}
+
+.works-container{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    padding: 20px 30px 20px;
+    width:100%;
+    gap:5px;
+}
+.works-container .item{
+    display:block;
+    margin:0px auto;
+    width:100%;
+    height:220px;
+    background-color: white;
+}
+.works-container img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    margin: 0 auto;
+}
+/* 갤러리 폴더 이름 보이도록 수정 */
+
+#gallary-wrapper .works-container img{
+  height:75%;
+}
+#gallary-wrapper .works-container .gallary-name{
+  height:25%;
+  font-size:1.0rem;
+  padding:16px 10px;
+}
+#gallary-wrapper .works-container .item{
+  text-align: center;
+}
+#shop.works-container .item{
+  display:block;
+  height: 200px;
+}
+.works-container .post{
+    width:100%;
+    height:126px;
+    background-color: #ffffff;
+    border:1px solid #cfcfcf;
+    padding:15px;
+    position: relative;
+    overflow: hidden;
+}
+.works-container .post-title{
+    font-size:1.0rem;
+    position:absolute;
+    top:10px;
+    margin-right:15px;
+}
+.works-container .post-date{
+    color:dimgray;
+    font-size:0.8rem;
+    position:absolute;
+    bottom: 30px;
+}
+.works-container .post-comments{
+    margin-right:10px;
+}
+.works-container .post-subinfo{
+    display:flex;
+    font-size:0.9rem;
+    position: absolute;
+    bottom:10px;
+}
+
+#container_artists{
+    margin-top:25px;
+    display: flex;
+    flex-direction:column;
+    gap:0px;
+    padding:0px 30px;
+    
+}
+#container_artists .dd-button{
+  position: absolute;
+  right:1%;
+}
+#container_artists img{
+    width: 55px;
+    height:55px;
+    object-fit: cover;
+    border-radius:70%;
+}
+#container_artists li{
+    display: flex;
+    padding:10px 0px 10px 10px;
+    border-top:1px solid #b1b1b1;
+    align-items:center;
+    position:relative;
+}
+#container_artists .artists_text{
+    padding-top:10px;
+    padding-bottom:10px;
+    padding-left:15px;
+
+}
+#container_artists .user_intro{
+    font-size:0.9rem;
+}
+
+/* Write */
+
+#write .form-group{
+  width:80%;
+  margin:0 auto;
+  margin-top:20px;
+}
+#write #title{
+  padding:10px;
+  border:1px solid #dbdbdb;
+  margin-bottom:10px;
+}
+#write .form-group button{
+  margin-top:10px;
+  margin-right:10px;
+}
+#write input:focus{
+  border:none;
+  outline:none;
+}

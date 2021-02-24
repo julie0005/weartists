@@ -47,7 +47,6 @@ img{
     margin: 0 0;
     width:100%;
     padding: 2% 2% 1.5%;
-
 }
 #header_main{
     display:flex;
@@ -64,6 +63,11 @@ img{
 #header_account a{
     margin: auto 0;
 }
+#logged{
+   padding:12px 10px;
+   margin-right:4%;
+}
+
 /* Main Menu */
 .top-nav{
     background: #f1f1f1;;
@@ -81,10 +85,11 @@ img{
 
 #user .top-nav{
     /* background: #f1f1f1; */
-    background: #f1f1f1;;
+    background: #ffffff;;
     padding: 0 0;
     border: 1px solid #dbdbdb;
     border-top:none;
+    border-bottom:none;
     width:5%;
     height:100%;
 }

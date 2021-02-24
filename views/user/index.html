@@ -21,9 +21,9 @@
                     </button>
                 </form>
             </div>
-            <div id=header_account>
-                <a href="./login.html">로그인</a>
-                <a href="./register.html">회원가입</a>
+            <div id="logged">
+                <a href="./index.html" class="bold">MY</a>
+                &nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="medium">로그아웃</a>
             </div>
         </header>
         <main>
@@ -57,8 +57,8 @@
                             <input type="checkbox" class="dd-input" id="test">
                           
                             <ul class="dd-menu">
-                              <li>작품</li>
-                              <li>작가노트</li>
+                              <li><a href="./write-work.php">작품</a></li>
+                              <li><a href="./write-post.php">작가노트</a></li>
                             </ul>
                         </label>
                         
@@ -73,12 +73,202 @@
                 <nav class="user-nav medium">
                     <div id=usernav-container>
                         <a href="#">홈</a>
-                        <a href="#">갤러리</a>
+                        <a href="./gallary.html">갤러리</a>
                         <a href="#">작가노트</a>
                         <a href="#">상점</a>
                         <a href="#">구독</a>
                     </div>
                 </nav>
+                <!-- user home -->
+                <div class="wrapper" id="gallary-wrapper">
+                    <div class="subcontainer">
+                    <div class="user-title">
+                        <div class="titleinfo">
+                            <p class="medium maininfo">갤러리</p>
+                            <p id="postcnt">528</p>
+                        </div>
+                        <a href="#" class="more">더보기</a>
+                    </div>
+                    <div class="works-container">
+                        <a href="#" class="item"><img src="../../resources/starry_night.jpg" alt="별이 빛나는 밤">
+                            <p class="gallary-name bold" id="gallary-name-default">보이지 않지만 언제나 반짝반짝 빛나는 것</p>
+                        </a>
+                        <a href="#" class="item" ><img src="../../resources/tiger.jpg" alt="호랑이">
+                            <p class="gallary-name bold" id="gallary-name-default">보이지 않지만 언제나 반짝반짝 빛나는 것</p>
+                        </a>
+                        <a href="#" class="item" ><img src="../../resources/23identity.jpg" alt="다중인격">
+                            <p class="gallary-name bold" id="gallary-name-default">보이지 않지만 언제나 반짝반짝 빛나는 것</p>
+                        </a>
+                        <a href="#" class="item" ><img src="../../resources/forest.jpg" alt="숲">
+                            <p class="gallary-name bold" id="gallary-name-default">보이지 않지만 언제나 반짝반짝 빛나는 것</p>
+                        </a>
+                        <a href="#" class="item" ><img src="../../resources/superrealistic.jpg" alt="초현실">
+                            <p class="gallary-name bold" id="gallary-name-default">보이지 않지만 언제나 반짝반짝 빛나는 것</p>
+                        </a>
+                        <a href="#" class="item" ><img src="../../resources/wolf.jpg" alt="늑대">
+                            <p class="gallary-name bold" id="gallary-name-default">보이지 않지만 언제나 반짝반짝 빛나는 것</p>
+                        </a>
+                        <a href="#" class="item" ><img src="../../resources/withchild.jpg" alt="아이와함께">
+                            <p class="gallary-name bold" id="gallary-name-default">보이지 않지만 언제나 반짝반짝 빛나는 것</p>
+                        </a>
+                        <a href="#" class="item" ><img src="../../resources/moon_in_yard.jpg" alt="초원의달">
+                            <p class="gallary-name bold" id="gallary-name-default">보이지 않지만 언제나 반짝반짝 빛나는 것</p>
+                        </a>
+                    </div>
+                    </div>
+                </div>
+                <div class="wrapper" id="post-wrapper">
+                    <div class="subcontainer">
+                        <div class="user-title">
+                            <div class="titleinfo">
+                                <p class="medium maininfo">작가노트</p>
+                                <p id="postcnt">528</p>
+                            </div>
+                            <a href="#" class="more">더보기</a>
+                        </div>
+                        
+                        
+                        <div class="works-container">
+                            <a class="post" href="#">
+                                <p class="post-title medium">호랑이와 사자에 대한 고찰과 호랑이와 사자의 관계성과 블라블라블라블라블라블라</p>
+                                <p class="post-date">2021-01-24</p>
+                                <div class="post-subinfo">
+                                    <span><i class="fas fa-comments"></i></span>&nbsp;
+                                    <p class="post-comments">32</p>
+                                    <span><i class="fas fa-heart"></i></span>&nbsp;
+                                    <p class="likes">89</p>
+                                </div>
+                            </a>
+                            <a class="post" href="#">
+                                <p class="post-title medium">호랑이와 사자에 대한 고찰과 호랑이와 사자의 관계성과 블라블라블라블라블라블라</p>
+                                <p class="post-date">2021-01-24</p>
+                                <div class="post-subinfo">
+                                    <span><i class="fas fa-comments"></i></span>&nbsp;
+                                    <p class="post-comments">32</p>
+                                    <span><i class="fas fa-heart"></i></span>&nbsp;
+                                    <p class="likes">89</p>
+                                </div>
+                            </a>
+                            <a class="post" href="#">
+                                <p class="post-title medium">호랑이와 사자에 대한 고찰과 호랑이와 사자의 관계성과 블라블라블라블라블라블라</p>
+                                <p class="post-date">2021-01-24</p>
+                                <div class="post-subinfo">
+                                    <span><i class="fas fa-comments"></i></span>&nbsp;
+                                    <p class="post-comments">32</p>
+                                    <span><i class="fas fa-heart"></i></span>&nbsp;
+                                    <p class="likes">89</p>
+                                </div>
+                            </a>
+                            <a class="post" href="#">
+                                <p class="post-title medium">호랑이와 사자에 대한 고찰과 호랑이와 사자의 관계성과 블라블라블라블라블라블라</p>
+                                <p class="post-date">2021-01-24</p>
+                                <div class="post-subinfo">
+                                    <span><i class="fas fa-comments"></i></span>&nbsp;
+                                    <p class="post-comments">32</p>
+                                    <span><i class="fas fa-heart"></i></span>&nbsp;
+                                    <p class="likes">89</p>
+                                </div>
+                            </a>
+                        </div>
+                   
+                    </div>
+                </div>
+               
+                <div class="container-wrapper">
+                    <div class="subcontainer">
+                    <div class="subwrapper" id="artist-wrapper">
+                        
+                            <div class="user-title">
+                                <div class="titleinfo">
+                                    <p class="medium maininfo">작가</p>
+                                    <p id="postcnt">528</p>
+                                </div>
+                                <a href="works.html" class="more">더보기</a>
+                            </div>
+                            <ul class="works_container" id="container_artists">
+                                <li>
+                                    <img src="../../resources/arab.jpg" al="발밤프로필">
+                                    <div class=artists_text>
+                                        <a href="#"><p class="username bold">발밤</p></a>
+                                    </div>
+                                    <button class="dd-button">
+                                        구독중
+                                    </button>
+                                </li>
+                                <li>
+                                    <img src="../../resources/judo.png" al="이연프로필">
+                                    <div class=artists_text>
+                                        <a href="#"><p class="username bold">이연</p></a>
+                                    </div>
+                                    <button class="dd-button">
+                                        구독중
+                                    </button>
+                                </li>
+                                <li>
+                                    <img src="../../resources/judo2.PNG" al="노마드프로필">
+                                    <div class=artists_text>
+                                        <a href="#"><p class="username bold">노마드</p></a>
+                                    </div>
+                                    <button class="dd-button">
+                                        구독중
+                                    </button>
+                                </li>
+                                <li>
+                                    <img src="../../resources/arab.jpg" al="발밤프로필">
+                                    <div class=artists_text>
+                                        <a href="#"><p class="username bold">발밤</p></a>
+                                    
+                                    </div>
+                                    <button class="dd-button">
+                                        구독중
+                                    </button>
+                                </li>
+                                <li>
+                                    <img src="../../resources/judo.png" al="이연프로필">
+                                    <div class=artists_text>
+                                        <a href="#"><p class="username bold">이연</p></a>
+                                    </div>
+                                    <button class="dd-button">
+                                        구독중
+                                    </button>
+                                </li>
+                                <li>
+                                    <img src="../../resources/judo2.PNG" al="노마드프로필">
+                                    <div class=artists_text>
+                                        <a href="#"><p class="username bold">노마드</p></a>
+                                    </div>
+                                    <button class="dd-button">
+                                        구독중
+                                    </button>
+                                </li>
+                            </ul>
+                        
+                    </div>
+                    <div class="subwrapper" id="shop-wrapper">
+                         
+                        <div class="user-title">
+                            <div class="titleinfo">
+                                <p class="medium maininfo">상점</p>
+                                <p id="postcnt">528</p>
+                            </div>
+                            <a href="#" class="more">더보기</a>
+                        </div>
+                        <div class="works-container" id="shop">
+                            <a href="#" class="item"><img src="../../resources/starry_night.jpg" alt="별이 빛나는 밤"></a>
+                            <a href="#" class="item" ><img src="../../resources/tiger.jpg" alt="호랑이"></a>
+                            <a href="#" class="item" ><img src="../../resources/23identity.jpg" alt="다중인격"></a>
+                            <a href="#" class="item" ><img src="../../resources/forest.jpg" alt="숲"></a>
+                            <a href="#" class="item" ><img src="../../resources/superrealistic.jpg" alt="초현실"></a>
+                            <a href="#" class="item" ><img src="../../resources/wolf.jpg" alt="늑대"></a>
+                            <a href="#" class="item" ><img src="../../resources/withchild.jpg" alt="아이와함께"></a>
+                            <a href="#" class="item" ><img src="../../resources/moon_in_yard.jpg" alt="초원의달"></a>
+                        </div>
+                        
+                    </div>
+                    </div>
+                </div> 
+
+
             </div>
         </main>
         
