@@ -42,7 +42,7 @@ img{
     display: flex;
     justify-content: space-between;
 }
-#user .page-header.wrapper{
+#user .page-header.wrapper, #detail .page-header.wrapper{
     border-bottom: 1px solid #dbdbdb;
     margin: 0 0;
     width:100%;
@@ -83,7 +83,7 @@ img{
     justify-content: space-between;
 }
 
-#user .top-nav{
+#user .top-nav, #detail .top-nav{
     /* background: #f1f1f1; */
     background: #ffffff;;
     padding: 0 0;
@@ -93,7 +93,7 @@ img{
     width:5%;
     height:100%;
 }
-#user #topnav-container{
+#user #topnav-container, #detail #topnav-container{
     font-size: 1rem;
     display: flex;
     flex-direction: column;
@@ -104,7 +104,7 @@ img{
     margin:0 0;
     text-align: center;
 }
-#user #topnav-container a{
+#user #topnav-container a, #detail #topnav-container a{
     line-height: 1.2;
 }
 

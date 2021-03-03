@@ -19,14 +19,14 @@
 
             <!-- content-->
             <div id="content">
-
+                <form id="register-form" action="./register_ok.php" method="POST" onsubmit="return registerCheck()">
                 <!-- ID -->
                 <div>
                     <h3 class="join_title">
                         <label for="id" class="medium">아이디</label>
                     </h3>
                     <span class="box int_id">
-                        <input type="text" id="id" class="int" maxlength="20" >
+                        <input type="text" id="id" name="id" class="int" maxlength="20" >
                         <span id="alertTxt">사용불가</span>
                     </span>
                     <span class="error_next_box"></span>
@@ -38,7 +38,7 @@
                         <label for="email" class="medium">이메일</label>
                     </h3>
                     <span class="box int_email">
-                        <input type="text" id="email" class="int" maxlength="50" >
+                        <input type="text" id="email" name="email" class="int" maxlength="50" >
                     </span>
                     <span class="error_next_box"></span>
                 </div>
@@ -47,7 +47,7 @@
                 <div>
                     <h3 class="join_title"><label for="pswd1" class="medium">비밀번호</label></h3>
                     <span class="box int_pass">
-                        <input type="password" id="pswd1" class="int" maxlength="20">
+                        <input type="password" id="pswd1" name="password" class="int" maxlength="20">
                         <span id="alertTxt">사용불가</span>
                     </span>
                     <span class="error_next_box"></span>
@@ -66,13 +66,13 @@
 
                 <!-- JOIN BTN-->
                 <div class="btn_area">
-                    <button type="button" id="btnJoin">
+                    <button type="submit" id="btnJoin">
                         <span class="bold">가입하기</span>
                     </button>
                 </div>
                 <div class="link"><a href="./login.html" class="already-member">이미 회원이신가요?</a></div>
                 
-
+                </form>
             </div> 
             <!-- content-->
         <footer>

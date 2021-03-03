@@ -14,12 +14,12 @@
 			</div>
 		</header>
 		<section class="login-input-section-wrap">
-			<form id="login-form" onsubmit="return loginCheck()">
+			<form id="login-form" action="./login_ok.php" method="POST" onsubmit="return loginCheck()">
 			<div class="login-input-wrap">	
-				<input id="id" placeholder="아이디" type="text"></input>
+				<input id="id" name="id" placeholder="아이디" type="text"></input>
 			</div>
 			<div class="login-input-wrap password-wrap">	
-				<input id="password" placeholder="비밀번호" type="password"></input>
+				<input id="password" name="password" placeholder="비밀번호" type="password"></input>
 			</div>
 			<div class="login-button-wrap">
 				<button class="bold" type="submit">로그인</button>
@@ -36,7 +36,7 @@
 				<li><button><i class="fab fa-google"></i><span>Google</span></button></li>
 				<li><button><i class="fab fa-facebook"></i><span>Facebook</span></button></li>
 			</ul>
-            <div class="links"><a href="#" class="forget-msg">아이디 또는 비밀번호를 잊으셨나요?</a> | <a href="register.html" class="sign-up">회원가입</a></div>
+            <div class="links"><a href="#" class="forget-msg">아이디 또는 비밀번호를 잊으셨나요?</a> | <a href="register.php" class="sign-up">회원가입</a></div>
 			
 		</section>
 		</div>
@@ -50,8 +50,9 @@
 			let psValue=document.querySelector('#password').value;
 			if(idValue==='' || psValue===''){
 				alert("아이디나 패스워드를 입력하지 않았습니다.");
+				return false;
 			}
-			return false;
+			return true;
 		}
 	</script>
 </body>

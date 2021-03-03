@@ -52,18 +52,6 @@
                         </div>
                     </div>
                     <div class="user-option">
-                        <label class="dropdown">
-                            <div class="dd-button">
-                              글쓰기
-                            </div>
-                          
-                            <input type="checkbox" class="dd-input" id="test">
-                          
-                            <ul class="dd-menu">
-                              <li><a href="./write-work.php">작품</a></li>
-                              <li><a href="./write-post.php">작가노트</a></li>
-                            </ul>
-                        </label>
                         
                         <button class="dd-button">
                             설정
@@ -76,7 +64,7 @@
                 <nav class="user-nav medium">
                     <div id=usernav-container>
                         <a href="#">홈</a>
-                        <a href="./gallary.html">갤러리</a>
+                        <a href="./gallary.php">갤러리</a>
                         <a href="#">작가노트</a>
                         <a href="#">상점</a>
                         <a href="#">구독</a>
@@ -85,6 +73,7 @@
                 <!-- user home -->
                 <div class="form-group" id="frm">
                     <form method="POST" action="write_process.php" onsubmit="return submitContents();">
+                        <input type="text" value="post" name="category" style="display:none;"></input>
                       <input type="text" id="title" name="title" style="width:100%; height:40px; font-size:1.0rem; font-weight:700;" placeholder="제목" maxlength="40"></input>
                       <textarea class="form-control" name="ir1" id="ir1" style="width:100%; height:400px;"></textarea>  
                       <button type="submit" class="dd-button" id="save-button">저장</button>
@@ -96,7 +85,7 @@
         </main>
         
         
-        <script src="../js/post_manage.js"></script>
+        <script src="../js/write-post.js"></script>
         <script src="../js/input_limit.js"></script>
     </body>
 </html>

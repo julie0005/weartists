@@ -23,7 +23,6 @@ function submitContents() {
 	oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);	// 에디터의 내용이 textarea에 적용됩니다.
 	// 에디터의 내용에 대한 값 검증은 이곳에서 document.getElementById("ir1").value를 이용해서 처리하면 됩니다.
 	let title=document.querySelector(".form-group #title").value;
-    console.log(title.length);
     let content=document.getElementById("ir1").value;
     let content_text=content.replace(/(&nbsp;|<\/?(?!img)\w*\b[^>]*>)/ig,'');
     console.log(content_text);  

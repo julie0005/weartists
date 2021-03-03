@@ -12,27 +12,3 @@ function checkTag(){
     console.log('user comment : '+content);
     return true;
 }
-//사진 첨부 제한 : size는 30mb 이하, 확장자는 jpg, png, jpeg, ai, bmp, gif
-function checkImg(){
-    let regex=/\.(jpg|png|jpeg|ai|bmp|gif)$/gi;
-    let imgFile=document.querySelector('#image').files;
-    for(let i=0; i<imgFile.length; i++){
-        if(!imgFile[i]){
-            alert('이미지를 선택해주세요');
-            return false;
-        }
-        if(/[\\\/\:\*\?"<>|]/.test(imgFile[i].name)){
-            alert('파일 이름에 \,/,:,?,",<,>,|는 포함될 수 없습니다.');
-            return false;
-        }
-        if(!regex.test(imgFile[i].name)){
-            alert('jpg, png, jpeg, ai, bmp, gif 파일만 선택할 수 있습니다.');
-            return false;
-        }
-        if((imgFile[i].size/1024)/1024 > 30){
-            alert('30MB 크기의 사진까지 업로드할 수 있습니다.');
-            return false;
-        }
-    }
-    return true;
-}

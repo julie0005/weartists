@@ -23,8 +23,8 @@
                     </form>
                 </div>
                 <div id=header_account>
-                    <a href="./login.html">로그인</a>
-                    <a href="./register.html">회원가입</a>
+                    <a href="./login.php">로그인</a>
+                    <a href="./register.php">회원가입</a>
                 </div>
             </header>
             <nav class="top-nav bold">
