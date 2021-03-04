@@ -12,3 +12,10 @@ function checkTag(){
     console.log('user comment : '+content);
     return true;
 }
+//글쓰기 폼 가격 입력 텍스트 부분 : 숫자만 입력가능, max는 100만.
+function checkPrice(text){
+    text.value=text.value.replace(/[^0-9]/g,'');
+    if(text.value>=1000000){
+        text.value=1000000;
+    }
+}

@@ -47,7 +47,7 @@
                 <div>
                     <h3 class="join_title"><label for="pswd1" class="medium">비밀번호</label></h3>
                     <span class="box int_pass">
-                        <input type="password" id="pswd1" name="password" class="int" maxlength="20">
+                        <input type="password" id="pswd1" name="password" class="int" maxlength="16">
                         <span id="alertTxt">사용불가</span>
                     </span>
                     <span class="error_next_box"></span>
@@ -57,7 +57,7 @@
                 <div>
                     <h3 class="join_title"><label for="pswd2" class="medium">비밀번호 재확인</label></h3>
                     <span class="box int_pass_check">
-                        <input type="password" id="pswd2" class="int" maxlength="20">
+                        <input type="password" id="pswd2" class="int" maxlength="16">
                     </span>
                     <span class="error_next_box"></span>
                 </div>

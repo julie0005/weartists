@@ -30,7 +30,7 @@ function submitContents() {
         alert("제목과 본문을 입력해주세요.");
         return false;
     }
-    if(content>65000){
+    if(content>14000){
         alert("본문 내용이 너무 많습니다.");
         return false;
     }

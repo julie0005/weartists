@@ -11,6 +11,7 @@ $uploads_dir='../../temp';
             $gallary_folder=$_POST['gallary-folder'];
             $tmp=explode('.',$imgname);
             $ext=array_pop($tmp);
+            $imgname=date("YmdHis").'.'.$ext;
             move_uploaded_file($_FILES['upload']['tmp_name'],"$uploads_dir/$imgname");
             echo("title : ".$title."<br>\nartist_statement : ".$artist_statement."<br>\ngallary_folder : ".$gallary_folder);
             echo "<h2>파일 정보</h2>

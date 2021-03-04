@@ -56,12 +56,13 @@ img{
 }
 #header_account{
     display:flex;
-    width:160px;
-    justify-content: space-between;
+    gap:40px;
     margin-right:60px;
+    padding: auto 0;
 }
 #header_account a{
     margin: auto 0;
+    text-align: center;
 }
 #logged{
    padding:12px 10px;

@@ -1,3 +1,6 @@
+<?php
+    include "../db.php";
+?>
 <!DOCTYPE html>
 <html lang="ko">
     <head>
@@ -22,10 +25,19 @@
                         </button>
                     </form>
                 </div>
+                <?php
+                    if(!isset($_SESSION['id'])){
+                ?>
                 <div id=header_account>
                     <a href="./login.php">로그인</a>
                     <a href="./register.php">회원가입</a>
                 </div>
+                <?php } else{?>
+                    <div id=header_account>
+                        <a href="./user/">MY</a>
+                        <a href="./logout.php">로그아웃</a>
+                    </div>
+                <?php } ?>
             </header>
             <nav class="top-nav bold">
                 <div id=topnav-container>
