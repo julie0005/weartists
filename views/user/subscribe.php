@@ -21,7 +21,7 @@
                     </button>
                 </form>
             </div>
-            <div id="logged">
+            <div class="logged">
                 <a href="./index.html" class="bold">MY</a>
                 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="medium">로그아웃</a>
             </div>

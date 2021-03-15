@@ -1,3 +1,29 @@
+<?php
+error_reporting(E_ALL);
+ini_set("display_errors",1);
+include "../../db.php";
+$profile_dir="../../temp/profile";
+if(!isset($_SESSION['u_id'])){
+    echo "<script>alert('로그인이 필요합니다.'); location.href='../login.php';</script>";
+}
+else{
+    $u_id=$_SESSION['u_id'];
+    $query="SELECT * FROM user WHERE u_id={$u_id}";
+    $result=mysqli_query($db, $query);
+    if(!$result){
+        die("user 조회 fails.<br>\n".mysqli_error($db));
+    }
+    else{
+        $row=mysqli_fetch_assoc($result);
+        $author=$row['nickname'];
+        $profile_photo=$row['photo'];
+        $works=$row['works'];
+        $subscribers=$row['subscribers'];
+        $profile=$row['profile'];
+    }
+
+}
+?>
 <!DOCTYPE html>
 <html lang="ko">
     <head>
@@ -13,7 +39,7 @@
         <!-- Header -->
         <header class="page-header wrapper">
             <div id=header_main>
-                <h1 class="bold logo"><a href="main.html">모두화가</a></h1>
+                <h1 class="bold logo"><a href="../main.php">모두화가</a></h1>
                 <form class="search-container" id="search-form" onsubmit="return checkSearch()">
                     <input type="text" id="search-bar" placeholder="오늘은 어떤 그림을 구경할래요?">
                     <button type="submit" class="searchButton">
@@ -21,10 +47,17 @@
                     </button>
                 </form>
             </div>
-            <div id="logged">
-                <a href="./index.html" class="bold">MY</a>
-                &nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="medium">로그아웃</a>
+            <?php if(isset($_SESSION['u_id'])){?>
+            <div class="logged">
+                <a href="./user/" class="bold">MY</a>
+                &nbsp;&nbsp;&nbsp;&nbsp;<a href="../logout.php" class="medium">로그아웃</a>
             </div>
+            <?php } else{?>
+                <div class="logged">
+                    <a href="../login.php">로그인</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<a href="../register.php">회원가입</a>
+                </div>
+            <?php }?>
         </header>
         <main>
             <nav class="top-nav bold">
@@ -39,12 +72,12 @@
                 <!-- user info -->
                 <div class="user-info">
                     <div class=user-maininfo>
-                        <img class="user-profile" src="../../resources/arab.jpg" alt=프로필>
+                        <img class="user-profile" src=<?php echo "{$profile_dir}/{$profile_photo}"; ?> alt=프로필>
                         <div class="textinfo">
-                            <h3 class="username bold">고몽</h3>
+                            <h3 class="username bold"><?php echo "{$author}"; ?></h3>
                             <div class="user-subinfo">
-                                <span class="follower">1k 구독자</span>&nbsp;&nbsp;|&nbsp;
-                                <span class="works-number">512</span>&nbsp;작품
+                                <span class="follower"><?php echo "{$subscribers}"; ?> 구독자</span>&nbsp;&nbsp;|&nbsp;
+                                <span class="works-number"><?php echo "{$works}"; ?></span>&nbsp;작품
                             </div>
                         </div>
                     </div>
@@ -90,30 +123,26 @@
                         <a href="#" class="more">더보기</a>
                     </div>
                     <div class="works-container">
-                        <a href="#" class="item"><img src="../../resources/starry_night.jpg" alt="별이 빛나는 밤">
-                            <p class="gallary-name bold" id="gallary-name-default">보이지 않지만 언제나 반짝반짝 빛나는 것</p>
-                        </a>
-                        <a href="#" class="item" ><img src="../../resources/tiger.jpg" alt="호랑이">
-                            <p class="gallary-name bold" id="gallary-name-default">보이지 않지만 언제나 반짝반짝 빛나는 것</p>
-                        </a>
-                        <a href="#" class="item" ><img src="../../resources/23identity.jpg" alt="다중인격">
-                            <p class="gallary-name bold" id="gallary-name-default">보이지 않지만 언제나 반짝반짝 빛나는 것</p>
-                        </a>
-                        <a href="#" class="item" ><img src="../../resources/forest.jpg" alt="숲">
-                            <p class="gallary-name bold" id="gallary-name-default">보이지 않지만 언제나 반짝반짝 빛나는 것</p>
-                        </a>
-                        <a href="#" class="item" ><img src="../../resources/superrealistic.jpg" alt="초현실">
-                            <p class="gallary-name bold" id="gallary-name-default">보이지 않지만 언제나 반짝반짝 빛나는 것</p>
-                        </a>
-                        <a href="#" class="item" ><img src="../../resources/wolf.jpg" alt="늑대">
-                            <p class="gallary-name bold" id="gallary-name-default">보이지 않지만 언제나 반짝반짝 빛나는 것</p>
-                        </a>
-                        <a href="#" class="item" ><img src="../../resources/withchild.jpg" alt="아이와함께">
-                            <p class="gallary-name bold" id="gallary-name-default">보이지 않지만 언제나 반짝반짝 빛나는 것</p>
-                        </a>
-                        <a href="#" class="item" ><img src="../../resources/moon_in_yard.jpg" alt="초원의달">
-                            <p class="gallary-name bold" id="gallary-name-default">보이지 않지만 언제나 반짝반짝 빛나는 것</p>
-                        </a>
+                        <?php
+                            $query="SELECT * FROM gallary WHERE u_id={$u_id}";
+                            $result=mysqli_query($db,$query);
+                            if(!$result){
+                                die("gallary 조회 fails.<br>\n".mysqli_error($db));
+                            }
+                            else{
+                                while($row=mysqli_fetch_assoc($result)){
+                                    $g_id=$row['g_id'];
+                                    $gallary_title=$row['title'];
+                                    $thumbnail=$row['thumbnail'];
+                        ?>    
+                                <a href="./gallary.php?idx=<?php echo "{$g_id}"?>" class="item"><img src="../../temp/gallarythumb/<?php echo "{$thumbnail}"?>" alt=<?php echo "{$gallary_title}"?>>
+                                <p class="gallary-name bold" id="gallary-name-default"><?php echo "{$gallary_title}"?></p>
+                                </a>
+                        <?php        
+                                }
+                                
+                            }
+                        ?>
                     </div>
                     </div>
                 </div>

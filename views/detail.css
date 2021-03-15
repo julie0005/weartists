@@ -1,5 +1,6 @@
 
-
+button{
+  background: inherit ; border:none; box-shadow:none; border-radius:0; padding:0; overflow:visible; cursor:pointer}
 #main-contents{
     display:flex;
 }
@@ -33,15 +34,18 @@
       border: 1px solid #dbdbdb;
   }
   .post-maininfo .text{
-      margin-left:90px;
+      margin-left:80px;
+  }
+  .post-maininfo .title{
+    font-size:1.2rem;
   }
   .user-profile{
-      width:65px;
-      height:65px;
+      width:60px;
+      height:60px;
       border-radius: 70%;
       object-fit:cover;
       position: absolute;
-      border:2px solid #575757;
+      border:1px solid #575757;
   }
   .post-subinfo{
     position:absolute;
@@ -90,6 +94,7 @@
     border-top:none;
     display:flex;
     gap:30px;
+    position:relative;
   }
   .description{
     background-color: rgb(255, 255, 255);

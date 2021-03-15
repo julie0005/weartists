@@ -32,6 +32,17 @@
                     <span class="error_next_box"></span>
                 </div>
 
+                <div>
+                    <h3 class="join_title">
+                        <label for="nickname" class="medium">닉네임</label>
+                    </h3>
+                    <span class="box int_nickname">
+                        <input type="text" id="nickname" name="nickname" class="int" maxlength="10" >
+                        <span id="alertTxt">사용불가</span>
+                    </span>
+                    <span class="error_next_box"></span>
+                </div>
+
                 <!-- EMAIL -->
                 <div>
                     <h3 class="join_title">

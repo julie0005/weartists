@@ -8,7 +8,7 @@
         $row=mysqli_fetch_assoc($result);
         $hash_pwd=$row['password'];
         if(password_verify($password,$hash_pwd)){
-            $_SESSION['id']=$row['id'];
+            $_SESSION['u_id']=$row['u_id'];
             echo "<script>location.href='./main.php';</script>";
         }
         else{

@@ -26,7 +26,7 @@
                     </form>
                 </div>
                 <?php
-                    if(!isset($_SESSION['id'])){
+                    if(!isset($_SESSION['u_id'])){
                 ?>
                 <div id=header_account>
                     <a href="./login.php">로그인</a>
@@ -34,7 +34,7 @@
                 </div>
                 <?php } else{?>
                     <div id=header_account>
-                        <a href="./user/">MY</a>
+                        <a href="./user/index.php">MY</a>
                         <a href="./logout.php">로그아웃</a>
                     </div>
                 <?php } ?>
