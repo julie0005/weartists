@@ -2,8 +2,9 @@
 let $grid= $('.container_works').imagesLoaded(function(){
     
     $grid.masonry({
+        columnWidth: '.mason-item',
         itemSelector: '.mason-item',
-        fitWidth:true,
+        percentPosition:true,
         gutter:5,
     });
 });

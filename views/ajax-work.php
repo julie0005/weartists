@@ -1,9 +1,9 @@
 <?php
     error_reporting(E_ALL);
     ini_set("display_errors",1);
+    include "../db.php";
     $offset=($_POST['page']-1)*20;
     $g_id=$_POST['g_id'];
-    $db=mysqli_connect("127.0.0.1", "root", "@5252@OkOk", "weartist_db");
     $result=mysqli_query($db, "SELECT * FROM pair WHERE g_id={$g_id} ORDER BY `p_id` DESC LIMIT {$offset}, 20") or die("pair select fails".mysqli_error($db));
     $arr=array();
     while($row=mysqli_fetch_assoc($result)){

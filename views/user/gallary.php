@@ -174,10 +174,10 @@ if(isset($_GET['idx'])){
                                 <p id="workcnt">528
                             </div>
                         </div>
-                        <div class="container_works">
+                        <div id= "ajax" class="container_works" style="width:100%;">
                             <?php
 
-                                $result=mysqli_query($db, "SELECT * FROM pair WHERE g_id={$g_id}") or die("pair select fails".mysqli_error($db));
+                                $result=mysqli_query($db, "SELECT * FROM pair WHERE g_id={$g_id} ORDER BY p_id DESC LIMIT 20") or die("pair select fails".mysqli_error($db));
                                 while($row=mysqli_fetch_assoc($result)){
                                     $w_id=$row['w_id'];
                                     $result2=mysqli_query($db, "SELECT user.nickname, work.* FROM user INNER JOIN work ON user.u_id=work.u_id WHERE w_id={$w_id};") or die("work 가져오기 실패".mysqli_error($db));
@@ -222,5 +222,66 @@ if(isset($_GET['idx'])){
         
         <script src="../js/input_limit.js"></script>
        <script src="../js/masonry.js"></script>
+        <script type="text/javascript"> 
+            var next_page=2;
+            var sync=true;
+            $(window).scrollTop(300);
+            $(window).on('load',function(){
+                $(document).on("scroll", function(){
+                    console.log("Scroll event");
+                    if($(document).height()<=$(window).scrollTop()+$(window).height()+80 && sync==true){
+                        sync=false;
+                        console.log("ajax before next_page : "+next_page);
+                        $.ajax({
+                            url: "../ajax-work.php",
+                            type: "POST",
+                            dataType:'json',
+                            data: {
+                                'page':next_page,
+                                'g_id':<?php echo "{$g_id}"; ?>
+                            },
+                            success : function(data){
+                            next_page+=1;
+                            if(data.length!=0){
+                                console.log(next_page);
+                                $.each(data,function(key,val){
+                                    var $elem=
+                                        "<a href='../work.php?id="+val.w_id+"' class='mason-item' style='display:none;'>"
+                                        +"<img class='mason-image' src='../../temp/"+val.image+"' alt="+val.image+">"
+                                        +"<div class='text_content'>"
+                                        +"<p class='title'>"+val.title+"</p>"
+                                        +"<p class='artists'>"+val.nickname+"</p>"
+                                        +"<div class='sub_description'>"
+                                        +"<i class='fas fa-heart'></i>&nbsp;"
+                                        +"<span class='likes'>"+val.likes+"</span>&nbsp;&nbsp;"
+                                        +"<i class='fas fa-comment'></i>&nbsp;"
+                                        +"<span class='comments'>"+val.comments+"</span>"
+                                        +"</div></div></a>";
+                                        $("#ajax").append($elem);
+                                        
+                                });
+                                $('#ajax').imagesLoaded(function(){
+                                    $(".mason-item").css('display','block');
+                                    $("#ajax").masonry('reloadItems');
+                                    $('#ajax').masonry('layout');
+                                    sync=true;
+                                });
+                               
+                            }
+                            
+                    
+                            },
+                            error : function(err){
+                                console.log(err);
+                            }
+                        });
+                    }
+                });
+            });
+            
+
+        </script>
+
+    
     </body>
 </html>
