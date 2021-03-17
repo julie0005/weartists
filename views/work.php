@@ -116,7 +116,7 @@ else{
                                     <a href="#"><i class="fas fa-chevron-right"></i></a> 
                                 </div>
                                 <div class="icon-bar">
-                                    <a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a> 
+                                    <a href="#"><i class="far fa-heart" aria-hidden="true"></i></a> 
                                     <!-- 좋아요 -->
                                     <?php if($s_id!=NULL){?>
                                     <a><i class="fa fa-shopping-bag" aria-hidden="true"></i></a>

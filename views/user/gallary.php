@@ -233,7 +233,7 @@ if(isset($_GET['idx'])){
                         sync=false;
                         console.log("ajax before next_page : "+next_page);
                         $.ajax({
-                            url: "../ajax-work.php",
+                            url: "../ajax/ajax-work.php",
                             type: "POST",
                             dataType:'json',
                             data: {
