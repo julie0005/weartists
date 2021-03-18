@@ -6,30 +6,30 @@
 <html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <p id="result"> </p>
+<button type="button" class="button">흐음</button>
 <script>
-    $.ajax({
+    $('.button').click(function(){
+        var obj=$(this);
+        $.ajax({
         url: "test.php",
         type: "POST",
-        dataType:'json',
-        data: {
-            'page':3,
-            'g_id':6
-        },
         success : function(data){
-           if(data.length!=0){
+           if(data=="true"){
+               console.log("success");
                console.log(data);
-               $.each(data,function(key,val){
-                $('#result').append(val.title+'<br>');
-               });
+               console.log(obj);
+               obj.html(data);
            }
            else{
-            $('#result').append("here");
+            console.log(data);
+            obj.html(data);
            }
-
         },
         error : function(err){
-            console.log(err);
+            console.log("wat");
         }
+        });
+       
     });
 </script>
 </html>

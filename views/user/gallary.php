@@ -231,7 +231,6 @@ if(isset($_GET['idx'])){
                     console.log("Scroll event");
                     if($(document).height()<=$(window).scrollTop()+$(window).height()+80 && sync==true){
                         sync=false;
-                        console.log("ajax before next_page : "+next_page);
                         $.ajax({
                             url: "../ajax/ajax-work.php",
                             type: "POST",
@@ -241,33 +240,33 @@ if(isset($_GET['idx'])){
                                 'g_id':<?php echo "{$g_id}"; ?>
                             },
                             success : function(data){
-                            next_page+=1;
-                            if(data.length!=0){
-                                console.log(next_page);
-                                $.each(data,function(key,val){
-                                    var $elem=
-                                        "<a href='../work.php?id="+val.w_id+"' class='mason-item' style='display:none;'>"
-                                        +"<img class='mason-image' src='../../temp/"+val.image+"' alt="+val.image+">"
-                                        +"<div class='text_content'>"
-                                        +"<p class='title'>"+val.title+"</p>"
-                                        +"<p class='artists'>"+val.nickname+"</p>"
-                                        +"<div class='sub_description'>"
-                                        +"<i class='fas fa-heart'></i>&nbsp;"
-                                        +"<span class='likes'>"+val.likes+"</span>&nbsp;&nbsp;"
-                                        +"<i class='fas fa-comment'></i>&nbsp;"
-                                        +"<span class='comments'>"+val.comments+"</span>"
-                                        +"</div></div></a>";
-                                        $("#ajax").append($elem);
-                                        
-                                });
-                                $('#ajax').imagesLoaded(function(){
-                                    $(".mason-item").css('display','block');
-                                    $("#ajax").masonry('reloadItems');
-                                    $('#ajax').masonry('layout');
-                                    sync=true;
-                                });
-                               
-                            }
+                                next_page+=1;
+                                if(data.length!=0){
+                                    console.log(next_page);
+                                    $.each(data,function(key,val){
+                                        var $elem=
+                                            "<a href='../work.php?id="+val.w_id+"' class='mason-item' style='display:none;'>"
+                                            +"<img class='mason-image' src='../../temp/"+val.image+"' alt="+val.image+">"
+                                            +"<div class='text_content'>"
+                                            +"<p class='title'>"+val.title+"</p>"
+                                            +"<p class='artists'>"+val.nickname+"</p>"
+                                            +"<div class='sub_description'>"
+                                            +"<i class='fas fa-heart'></i>&nbsp;"
+                                            +"<span class='likes'>"+val.likes+"</span>&nbsp;&nbsp;"
+                                            +"<i class='fas fa-comment'></i>&nbsp;"
+                                            +"<span class='comments'>"+val.comments+"</span>"
+                                            +"</div></div></a>";
+                                            $("#ajax").append($elem);
+                                            
+                                    });
+                                    $('#ajax').imagesLoaded(function(){
+                                        $(".mason-item").css('display','block');
+                                        $("#ajax").masonry('reloadItems');
+                                        $('#ajax').masonry('layout');
+                                        sync=true;
+                                    });
+                                
+                                }
                             
                     
                             },

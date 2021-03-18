@@ -1,6 +1,10 @@
 
 button{
   background: inherit ; border:none; box-shadow:none; border-radius:0; padding:0; overflow:visible; cursor:pointer}
+button:focus{
+  border:none;
+  outline:none;
+}
 #main-contents{
     display:flex;
 }
@@ -95,6 +99,9 @@ button{
     display:flex;
     gap:30px;
     position:relative;
+  }
+  .icon-bar button{
+    font-size:1.3rem;
   }
   .description{
     background-color: rgb(255, 255, 255);

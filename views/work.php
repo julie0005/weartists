@@ -4,6 +4,9 @@ ini_set("display_errors",1);
 include "../db.php";
 $profile_dir="../temp/profile";
 $image_dir="../temp";
+if(!isset($_GET['id'])){
+    echo "<script>alert('이용할 수 없는 페이지입니다.'); location.href=history.back();</script>";
+}
 $w_id=$_GET['id'];
 $result=mysqli_query($db, "SELECT * FROM work WHERE w_id=$w_id");
 if(!$result){
@@ -12,6 +15,9 @@ if(!$result){
 else{
     if(mysqli_num_rows($result)==0){
         echo("<script>alert('해당 글은 존재하지 않습니다.'); history.back();</script>");
+    }
+    if(isset($_SESSION['u_id'])){
+        $visitor=$_SESSION['u_id'];
     }
     $row=mysqli_fetch_assoc($result);
     $title=$row['title'];
@@ -51,6 +57,7 @@ else{
     <head>
             <meta charset="UTF-8">
             <title>모두화가</title>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
             <link rel="stylesheet" href="./header.css">
@@ -116,14 +123,29 @@ else{
                                     <a href="#"><i class="fas fa-chevron-right"></i></a> 
                                 </div>
                                 <div class="icon-bar">
-                                    <a href="#"><i class="far fa-heart" aria-hidden="true"></i></a> 
+                                    <?php
+                                    if(isset($_SESSION['u_id'])){
+                                    ?>
+                                        <button type='button' class='like' value=<?php echo "{$w_id}"?>>
+                                    <?php
+                                        $result=mysqli_query($db, "SELECT * FROM `like` WHERE u_id={$visitor} AND w_id={$w_id}") or die("like 테이블 조회 실패.".mysqli_error($db));
+                                        if(mysqli_num_rows($result)==0){
+                                            echo "<i class='far fa-heart' aria-hidden='true'></i>";
+                                        }
+                                        else{
+                                            echo "<i class='fa fa-heart' aria-hidden='true'></i>";
+                                        }
+                                    }
+                                    ?>
+                                        </button>
                                     <!-- 좋아요 -->
+
                                     <?php if($s_id!=NULL){?>
                                     <a><i class="fa fa-shopping-bag" aria-hidden="true"></i></a>
                                     <?php }?>
                                     <!-- 쇼핑 -->
                                     
-                                    <a><i class="fa fa-expand" aria-hidden="true"></i></a>
+                                    <button type="button"><i class="fa fa-expand" aria-hidden="true"></i></button>
                                     <!--  -->
                                     <?php if(isset($_SESSION['u_id']) && $_SESSION['u_id']==$u_id){?>
                                     <form method=POST action="./user/update-work.php">
@@ -139,7 +161,7 @@ else{
                                         <button><i class="fa fa-trash" style="font-size:1.3rem;" aria-hidden="true"></i></button>
                                     </form>
                                     <?php }?>
-                                    <p style="font-size:1.0rem; margin:auto 0;position:absolute; right:30px;" class="medium"><?php echo "{$like}";?> likes</p>
+                                    <p style="font-size:1.0rem; margin:auto 0;position:absolute; right:30px;" class="medium likeCount"><?php echo "{$like}";?> likes</p>
                                 </div>
                                 <div class="description">
                                     <p name="description"><?php echo "{$description}";?></p>
@@ -206,8 +228,50 @@ else{
         </main>
         
         
-       <script src="../js/input_limit.js">
+       <script src="./js/input_limit.js"></script>
+        <script>
+            //동시 접속. 나와 나는 동시 접속이 안되지만 나와 타인은 동시 접속이 가능하게하려면..?
+            var accessableCount=1;
+            $('.like').dblclick(function(e){
+                accessableCount  = accessableCount -1;
+                if(accessableCount>=0){
+                    var likeObj=$(this);
+                    $.ajax({
+                        url:"./ajax/ajax-like.php",
+                        type:"POST",
+                        dataType:'json',
+                        data:{
+                            //작가노트 type : 1, 작품 type : 0
+                            'type':0,
+                            'w_id':<?php echo "{$w_id}"; ?>,
+                            'u_id':<?php echo "{$visitor}"?>
+                        },
+                        success : function(data){
+                            
+                            if(data[0].success){
+                                alert("좋아요 성공!");
+                                let likeCount=data[0].likes;
+                                likeObj.html("<i class='fa fa-heart' aria-hidden='true'>");
+                                likeObj.parent('div.icon-bar').children('p.likeCount').html(likeCount+" likes");
+                            }
+                            else{
+                                alert("좋아요를 이미 하셨습니다.");
+                            }
+                            accessableCount  = accessableCount+1;
+                        },
+                        error : function(err){
+                            console.log(err);
+                            accessableCount  = accessableCount+1;
+                        }
 
-       </script>
+                    });
+                }
+               
+                
+                
+            })
+
+        </script>
+
     </body>
 </html>
