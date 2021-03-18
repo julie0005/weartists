@@ -13,6 +13,7 @@ $uploads_dir='../../temp';
 $category=$_POST['category'];
 $title=addslashes($_POST['title']);
     if($category==='work'){
+        $previmg=$_POST['previmg'];
         $w_id=$_POST['w_id'];
         $artist_statement=addslashes($_POST['artist-statement']);
         $g_id=$_POST['g_id'];
@@ -52,12 +53,13 @@ $title=addslashes($_POST['title']);
         }
         
         if(isset($_FILES['upload'])){
+            unlink("../../temp/{$previmg}");
             $imgname=$_FILES['upload']['name'];
             $tmp=explode('.',$imgname);
             $ext=array_pop($tmp);
             $imgname=date("YmdHis").'.'.$ext;
             move_uploaded_file($_FILES['upload']['tmp_name'],"$uploads_dir/$imgname");
-            $query="UPDATE work SET title='{$title}', description='{$artist_statement}', g_id={$g_id}, image='{$imgname}', t_id={$t_id} WHERE w_id={$w_id}";
+            $query="UPDATE work SET title='{$title}', description='{$artist_statement}', g_id={$g_id}, image='{$imgname}', t_id={$t_id}, update_date=now() WHERE w_id={$w_id}";
             $result=mysqli_query($db,$query);
             if(!$result) die("work table data update fails.<br>\n".mysqli_error($db));
         }
