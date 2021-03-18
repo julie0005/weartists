@@ -20,6 +20,7 @@ function readURL(input) {
         $('.image-upload-wrap').hide();
   
         $('.file-upload-image').attr('src', e.target.result);
+        console.log($('.file-upload-image'));
         $('.file-upload-content').show();
         //날짜 시간 초로 다른 이름으로 저장해야함.
       };
@@ -36,8 +37,6 @@ function readURL(input) {
     files.value="";
     let imgsrc=document.querySelector(".file-upload-image");
     imgsrc.src="";
-    console.log("hi");
-    console.log(imgsrc.getAttribute('src'));
     $('.file-upload-content').hide();
     $('.image-upload-wrap').show();
   }

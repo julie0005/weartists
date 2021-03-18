@@ -51,8 +51,9 @@ $title=addslashes($_POST['title']);
                 $result=mysqli_query($db, "INSERT INTO pair(w_id,g_id,u_id) VALUES({$w_id},{$g_id},{$u_id})") or die("all 말고 다른 pair 추가 실패.".mysqli_error($db));
             }
         }
-        
-        if(isset($_FILES['upload'])){
+
+        if($_FILES['upload']['name']!=""){
+            
             unlink("../../temp/{$previmg}");
             $imgname=$_FILES['upload']['name'];
             $tmp=explode('.',$imgname);
@@ -64,7 +65,10 @@ $title=addslashes($_POST['title']);
             if(!$result) die("work table data update fails.<br>\n".mysqli_error($db));
         }
         else{
-            echo "NO IMG UPLOAD";
+            
+            $query="UPDATE work SET title='{$title}', description='{$artist_statement}', g_id={$g_id}, t_id={$t_id}, update_date=now() WHERE w_id={$w_id}";
+            $result=mysqli_query($db,$query);
+            if(!$result) die("work table data update fails.<br>\n".mysqli_error($db));
         }
         if($isShop=='true'){
             $s_id=$_POST['s_id'];
