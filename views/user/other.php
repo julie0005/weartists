@@ -107,6 +107,7 @@ else{
                                     }
                                     else{
                                         echo "구독";
+                                        $substatus=0;
                                     }
                                 ?>
                                 <input type="text" style="display:none;" class="substatus" value="<?php echo "{$substatus}"; ?>"></input>
@@ -119,7 +120,6 @@ else{
                     <div id=usernav-container>
                         <a href="other.php?id=<?php echo "{$u_id}"; ?>">홈</a>
                         <a href="./gallaryo.php?id=<?php echo "{$u_id}"; ?>">갤러리</a>
-                        <a href="#">작가노트</a>
                         <a href="./shopo.php?id=<?php echo "{$u_id}"; ?>">상점</a>
                         <a href="./subscribeo.php?id=<?php echo "{$u_id}"; ?>">구독</a>
                     </div>
@@ -157,62 +157,7 @@ else{
                     </div>
                     </div>
                 </div>
-                <div class="wrapper" id="post-wrapper">
-                    <div class="subcontainer">
-                        <div class="user-title">
-                            <div class="titleinfo">
-                                <p class="medium maininfo">작가노트</p>
-                                <p id="postcnt">528</p>
-                            </div>
-                            <a href="#" class="more">더보기</a>
-                        </div>
-                        
-                        
-                        <div class="works-container">
-                            <a class="post" href="#">
-                                <p class="post-title medium">호랑이와 사자에 대한 고찰과 호랑이와 사자의 관계성과 블라블라블라블라블라블라</p>
-                                <p class="post-date">2021-01-24</p>
-                                <div class="post-subinfo">
-                                    <span><i class="fas fa-comments"></i></span>&nbsp;
-                                    <p class="post-comments">32</p>
-                                    <span><i class="fas fa-heart"></i></span>&nbsp;
-                                    <p class="likes">89</p>
-                                </div>
-                            </a>
-                            <a class="post" href="#">
-                                <p class="post-title medium">호랑이와 사자에 대한 고찰과 호랑이와 사자의 관계성과 블라블라블라블라블라블라</p>
-                                <p class="post-date">2021-01-24</p>
-                                <div class="post-subinfo">
-                                    <span><i class="fas fa-comments"></i></span>&nbsp;
-                                    <p class="post-comments">32</p>
-                                    <span><i class="fas fa-heart"></i></span>&nbsp;
-                                    <p class="likes">89</p>
-                                </div>
-                            </a>
-                            <a class="post" href="#">
-                                <p class="post-title medium">호랑이와 사자에 대한 고찰과 호랑이와 사자의 관계성과 블라블라블라블라블라블라</p>
-                                <p class="post-date">2021-01-24</p>
-                                <div class="post-subinfo">
-                                    <span><i class="fas fa-comments"></i></span>&nbsp;
-                                    <p class="post-comments">32</p>
-                                    <span><i class="fas fa-heart"></i></span>&nbsp;
-                                    <p class="likes">89</p>
-                                </div>
-                            </a>
-                            <a class="post" href="#">
-                                <p class="post-title medium">호랑이와 사자에 대한 고찰과 호랑이와 사자의 관계성과 블라블라블라블라블라블라</p>
-                                <p class="post-date">2021-01-24</p>
-                                <div class="post-subinfo">
-                                    <span><i class="fas fa-comments"></i></span>&nbsp;
-                                    <p class="post-comments">32</p>
-                                    <span><i class="fas fa-heart"></i></span>&nbsp;
-                                    <p class="likes">89</p>
-                                </div>
-                            </a>
-                        </div>
-                   
-                    </div>
-                </div>
+                
                
                 <div class="container-wrapper">
                     <div class="subcontainer">
@@ -263,17 +208,31 @@ else{
                                 <p class="medium maininfo">상점</p>
                                 <p id="postcnt">528</p>
                             </div>
-                            <a href="#" class="more">더보기</a>
+                            <a href="./shopo.php?id=<?php echo "{$u_id}"?>" class="more">더보기</a>
                         </div>
                         <div class="works-container" id="shop">
-                            <a href="#" class="item"><img src="../../resources/starry_night.jpg" alt="별이 빛나는 밤"></a>
-                            <a href="#" class="item" ><img src="../../resources/tiger.jpg" alt="호랑이"></a>
-                            <a href="#" class="item" ><img src="../../resources/23identity.jpg" alt="다중인격"></a>
-                            <a href="#" class="item" ><img src="../../resources/forest.jpg" alt="숲"></a>
-                            <a href="#" class="item" ><img src="../../resources/superrealistic.jpg" alt="초현실"></a>
-                            <a href="#" class="item" ><img src="../../resources/wolf.jpg" alt="늑대"></a>
-                            <a href="#" class="item" ><img src="../../resources/withchild.jpg" alt="아이와함께"></a>
-                            <a href="#" class="item" ><img src="../../resources/moon_in_yard.jpg" alt="초원의달"></a>
+                        <?php
+                            $query="SELECT shop.s_id, shop.w_id, work.image, work.title, shop.price from shop inner join work on shop.w_id=work.w_id where shop.u_id={$u_id} order by s_id desc limit 8";
+                            $result=mysqli_query($db, $query) or die("shop select fails".mysqli_error($db));
+                            while($row=mysqli_fetch_assoc($result)){
+                                $w_id=$row['w_id'];
+                                $s_id=$row['s_id'];
+                                $price=$row['price'];
+                                $image=$row['image'];
+                                $title=$row['title'];
+                            ?>
+                            <a href="#" class="item">
+                                <img src="../../temp/<?php echo "{$image}"; ?>" alt=<?php echo "{$image}"; ?>>
+                                <div class="goods-info">
+                                    <p id="title-value"><?php echo "{$title}"; ?></p>
+                                    <div class="subinfo">
+                                        <div class="price"><p class="bold" id="price-value"><?php echo "{$price}"; ?></p>&nbsp;원</div>
+                                    </div>
+                                </div>
+                            </a>
+                            <?php
+                            }
+                            ?>
                         </div>
                         
                     </div>

@@ -16,9 +16,6 @@ else{
     if(mysqli_num_rows($result)==0){
         echo("<script>alert('해당 글은 존재하지 않습니다.'); history.back();</script>");
     }
-    if(isset($_SESSION['u_id'])){
-        $visitor=$_SESSION['u_id'];
-    }
     $row=mysqli_fetch_assoc($result);
     $title=$row['title'];
     $description=$row['description'];
@@ -37,6 +34,15 @@ else{
         $row=mysqli_fetch_assoc($result);
         $author=$row['nickname'];
         $profile_img=$row['photo'];
+    }
+    if(isset($_SESSION['u_id'])){
+        $visitorid=$_SESSION['u_id'];
+        $result=mysqli_query($db, "SELECT photo from user where u_id={$visitorid}") or die("visitor select fails.".mysqli_error($db));
+        $row=mysqli_fetch_assoc($result);
+        $v_photo=$row['photo'];
+    }
+    else{
+        $v_photo="blank.png";
     }
 
     //조회수 업데이트
@@ -86,7 +92,7 @@ else{
                 </div>
                 <?php } else{?>
                     <div id=header_account>
-                        <a href="./user/">MY</a>
+                        <a href="./user/index.php">MY</a>
                         <a href="./logout.php">로그아웃</a>
                     </div>
                 <?php } ?>
@@ -128,7 +134,7 @@ else{
                                     ?>
                                         <button type='button' class='like' value=<?php echo "{$w_id}"?>>
                                     <?php
-                                        $result=mysqli_query($db, "SELECT * FROM `like` WHERE u_id={$visitor} AND w_id={$w_id}") or die("like 테이블 조회 실패.".mysqli_error($db));
+                                        $result=mysqli_query($db, "SELECT * FROM `like` WHERE u_id={$visitorid} AND w_id={$w_id}") or die("like 테이블 조회 실패.".mysqli_error($db));
                                         if(mysqli_num_rows($result)==0){
                                             echo "<i class='far fa-heart' aria-hidden='true'></i>";
                                         }
@@ -179,42 +185,45 @@ else{
                                         <p class="comment-filter">정렬 기준</p>
                                     </div>
                                     <div class="my-comment">
-                                        <img class="user-profile" src="../resources/judo.png" alt="덧글프로필">
-                                        <form class="comments-post-container" id="comments-post" onsubmit="return checkTag()">
+                                        <img class="user-profile" src="../temp/profile/<?php echo "{$v_photo}";?>" alt="<?php echo "{$v_photo}";?>">
+                                        <div class="comments-post-container" id="comments-post">
                                             <input type="text" id="comment-bar" placeholder="댓글 추가...">
-                                            <button type="submit" class="comment-button medium">
+                                            <button type="button" id="commentbtn" class="comment-button medium" value="<?php echo "{$w_id}";?>">
                                                 댓글
                                             </button>
-                                        </form>
+                                        </div>
                                     </div>
                                     <div class="other-comments-container">
+
                                         <ul>
+                                            <?php
+                                                $query="SELECT user.u_id, user.nickname, user.photo, comment.c_id, comment.update_date, comment.contents from user inner join comment on comment.u_id=user.u_id WHERE writing_id={$w_id}";
+                                                $result=mysqli_query($db, $query) or die("댓글 조회 실패".mysqli_error($db)); 
+                                                while($row=mysqli_fetch_assoc($result)){
+                                                    $cu_id=$row['u_id'];
+                                                    $cname=$row['nickname'];
+                                                    $cimage=$row['photo'];
+                                                    $c_id=$row['c_id'];
+                                                    $update_date=$row['update_date'];
+                                                    $contents=$row['contents'];
+                                            ?>
                                             <li class="other-comments first">
-                                                <img class="user-profile" src="../resources/judo.png" alt="덧글프로필">
+                                                <img class="user-profile" src="../temp/profile/<?php echo"{$cimage}"?>" alt="<?php echo"{$cimage}"?>">
                                                 <div class="none-image">
-                                                    <p class="medium text ">Username</p>
-                                                    <p class="update text">2시간 전</p>
+                                                    <p class="medium text "><?php echo"{$cname}"?></p>
+                                                    <p class="update text"><?php echo"{$update_date}"?></p>
+                                                    <?php if(isset($_SESSION['u_id']) && $visitorid==$cu_id){?>
+                                                    <button type="button" class="deletebtn text" value="<?php echo"{$c_id}"?>">삭제</button>
+                                                    <?php }?>
                                                     <div class="comment-bar">
-                                                        <p>너무 좋은 글입니다. 잘보고 갑니다! :D</p>
+                                                        <p><?php echo"{$contents}"?></p>
                                                     </div>
                                                     <button type="submit" class="comment-comment-button medium">
                                                         답글
                                                     </button>
                                                 </div>
                                             </li>
-                                            <li class="other-comments">
-                                                <img class="user-profile" src="../resources/judo.png" alt="덧글프로필">
-                                                <div class="none-image">
-                                                    <p class="medium text ">Username</p>
-                                                    <p class="update text">2시간 전</p>
-                                                    <div class="comment-bar">
-                                                        <p>너무 좋은 글입니다. 잘보고 갑니다! :D</p>
-                                                    </div>
-                                                    <button type="submit" class="comment-comment-button medium">
-                                                        답글
-                                                    </button>
-                                                </div>
-                                            </li>
+                                            <?php } ?>
                                         </ul>
                                     </div>
                                 </div>
@@ -231,6 +240,7 @@ else{
         
         
        <script src="./js/input_limit.js"></script>
+       <script src="./js/comment.js"></script>
         <script>
             //동시 접속. 나와 나는 동시 접속이 안되지만 나와 타인은 동시 접속이 가능하게하려면..?
             var accessableCount=1;
@@ -246,7 +256,7 @@ else{
                             //작가노트 type : 1, 작품 type : 0
                             'type':0,
                             'w_id':<?php echo "{$w_id}"; ?>,
-                            'u_id':<?php echo "{$visitor}"?>
+                            'u_id':<?php if(isset($visitorid)){echo "{$visitorid}";} else {echo "-1";}?>
                         },
                         success : function(data){
                             

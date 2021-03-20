@@ -91,8 +91,7 @@ else{
                             <input type="checkbox" class="dd-input" id="test">
                           
                             <ul class="dd-menu">
-                              <li><a href="./write-work.php">작품</a></li>
-                              <li><a href="./write-post.php">작가노트</a></li>
+                              <li style="width:80px; text-align:center;"><a href="./write-work.php">작품</a></li>
                             </ul>
                         </label>
                         
@@ -108,7 +107,6 @@ else{
                     <div id=usernav-container>
                         <a href="./index.php">홈</a>
                         <a href="./gallary.php">갤러리</a>
-                        <a href="#">작가노트</a>
                         <a href="./shop.php">상점</a>
                         <a href="./subscribe.php">구독</a>
                     </div>
@@ -120,7 +118,7 @@ else{
                         <div class="titleinfo">
                             <p class="medium maininfo">갤러리</p>
                         </div>
-                        <a href="#" class="more">더보기</a>
+                        <a href="./gallary.php" class="more">더보기</a>
                     </div>
                     <div class="works-container">
                         <?php
@@ -144,62 +142,6 @@ else{
                             }
                         ?>
                     </div>
-                    </div>
-                </div>
-                <div class="wrapper" id="post-wrapper">
-                    <div class="subcontainer">
-                        <div class="user-title">
-                            <div class="titleinfo">
-                                <p class="medium maininfo">작가노트</p>
-                                <p id="postcnt">528</p>
-                            </div>
-                            <a href="#" class="more">더보기</a>
-                        </div>
-                        
-                        
-                        <div class="works-container">
-                            <a class="post" href="#">
-                                <p class="post-title medium">호랑이와 사자에 대한 고찰과 호랑이와 사자의 관계성과 블라블라블라블라블라블라</p>
-                                <p class="post-date">2021-01-24</p>
-                                <div class="post-subinfo">
-                                    <span><i class="fas fa-comments"></i></span>&nbsp;
-                                    <p class="post-comments">32</p>
-                                    <span><i class="fas fa-heart"></i></span>&nbsp;
-                                    <p class="likes">89</p>
-                                </div>
-                            </a>
-                            <a class="post" href="#">
-                                <p class="post-title medium">호랑이와 사자에 대한 고찰과 호랑이와 사자의 관계성과 블라블라블라블라블라블라</p>
-                                <p class="post-date">2021-01-24</p>
-                                <div class="post-subinfo">
-                                    <span><i class="fas fa-comments"></i></span>&nbsp;
-                                    <p class="post-comments">32</p>
-                                    <span><i class="fas fa-heart"></i></span>&nbsp;
-                                    <p class="likes">89</p>
-                                </div>
-                            </a>
-                            <a class="post" href="#">
-                                <p class="post-title medium">호랑이와 사자에 대한 고찰과 호랑이와 사자의 관계성과 블라블라블라블라블라블라</p>
-                                <p class="post-date">2021-01-24</p>
-                                <div class="post-subinfo">
-                                    <span><i class="fas fa-comments"></i></span>&nbsp;
-                                    <p class="post-comments">32</p>
-                                    <span><i class="fas fa-heart"></i></span>&nbsp;
-                                    <p class="likes">89</p>
-                                </div>
-                            </a>
-                            <a class="post" href="#">
-                                <p class="post-title medium">호랑이와 사자에 대한 고찰과 호랑이와 사자의 관계성과 블라블라블라블라블라블라</p>
-                                <p class="post-date">2021-01-24</p>
-                                <div class="post-subinfo">
-                                    <span><i class="fas fa-comments"></i></span>&nbsp;
-                                    <p class="post-comments">32</p>
-                                    <span><i class="fas fa-heart"></i></span>&nbsp;
-                                    <p class="likes">89</p>
-                                </div>
-                            </a>
-                        </div>
-                   
                     </div>
                 </div>
                
@@ -277,15 +219,15 @@ else{
                                 $image=$row['image'];
                                 $title=$row['title'];
                             ?>
-                            <a href="#" class="item">
-                                <img src="../../temp/<?php echo "{$image}"; ?>" alt=<?php echo "{$image}"; ?>>
-                                <div class="goods-info">
-                                    <p id="title-value"><?php echo "{$title}"; ?></p>
-                                    <div class="subinfo">
-                                        <div class="price"><p class="bold" id="price-value"><?php echo "{$price}"; ?></p>&nbsp;원</div>
+                                <a href="#" class="item">
+                                    <img src="../../temp/<?php echo "{$image}"; ?>" alt=<?php echo "{$image}"; ?>>
+                                    <div class="goods-info">
+                                        <p id="title-value"><?php echo "{$title}"; ?></p>
+                                        <div class="subinfo">
+                                            <div class="price"><p class="bold" id="price-value"><?php echo "{$price}"; ?></p>&nbsp;원</div>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
+                                </a>
                             <?php
                             }
                             ?>

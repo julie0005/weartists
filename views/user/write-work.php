@@ -95,11 +95,10 @@ else{
                 <!-- user header -->
                 <nav class="user-nav medium">
                     <div id=usernav-container>
-                        <a href="#">홈</a>
+                        <a href="./index.php">홈</a>
                         <a href="./gallary.php">갤러리</a>
-                        <a href="#">작가노트</a>
-                        <a href="#">상점</a>
-                        <a href="#">구독</a>
+                        <a href="./shop.php">상점</a>
+                        <a href="./subscribe.php">구독</a>
                     </div>
                 </nav>
                 <!-- user home -->

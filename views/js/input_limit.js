@@ -6,6 +6,7 @@ function checkSearch(){
     return true;
 }
 //텍스트 부분 입력 가공 : html script 제거
+//덧글부분.
 function checkTag(){
     let content=document.querySelector("#comment-bar").value;
     content=content.replace(/(<([^>]+)>)/ig,'');

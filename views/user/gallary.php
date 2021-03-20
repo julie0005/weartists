@@ -100,8 +100,8 @@ if(isset($_GET['idx'])){
                             <input type="checkbox" class="dd-input" id="test">
                           
                             <ul class="dd-menu">
-                                <li><a href="./write-work.php">작품</a></li>
-                              <li><a href="./write-post.php">작가노트</a></li>
+                            <li style="width:80px; text-align:center;"><a href="./write-work.php">작품</a></li>
+                             
                             </ul>
                         </label>
                         
@@ -117,7 +117,6 @@ if(isset($_GET['idx'])){
                     <div id=usernav-container>
                         <a href="./index.php">홈</a>
                         <a href="./gallary.php">갤러리</a>
-                        <a href="./post.php">작가노트</a>
                         <a href="./shop.php">상점</a>
                         <a href="./subscribe.php">구독</a>
                     </div>

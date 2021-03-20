@@ -102,7 +102,24 @@ if(isset($_GET['idx'])){
                     <div class="user-option">
                         
                             <button class="dd-button subscribebtn" style="width:80px;" value=<?php echo "{$u_id}"?>>
-                                구독
+                                <?php
+                                    if(isset($visitorid)){
+                                        $result=mysqli_query($db, "SELECT * FROM subscription WHERE u_id={$visitorid} AND target_id={$u_id}") or die("구독 조회 실패.".mysqli_error($db));
+                                        if(mysqli_num_rows($result)==0){
+                                            echo "구독";
+                                            $substatus=0;
+                                        }
+                                        else{
+                                            echo "구독중";
+                                            $substatus=1;
+                                        }
+                                    }
+                                    else{
+                                        echo "구독";
+                                        $substatus=0;
+                                    }
+                                ?>
+                                <input type="text" style="display:none;" class="substatus" value="<?php echo "{$substatus}"; ?>"></input>
                             </button>
                         
                         
