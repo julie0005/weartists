@@ -43,7 +43,7 @@
                 <div id=topnav-container>
                     <a href="main.html">Home</a>
                     <a href="./topic/index.html">주제</a>
-                    <a href="./workboard.html">워크보드</a>
+                    <a href="./workboard.php">워크보드</a>
                     <a href="./feed/post.html">피드</a>
                 </div>
             </nav>

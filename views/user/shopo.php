@@ -3,27 +3,35 @@ error_reporting(E_ALL);
 ini_set("display_errors",1);
 include "../../db.php";
 $profile_dir="../../temp/profile";
-if(!isset($_SESSION['u_id'])){
-    echo "<script>alert('로그인이 필요합니다.'); location.href='../login.php';</script>";
-}
-else{
-    $u_id=$_SESSION['u_id'];
-    $query="SELECT * FROM user WHERE u_id={$u_id}";
+if(isset($_SESSION['u_id'])){
+
+    $visitorid=$_SESSION['u_id'];
+    $query="SELECT * FROM user WHERE u_id={$visitorid}";
     $result=mysqli_query($db, $query);
     if(!$result){
         die("user 조회 fails.<br>\n".mysqli_error($db));
     }
     else{
         $row=mysqli_fetch_assoc($result);
-        $author=$row['nickname'];
-        $profile_photo=$row['photo'];
-        $works=$row['works'];
-        $subscribers=$row['subscribers'];
-        $profile=$row['profile'];
+        $vauthor=$row['nickname'];
+        $vphoto=$row['photo'];
     }
-
+}
+if(isset($_GET['id'])){
+    $u_id=$_GET['id'];
+    $result=mysqli_query($db, "SELECT * FROM user WHERE u_id={$u_id}") or die("user 조회 실패".mysqli_error($db));
+    $row=mysqli_fetch_assoc($result);
+    $author=$row['nickname'];
+    $profile_photo=$row['photo'];
+    $works=$row['works'];
+    $subscribers=$row['subscribers'];
+    $profile=$row['profile'];
+}
+else{
+    echo "<script>alert('존재하지 않는 사용자입니다.'); location.href=history.back();</script>";
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="ko">
     <head>
@@ -85,41 +93,26 @@ else{
                         </div>
                     </div>
                     <div class="user-option">
-                        <label class="dropdown">
-                            <div class="dd-button">
-                              글쓰기
-                            </div>
-                          
-                            <input type="checkbox" class="dd-input" id="test">
-                          
-                            <ul class="dd-menu">
-                              <li><a href="./write-work.php">작품</a></li>
-                              <li><a href="./write-post.php">작가노트</a></li>
-                            </ul>
-                        </label>
                         
-                        <button class="dd-button">
-                            설정
-                            <i class="fas fa-cog"></i>
-                        </button>
-                        
+                            <button class="dd-button subscribebtn" style="width:80px;" value=<?php echo "{$u_id}"?>>
+                                구독
+                            </button>
                     </div>
                 </div>
                 <!-- user header -->
                 <nav class="user-nav medium">
                     <div id=usernav-container>
-                        <a href="./index.php">홈</a>
-                        <a href="./gallary.php">갤러리</a>
+                        <a href="other.php?id=<?php echo "{$u_id}"; ?>">홈</a>
+                        <a href="./gallaryo.php?id=<?php echo "{$u_id}"; ?>">갤러리</a>
                         <a href="#">작가노트</a>
-                        <a href="./shop.php">상점</a>
-                        <a href="./subscribe.php">구독</a>
+                        <a href="./shopo.php?id=<?php echo "{$u_id}"; ?>">상점</a>
+                        <a href="./subscribeo.php?id=<?php echo "{$u_id}"; ?>">구독</a>
                     </div>
                 </nav>
                 <!-- user home -->
                 <div class="wrapper" id="works-wrapper">
                     <div class="subcontainer">
-
-                        <?php
+                    <?php
                         //숫자 하나를 가져오기 위해 쿼리를 보내는 것이 맞나. 
                         $result=mysqli_query($db, "SELECT COUNT(*) AS cnt FROM shop WHERE u_id={$u_id}") or die("shop count fails".mysqli_error($db));
                         $row=mysqli_fetch_assoc($result);
@@ -157,8 +150,7 @@ else{
                             <?php
                             }
                             ?>
-                            
-                        </div>
+                        
                     </div>
                 </div>
                 <!--maincontets-->
@@ -206,6 +198,7 @@ else{
                                         $(".mason-item").css('display','block');
                                         $("#ajax").masonry('reloadItems');
                                         $('#ajax').masonry('layout');
+                                        
                                         
                                     });
                                 

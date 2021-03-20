@@ -228,8 +228,10 @@ select:focus{
   text-align: center;
 }
 #shop.works-container .item{
-  display:block;
-  height: 200px;
+ height: auto;
+}
+#shop.works-container .item img{
+  height: 180px;
 }
 .works-container .post{
     width:100%;

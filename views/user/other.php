@@ -3,25 +3,33 @@ error_reporting(E_ALL);
 ini_set("display_errors",1);
 include "../../db.php";
 $profile_dir="../../temp/profile";
-if(!isset($_SESSION['u_id'])){
-    echo "<script>alert('로그인이 필요합니다.'); location.href='../login.php';</script>";
-}
-else{
-    $u_id=$_SESSION['u_id'];
-    $query="SELECT * FROM user WHERE u_id={$u_id}";
+if(isset($_SESSION['u_id'])){
+
+    $visitorid=$_SESSION['u_id'];
+    $query="SELECT * FROM user WHERE u_id={$visitorid}";
     $result=mysqli_query($db, $query);
     if(!$result){
         die("user 조회 fails.<br>\n".mysqli_error($db));
     }
     else{
         $row=mysqli_fetch_assoc($result);
-        $author=$row['nickname'];
-        $profile_photo=$row['photo'];
-        $works=$row['works'];
-        $subscribers=$row['subscribers'];
-        $profile=$row['profile'];
+        $vauthor=$row['nickname'];
+        $vphoto=$row['photo'];
     }
-
+}
+if(isset($_GET['id'])){
+    $u_id=$_GET['id'];
+    if(isset($visitorid) && $u_id==$visitorid){ echo "<script>location.href='./index.php'</script>";}
+    $result=mysqli_query($db, "SELECT * FROM user WHERE u_id={$u_id}") or die("user 조회 실패".mysqli_error($db));
+    $row=mysqli_fetch_assoc($result);
+    $author=$row['nickname'];
+    $profile_photo=$row['photo'];
+    $works=$row['works'];
+    $subscribers=$row['subscribers'];
+    $profile=$row['profile'];
+}
+else{
+    echo "<script>alert('존재하지 않는 사용자입니다.'); location.href=history.back();</script>";
 }
 ?>
 <!DOCTYPE html>
@@ -83,34 +91,37 @@ else{
                         </div>
                     </div>
                     <div class="user-option">
-                        <label class="dropdown">
-                            <div class="dd-button">
-                              글쓰기
-                            </div>
-                          
-                            <input type="checkbox" class="dd-input" id="test">
-                          
-                            <ul class="dd-menu">
-                              <li><a href="./write-work.php">작품</a></li>
-                              <li><a href="./write-post.php">작가노트</a></li>
-                            </ul>
-                        </label>
                         
-                        <button class="dd-button">
-                            설정
-                            <i class="fas fa-cog"></i>
-                        </button>
-                        
+                            <button class="dd-button subscribebtn" style="width:80px;" value=<?php echo "{$u_id}"?>>
+                                <?php
+                                    if(isset($visitorid)){
+                                        $result=mysqli_query($db, "SELECT * FROM subscription WHERE u_id={$visitorid} AND target_id={$u_id}") or die("구독 조회 실패.".mysqli_error($db));
+                                        if(mysqli_num_rows($result)==0){
+                                            echo "구독";
+                                            $substatus=0;
+                                        }
+                                        else{
+                                            echo "구독중";
+                                            $substatus=1;
+                                        }
+                                    }
+                                    else{
+                                        echo "구독";
+                                    }
+                                ?>
+                                <input type="text" style="display:none;" class="substatus" value="<?php echo "{$substatus}"; ?>"></input>
+                            </button>
+                            
                     </div>
                 </div>
                 <!-- user header -->
                 <nav class="user-nav medium">
                     <div id=usernav-container>
-                        <a href="./index.php">홈</a>
-                        <a href="./gallary.php">갤러리</a>
+                        <a href="other.php?id=<?php echo "{$u_id}"; ?>">홈</a>
+                        <a href="./gallaryo.php?id=<?php echo "{$u_id}"; ?>">갤러리</a>
                         <a href="#">작가노트</a>
-                        <a href="./shop.php">상점</a>
-                        <a href="./subscribe.php">구독</a>
+                        <a href="./shopo.php?id=<?php echo "{$u_id}"; ?>">상점</a>
+                        <a href="./subscribeo.php?id=<?php echo "{$u_id}"; ?>">구독</a>
                     </div>
                 </nav>
                 <!-- user home -->
@@ -120,7 +131,7 @@ else{
                         <div class="titleinfo">
                             <p class="medium maininfo">갤러리</p>
                         </div>
-                        <a href="#" class="more">더보기</a>
+                        <a href="./gallaryo.php?id=<?php echo "{$u_id}"; ?>" class="more">더보기</a>
                     </div>
                     <div class="works-container">
                         <?php
@@ -135,7 +146,7 @@ else{
                                     $gallary_title=$row['title'];
                                     $thumbnail=$row['thumbnail'];
                         ?>    
-                                <a href="./gallary.php?idx=<?php echo "{$g_id}"?>" class="item"><img src="../../temp/gallarythumb/<?php echo "{$thumbnail}"?>" alt=<?php echo "{$gallary_title}"?>>
+                                <a href="./gallaryo.php?id=<?php echo "{$u_id}"?>&idx=<?php echo "{$g_id}"?>" class="item"><img src="../../temp/gallarythumb/<?php echo "{$thumbnail}"?>" alt=<?php echo "{$gallary_title}"?>>
                                 <p class="gallary-name bold" id="gallary-name-default"><?php echo "{$gallary_title}"?></p>
                                 </a>
                         <?php        
@@ -214,12 +225,11 @@ else{
                             <div class="user-title">
                                 <div class="titleinfo">
                                     <p class="medium maininfo">작가</p>
-                                    <p id="postcnt"><?php echo "{$subCount}"; ?></p>
+                                    <p id="postcnt"><?php echo"{$subCount}"; ?></p>
                                 </div>
-                                <a href="./subscribe.php" class="more">더보기</a>
+                                <a href="./subscribeo.php?id=<?php echo"{$u_id}"; ?>" class="more">더보기</a>
                             </div>
                             <ul class="works_container" id="container_artists">
-                                <!-- 6개가 max -->
                                 <?php
                                     $query="SELECT user.photo, user.nickname, subscription.target_id from user inner join subscription on subscription.target_id=user.u_id where subscription.u_id={$u_id} limit 6";
                                     $result=mysqli_query($db,$query);
@@ -237,59 +247,33 @@ else{
                                             <div class=artists_text>
                                                 <a href="./other.php?id=<?php echo "{$target_id}";?>"><p class="username bold"><?php echo "{$t_name}";?></p></a>
                                             </div>
-                                            <button class="dd-button subscribebtn" style="width:80px;" value=<?php echo "{$target_id}"?>>
-                                                구독중
-                                                <input type="text" style="display:none;" class="substatus" value="1"></input>
-                                            </button>
                                         </li>
                                 <?php        
                                         }
                                         
                                     }
                                 ?>
-                                
-                                
                             </ul>
                         
                     </div>
                     <div class="subwrapper" id="shop-wrapper">
-                        <?php
-                                $result=mysqli_query($db, "SELECT COUNT(*) AS cnt FROM shop WHERE u_id={$u_id}") or die("shop count fails.".mysqli_Error($db));
-                                $row=mysqli_fetch_assoc($result);
-                                $shopCount=$row['cnt'];
-                        ?>
+                         
                         <div class="user-title">
                             <div class="titleinfo">
                                 <p class="medium maininfo">상점</p>
-                                <p id="postcnt"><?php echo"{$shopCount}";?></p>
+                                <p id="postcnt">528</p>
                             </div>
-                            <a href="./shop.php" class="more">더보기</a>
+                            <a href="#" class="more">더보기</a>
                         </div>
                         <div class="works-container" id="shop">
-                            <!-- 글자 너무 길면 .. 이런건 프론트에서 하는가 백에서 하는가 -->
-                            <?php
-                            $query="SELECT shop.s_id, shop.w_id, work.image, work.title, shop.price from shop inner join work on shop.w_id=work.w_id where shop.u_id={$u_id} order by s_id desc limit 8";
-                            $result=mysqli_query($db, $query) or die("shop select fails".mysqli_error($db));
-                            while($row=mysqli_fetch_assoc($result)){
-                                $w_id=$row['w_id'];
-                                $s_id=$row['s_id'];
-                                $price=$row['price'];
-                                $image=$row['image'];
-                                $title=$row['title'];
-                            ?>
-                            <a href="#" class="item">
-                                <img src="../../temp/<?php echo "{$image}"; ?>" alt=<?php echo "{$image}"; ?>>
-                                <div class="goods-info">
-                                    <p id="title-value"><?php echo "{$title}"; ?></p>
-                                    <div class="subinfo">
-                                        <div class="price"><p class="bold" id="price-value"><?php echo "{$price}"; ?></p>&nbsp;원</div>
-                                    </div>
-                                </div>
-                            </a>
-                            <?php
-                            }
-                            ?>
-                            
+                            <a href="#" class="item"><img src="../../resources/starry_night.jpg" alt="별이 빛나는 밤"></a>
+                            <a href="#" class="item" ><img src="../../resources/tiger.jpg" alt="호랑이"></a>
+                            <a href="#" class="item" ><img src="../../resources/23identity.jpg" alt="다중인격"></a>
+                            <a href="#" class="item" ><img src="../../resources/forest.jpg" alt="숲"></a>
+                            <a href="#" class="item" ><img src="../../resources/superrealistic.jpg" alt="초현실"></a>
+                            <a href="#" class="item" ><img src="../../resources/wolf.jpg" alt="늑대"></a>
+                            <a href="#" class="item" ><img src="../../resources/withchild.jpg" alt="아이와함께"></a>
+                            <a href="#" class="item" ><img src="../../resources/moon_in_yard.jpg" alt="초원의달"></a>
                         </div>
                         
                     </div>
@@ -301,9 +285,7 @@ else{
         </main>
         
         
-       <script src="../js/input_limit.js">
-
-       </script>
-       </script src="../js/subscribe.js"></script>
+       <script src="../js/input_limit.js"></script>
+       <script src="../js/subscribe.js"></script>
     </body>
 </html>

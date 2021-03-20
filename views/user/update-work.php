@@ -80,7 +80,7 @@ else{
             </div>
             <?php if(isset($_SESSION['u_id'])){?>
             <div class="logged">
-                <a href="./user/" class="bold">MY</a>
+                <a href="./index.php" class="bold">MY</a>
                 &nbsp;&nbsp;&nbsp;&nbsp;<a href="./logout.php" class="medium">로그아웃</a>
             </div>
             <?php } else{?>
@@ -93,10 +93,10 @@ else{
         <main id="write">
             <nav class="top-nav bold">
                 <div id=topnav-container>
-                    <a href="main.html">홈</a>
-                    <a href="./topic/index.html">주제</a>
-                    <a href="./workboard.html">워크<br>보드</a>
-                    <a href="./feed/post.html">피드</a>
+                    <a href="../main.php">홈</a>
+                    <a href="../topic/index.html">주제</a>
+                    <a href="../workboard.php">워크<br>보드</a>
+                    <a href="../feed/post.html">피드</a>
                 </div>
             </nav>
             <div id="main-contents">

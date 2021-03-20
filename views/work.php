@@ -103,7 +103,7 @@ else{
             <div id="main-contents">
                 <section class="feed">
                     <ul>
-                        <a href="#" class="backward"><i class="fas fa-chevron-left"></i></a> 
+                        <a href="javascript:window.history.back();" class="backward"><i class="fas fa-chevron-left"></i></a> 
                         <li>
                             <article class="gallary-container">
                                 <div class="post-info">
@@ -135,9 +135,11 @@ else{
                                         else{
                                             echo "<i class='fa fa-heart' aria-hidden='true'></i>";
                                         }
-                                    }
+                                        echo "</button>";
+                                    } else{
                                     ?>
-                                        </button>
+                                        <a href="./login.php"><i class='far fa-heart' aria-hidden='true'></i></a>
+                                    <?php } ?>    
                                     <!-- 좋아요 -->
 
                                     <?php if($s_id!=NULL){?>

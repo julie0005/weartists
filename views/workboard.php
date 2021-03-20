@@ -64,13 +64,13 @@ include "../db.php";
                     <label class="dropdown">
 
                         <div class="dd-button">
-                          인기 순
+                          최신순
                         </div>
                       
                         <input type="checkbox" class="dd-input" id="test">
                       
                         <ul class="dd-menu">
-                          <li>최신 순</li>
+                          <li>인기순</li>
                           <li>1주일 내</li>
                           <li>1달 내</li>
                           <li>1년 내</li>
@@ -97,7 +97,7 @@ include "../db.php";
                             $nickname=$row['nickname'];
 
                     ?>
-                        <a href="../work.php?id=<?php echo "{$w_id}"?>" class="mason-item">
+                        <a href="./work.php?id=<?php echo "{$w_id}"?>" class="mason-item">
                             <img class="mason-image" src="../temp/<?php echo "{$image}"; ?>" alt=<?php echo "{$image}"; ?>>
                             <div class="text_content">
                                 <p class="title"><?php echo "{$title}"; ?></p>
@@ -144,7 +144,7 @@ include "../db.php";
                                 console.log(next_page);
                                 $.each(data,function(key,val){
                                     var $elem=
-                                        "<a href='../work.php?id="+val.w_id+"' class='mason-item' style='display:none;'>"
+                                        "<a href='./work.php?id="+val.w_id+"' class='mason-item' style='display:none;'>"
                                         +"<img class='mason-image' src='../temp/"+val.image+"' alt="+val.image+">"
                                         +"<div class='text_content'>"
                                         +"<p class='title'>"+val.title+"</p>"

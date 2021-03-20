@@ -3,24 +3,32 @@ error_reporting(E_ALL);
 ini_set("display_errors",1);
 include "../../db.php";
 $profile_dir="../../temp/profile";
-if(!isset($_SESSION['u_id'])){
-    echo "<script>alert('로그인이 필요합니다.'); location.href='../login.php';</script>";
-}
-else{
-    $u_id=$_SESSION['u_id'];
-    $query="SELECT * FROM user WHERE u_id={$u_id}";
+if(isset($_SESSION['u_id'])){
+
+    $visitorid=$_SESSION['u_id'];
+    $query="SELECT * FROM user WHERE u_id={$visitorid}";
     $result=mysqli_query($db, $query);
     if(!$result){
         die("user 조회 fails.<br>\n".mysqli_error($db));
     }
     else{
         $row=mysqli_fetch_assoc($result);
-        $author=$row['nickname'];
-        $profile_photo=$row['photo'];
-        $works=$row['works'];
-        $subscribers=$row['subscribers'];
-        $profile=$row['profile'];
+        $vauthor=$row['nickname'];
+        $vphoto=$row['photo'];
     }
+}
+if(isset($_GET['id'])){
+    $u_id=$_GET['id'];
+    $result=mysqli_query($db, "SELECT * FROM user WHERE u_id={$u_id}") or die("user 조회 실패".mysqli_error($db));
+    $row=mysqli_fetch_assoc($result);
+    $author=$row['nickname'];
+    $profile_photo=$row['photo'];
+    $works=$row['works'];
+    $subscribers=$row['subscribers'];
+    $profile=$row['profile'];
+}
+else{
+    echo "<script>alert('존재하지 않는 사용자입니다.'); location.href=history.back();</script>";
 }
 
 if(isset($_GET['idx'])){
@@ -60,12 +68,12 @@ if(isset($_GET['idx'])){
             <?php if(isset($_SESSION['u_id'])){?>
             <div class="logged">
                 <a href="./index.php" class="bold">MY</a>
-                &nbsp;&nbsp;&nbsp;&nbsp;<a href="./logout.php" class="medium">로그아웃</a>
+                &nbsp;&nbsp;&nbsp;&nbsp;<a href="../logout.php" class="medium">로그아웃</a>
             </div>
             <?php } else{?>
                 <div class="logged">
-                    <a href="./login.php">로그인</a>
-                    &nbsp;&nbsp;&nbsp;&nbsp;<a href="./register.php">회원가입</a>
+                    <a href="../login.php">로그인</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<a href="../register.php">회원가입</a>
                 </div>
             <?php }?>
         </header>
@@ -78,7 +86,7 @@ if(isset($_GET['idx'])){
                     <a href="../feed/post.html">피드</a>
                 </div>
             </nav>
-            <div id="main-contents">
+            <div id="main-contents" class="index">
                 <!-- user info -->
                 <div class="user-info">
                     <div class=user-maininfo>
@@ -92,34 +100,22 @@ if(isset($_GET['idx'])){
                         </div>
                     </div>
                     <div class="user-option">
-                        <label class="dropdown">
-                            <div class="dd-button">
-                              글쓰기
-                            </div>
-                          
-                            <input type="checkbox" class="dd-input" id="test">
-                          
-                            <ul class="dd-menu">
-                                <li><a href="./write-work.php">작품</a></li>
-                              <li><a href="./write-post.php">작가노트</a></li>
-                            </ul>
-                        </label>
                         
-                        <button class="dd-button">
-                            설정
-                            <i class="fas fa-cog"></i>
-                        </button>
+                            <button class="dd-button subscribebtn" style="width:80px;" value=<?php echo "{$u_id}"?>>
+                                구독
+                            </button>
+                        
                         
                     </div>
                 </div>
                 <!-- user header -->
                 <nav class="user-nav medium">
                     <div id=usernav-container>
-                        <a href="./index.php">홈</a>
-                        <a href="./gallary.php">갤러리</a>
-                        <a href="./post.php">작가노트</a>
-                        <a href="./shop.php">상점</a>
-                        <a href="./subscribe.php">구독</a>
+                            <a href="other.php?id=<?php echo "{$u_id}"; ?>">홈</a>
+                            <a href="./gallaryo.php?id=<?php echo "{$u_id}"; ?>">갤러리</a>
+                            <a href="#">작가노트</a>
+                            <a href="./shopo.php?id=<?php echo "{$u_id}"; ?>">상점</a>
+                            <a href="./subscribeo.php?id=<?php echo "{$u_id}"; ?>">구독</a>
                     </div>
                 </nav>
                 <!-- user home -->
@@ -137,9 +133,9 @@ if(isset($_GET['idx'])){
                             <p class="medium maininfo">갤러리</p>
                             <p id="postcnt"><?php echo "{$cnt}"?></p>
                         </div>
-                        <a href="#" class="more">수정하기</a>
                     </div>
                     <div id="ajaxg" class="works-container">
+                        
                         <?php
                             $query="SELECT * FROM gallary WHERE u_id={$u_id} LIMIT 20";
                             $result=mysqli_query($db,$query);
@@ -152,7 +148,7 @@ if(isset($_GET['idx'])){
                                     $gallary_title=$row['title'];
                                     $thumbnail=$row['thumbnail'];
                         ?>    
-                                <a href="./gallary.php?idx=<?php echo "{$g_id}"?>" class="item"><img src="../../temp/gallarythumb/<?php echo "{$thumbnail}"?>" alt=<?php echo "{$gallary_title}"?>>
+                                <a href="./gallaryo.php?id=<?php echo "{$u_id}";?>&idx=<?php echo "{$g_id}"?>" class="item"><img src="../../temp/gallarythumb/<?php echo "{$thumbnail}"?>" alt=<?php echo "{$gallary_title}"?>>
                                 <p class="gallary-name bold" id="gallary-name-default"><?php echo "{$gallary_title}"?></p>
                                 </a>
                         <?php        
@@ -169,12 +165,12 @@ if(isset($_GET['idx'])){
                 ?>
                     <div class="wrapper" id="works-wrapper">
                     <div class="subcontainer">
-                        <?php 
-                        $result=mysqli_query($db, "SELECT COUNT(*) AS cnt FROM pair WHERE g_id={$g_id}") or die("pair count fails".mysqli_error($db));
-                        $row=mysqli_fetch_assoc($result);
-                        $gallaryCount=$row['cnt'];
-                        ?>
                         <div class="user-title">
+                            <?php 
+                            $result=mysqli_query($db, "SELECT COUNT(*) AS cnt FROM pair WHERE g_id={$g_id}") or die("pair count fails".mysqli_error($db));
+                            $row=mysqli_fetch_assoc($result);
+                            $gallaryCount=$row['cnt'];
+                            ?>
                             <div class="titleinfo">
                                 <a href="javascript:window.history.back()" style="margin-right:10px;"><i style="padding:0px 10px;"class="fas fa-chevron-left"></i></a> 
                                 <p class="medium maininfo" id="folder-name"><?php echo "{$gallary_title}"?></p>
@@ -280,8 +276,7 @@ if(isset($_GET['idx'])){
             });
 
        </script>
-        <script type="text/javascript">
-            //작품들 infinite scroll.
+        <script type="text/javascript"> 
             var next_page=2;
             var sync=true;
             $(window).scrollTop(300);
@@ -290,7 +285,7 @@ if(isset($_GET['idx'])){
                     <?php
                         if(!isset($_GET['idx'])){
                     ?>
-                        return;
+                       return;
                     <?php } ?>
                     
                     if($(document).height()<=$(window).scrollTop()+$(window).height()+80 && sync==true){
@@ -328,7 +323,6 @@ if(isset($_GET['idx'])){
                                         $("#ajax").masonry('reloadItems');
                                         $('#ajax').masonry('layout');
                                         
-                                        
                                     });
                                 
                                 }
@@ -343,6 +337,8 @@ if(isset($_GET['idx'])){
                     }
                 });
             });
+            
+
         </script>
 
     
