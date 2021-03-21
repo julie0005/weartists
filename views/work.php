@@ -186,8 +186,8 @@ else{
                                     </div>
                                     <div class="my-comment">
                                         <img class="user-profile" src="../temp/profile/<?php echo "{$v_photo}";?>" alt="<?php echo "{$v_photo}";?>">
-                                        <div class="comments-post-container" id="comments-post">
-                                            <input type="text" id="comment-bar" placeholder="댓글 추가...">
+                                        <div class="comments-post-container comments-post">
+                                            <input type="text" maxlength="200" id="comment-bar" placeholder="댓글 추가...">
                                             <button type="button" id="commentbtn" class="comment-button medium" value="<?php echo "{$w_id}";?>">
                                                 댓글
                                             </button>
@@ -197,7 +197,7 @@ else{
 
                                         <ul>
                                             <?php
-                                                $query="SELECT user.u_id, user.nickname, user.photo, comment.c_id, comment.update_date, comment.contents from user inner join comment on comment.u_id=user.u_id WHERE writing_id={$w_id}";
+                                                $query="SELECT user.u_id, user.nickname, user.photo, comment.c_id, comment.update_date, comment.contents from user inner join comment on comment.u_id=user.u_id WHERE writing_id={$w_id} order by c_id desc";
                                                 $result=mysqli_query($db, $query) or die("댓글 조회 실패".mysqli_error($db)); 
                                                 while($row=mysqli_fetch_assoc($result)){
                                                     $cu_id=$row['u_id'];
@@ -207,21 +207,31 @@ else{
                                                     $update_date=$row['update_date'];
                                                     $contents=$row['contents'];
                                             ?>
-                                            <li class="other-comments first">
-                                                <img class="user-profile" src="../temp/profile/<?php echo"{$cimage}"?>" alt="<?php echo"{$cimage}"?>">
-                                                <div class="none-image">
-                                                    <p class="medium text "><?php echo"{$cname}"?></p>
-                                                    <p class="update text"><?php echo"{$update_date}"?></p>
-                                                    <?php if(isset($_SESSION['u_id']) && $visitorid==$cu_id){?>
-                                                    <button type="button" class="deletebtn text" value="<?php echo"{$c_id}"?>">삭제</button>
-                                                    <?php }?>
-                                                    <div class="comment-bar">
-                                                        <p><?php echo"{$contents}"?></p>
+                                            <li class="first">
+                                                <div class="other-comments">
+                                                    <img class="user-profile" src="../temp/profile/<?php echo"{$cimage}"?>" alt="<?php echo"{$cimage}"?>">
+                                                    <div class="none-image">
+                                                        <p class="medium text user"><?php echo"{$cname}"?></p>
+                                                        <p class="update text"><?php echo"{$update_date}"?></p>
+                                                        <?php if(isset($_SESSION['u_id']) && $visitorid==$cu_id){?>
+                                                        <button type="button" class="deletebtn text" value="<?php echo"{$c_id}"?>">삭제</button>
+                                                        <?php }?>
+                                                        <div class="comment-bar">
+                                                            <?php echo"{$contents}"?>
+                                                        </div>
+                                                        <button type="button" class="comment-comment-button medium" value="<?php echo "{$c_id}";?>">
+                                                            답글
+                                                        </button>
+                                                        <?php
+                                                            $query2="select count(*) as cnt from ccomment where c_id={$c_id}";
+                                                            $result2=mysqli_query($db,$query2) or die("ccomment count fails".mysqli_error($db));
+                                                            if(mysqli_num_rows($result2)!=0){
+                                                        ?>
+                                                        <button type="button" class="seeccomments medium" value="<?php echo "{$c_id}";?>">답글 보기</button>
+                                                        <?php }?>
                                                     </div>
-                                                    <button type="submit" class="comment-comment-button medium">
-                                                        답글
-                                                    </button>
                                                 </div>
+                                                <div class="ccomments"></div>
                                             </li>
                                             <?php } ?>
                                         </ul>

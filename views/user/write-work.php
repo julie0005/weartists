@@ -34,7 +34,6 @@ else{
             <link rel="stylesheet" href="../header.css">
             <link rel="stylesheet" href="./index.css">
             <meta name="description" content="우리 모두는 화가입니다.">
-            <script type="text/javascript" src="../../smarteditor2-2.8.2.3/js/HuskyEZCreator.js" charset="utf-8"></script>
             
     </head>
     <body id="user">

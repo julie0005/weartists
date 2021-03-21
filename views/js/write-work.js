@@ -45,9 +45,12 @@ $('.image-upload-wrap').on('dragleave', function () {
 });
 
 function submitContents() {
-	let title=document.querySelector(".form-group #title").value;
+  let title=document.querySelector(".form-group #title").value;
+	document.querySelector(".form-group #title").value=title.replace(/(<([^>]+)>)/ig,'');
+    alert(document.querySelector(".form-group #title").value);
     let image=document.querySelector(".file-upload-input");
     let description=document.querySelector("#artist-statement").value;
+    document.querySelector("#artist-statement").value=description.replace(/(<([^>]+)>)/ig,'');
     if(title==='' || description===""){
         alert("제목과 본문을 입력해주세요.");
         return false;
