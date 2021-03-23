@@ -1,7 +1,16 @@
 <?php
 error_reporting(E_ALL);
 ini_set("display_errors",1);
-include "../db.php";
+include "../../db.php";
+if(isset($_GET['id'])){
+    $t_id=$_GET['id'];
+    $result=mysqli_query($db, "SELECT topic FROM topic WHERE t_id={$t_id}") or die("topic select fails.".mysqli_error($db));
+    $row=mysqli_fetch_assoc($result);
+    $topicname=$row['topic'];
+}
+if(!isset($t_id) || $t_id==11){
+    echo "<script>alert('존재하지 않는 페이지입니다.'); location.href=history.back();</script>";
+}
 ?>
 <!DOCTYPE html>
 <html lang="ko">
@@ -11,20 +20,20 @@ include "../db.php";
             <title>모두화가</title>
             <script src="https://kit.fontawesome.com/03b31c0e0f.js" crossorigin="anonymous"></script>
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-            <link rel="stylesheet" href="header.css">
-            <link rel="stylesheet" href="mainbody.css">
+            <link rel="stylesheet" href="../header.css">
+            <link rel="stylesheet" href="../mainbody.css">
             <meta name="description" content="우리 모두는 화가입니다.">
             
             <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
             <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.js"></script>
     </head>
-    <body>
+    <body id="topic-body">
         <!-- Header -->
        
         <div id="header_all">
             <header class="page-header wrapper">
                 <div id=header_main>
-                    <h1 class="bold logo"><a href="main.php">모두화가</a></h1>
+                    <h1 class="bold logo"><a href="../main.php">모두화가</a></h1>
                     <form class="search-container">
                         <input type="text" id="search-bar" placeholder="오늘은 어떤 그림을 구경할래요?">
                         <button type="submit" class="searchButton">
@@ -36,21 +45,23 @@ include "../db.php";
                     if(!isset($_SESSION['u_id'])){
                 ?>
                 <div id=header_account>
-                    <a href="./login.php">로그인</a>
-                    <a href="./register.php">회원가입</a>
+                    <a href="../login.php">로그인</a>
+                    <a href="../register.php">회원가입</a>
                 </div>
-                <?php } else{?>
+                <?php } else{
+                    $u_id=$_SESSION['u_id'];
+                ?>
                     <div id=header_account>
-                        <a href="./user/index.php">MY</a>
-                        <a href="./logout.php">로그아웃</a>
+                        <a href="../user/index.php">MY</a>
+                        <a href="../logout.php">로그아웃</a>
                     </div>
                 <?php } ?>
             </header>
             <nav class="top-nav bold">
                 <div id=topnav-container>
-                    <a href="main.php">Home</a>
+                    <a href="../main.php">Home</a>
                     <a href="./topic/index.php">주제</a>
-                    <a href="./workboard.php">워크보드</a>
+                    <a href="../workboard.php">워크보드</a>
                     <a href="./feed/post.html">피드</a>
                 </div>
             </nav>
@@ -60,7 +71,11 @@ include "../db.php";
         <main id="workboard" class="popular_contents">
         
             <div class="popular_works">
-                <div class="works-header">
+                <div class="works-header" style="display:flex;">
+                    <div style="display:flex;">
+                        <a style="font-size:30px;margin-right:20px;" href="javascript:history.back();"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                        <h2 style="margin: auto 30px auto 0;"><?php echo "{$topicname}"?></h2>
+                    </div>
                     <label class="dropdown">
 
                         <div class="dd-button">
@@ -81,7 +96,7 @@ include "../db.php";
                 
                 <div id="ajax" class="container_works">
                     <?php
-                        $query="SELECT user.nickname, work.* FROM user INNER JOIN work ON user.u_id=work.u_id ORDER BY update_date DESC LIMIT 20";
+                        $query="SELECT user.nickname, work.* FROM user INNER JOIN work ON user.u_id=work.u_id WHERE work.t_id={$t_id} ORDER BY update_date DESC LIMIT 20";
                         $result=mysqli_query($db, $query) or die("work select fails".mysqli_error($db));
                         while($row=mysqli_fetch_assoc($result)){
                             $w_id=$row['w_id'];
@@ -97,8 +112,8 @@ include "../db.php";
                             $nickname=$row['nickname'];
 
                     ?>
-                        <a href="./work.php?id=<?php echo "{$w_id}"?>" class="mason-item">
-                            <img class="mason-image" src="../temp/<?php echo "{$image}"; ?>" alt=<?php echo "{$image}"; ?>>
+                        <a href="../work.php?id=<?php echo "{$w_id}"?>" class="mason-item">
+                            <img class="mason-image" src="../../temp/<?php echo "{$image}"; ?>" alt=<?php echo "{$image}"; ?>>
                             <div class="text_content">
                                 <p class="title"><?php echo "{$title}"; ?></p>
                                 <p class="artists"><?php echo "{$nickname}"; ?></p>
@@ -119,8 +134,8 @@ include "../db.php";
             
 
         </main>     
-        <script src="./js/input_limit.js"></script>
-        <script src="./js/masonry.js"></script>
+        <script src="../js/input_limit.js"></script>
+        <script src="../js/masonry.js"></script>
             <script type="text/javascript"> 
             var next_page=2;
             var sync=true;
@@ -137,6 +152,7 @@ include "../db.php";
                             dataType:'json',
                             data: {
                                 'page':next_page
+                                't_id':<?php echo "{$t_id}"?>
                             },
                             success : function(data){
                             next_page+=1;
@@ -144,8 +160,8 @@ include "../db.php";
                                 console.log(next_page);
                                 $.each(data,function(key,val){
                                     var $elem=
-                                        "<a href='./work.php?id="+val.w_id+"' class='mason-item' style='display:none;'>"
-                                        +"<img class='mason-image' src='../temp/"+val.image+"' alt="+val.image+">"
+                                        "<a href='../work.php?id="+val.w_id+"' class='mason-item' style='display:none;'>"
+                                        +"<img class='mason-image' src='../../temp/"+val.image+"' alt="+val.image+">"
                                         +"<div class='text_content'>"
                                         +"<p class='title'>"+val.title+"</p>"
                                         +"<p class='artists'>"+val.nickname+"</p>"

@@ -1,4 +1,7 @@
-
+:root{
+  --main-side:10%;
+  --theme-color:rgb(191, 216, 238);
+}
 /* SideBar */
 
 .sidebar-container {
@@ -6,9 +9,9 @@
     height: 100%;
     left: 0;
     overflow: hidden;
-    background: #c4e0f8;
+    background: #eef3f8;
     color: rgb(0, 0, 0);
-    border-right: 2px solid #999999;
+    border-right: 1px solid #e0e0e0;
   }
   
   .content-container {
@@ -18,7 +21,7 @@
   .sidebar-logo {
     padding: 15px 15px 15px 30px;
     font-size: 1.0rem;
-    background-color: #e5edf1;
+    background-color: #cbdaec;
   }
   
   .sidebar-navigation {
@@ -42,7 +45,7 @@
     position:relative;
   }
   .sidebar-navigation li::before {
-    background-color: #85bbd496;
+    background-color: #e6e6e696;
     position: absolute;
     content: '';
     height: 100%;
@@ -61,7 +64,7 @@
   .sidebar-navigation .header {
     font-size: 1rem;
     text-transform: uppercase;
-    background-color: #dbe7f5;
+    background-color: rgb(221, 233, 248);
     padding: 10px 15px 10px 30px;
   }
   
@@ -78,19 +81,17 @@
     display:flex;
   }
   .feed{
-    background-color: rgb(213, 224, 224);
+    background-color: rgb(255, 255, 255);
       position:relative;
       width:990px;
 	  overflow:auto;
     flex:1;
   }
 main .title{
-    background: #fdbfbfd3;
     padding: 5px 20px;
     text-align:center;
 }
 #popular_topics{
-    background: #eeeeee;
     padding: 30px 30px 20px;
     height:560px;
     text-align:center;
@@ -107,7 +108,7 @@ main .title{
 #fantasy .container_items{
   padding:120px;
   padding-top:50px;
-  background-color: rgb(213, 224, 224);
+  background-color: rgb(225, 236, 236);
   column-gap:0px;
 }
 .container_items a{
@@ -117,7 +118,7 @@ main .title{
 .container_items .topic{
   width:100%;
   height:100%;
-  background-color: rgba(174, 184, 214, 0.849);
+  background-color: rgb(217, 227, 238);
   padding:90px 0;
   font-size:1.2rem;
 }
@@ -127,7 +128,7 @@ main .title{
   object-fit:cover;
 }
 .container_items .topic:hover{
-  background-color: rgba(191, 203, 236, 0.849);
+  background-color: rgb(210, 220, 231);
   padding:90px 0;
 }
 

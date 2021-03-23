@@ -1,7 +1,7 @@
 // 검색부분 입력 가공 : 한글, 영어(대소문자), 숫자, <, >, :, "" 외 지움
 function checkSearch(){
     let searchcontent=document.querySelector("#search-bar").value;
-    searchcontent=searchcontent.replace(/[^0-9a-zㄱ-ㅎㅏ-ㅣ가-힣\!\?\<\>\:\s'"]/gi,'');
+    document.querySelector("#search-bar").value=searchcontent.replace(/[^0-9a-zㄱ-ㅎㅏ-ㅣ가-힣\!\?\<\>\:\s'"]/gi,'');
     console.log('user searches for '+searchcontent);
     return true;
 }

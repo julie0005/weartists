@@ -1,3 +1,6 @@
+:root{
+    --theme-color:rgb(191, 216, 238);
+  }
 /* footer */
 footer{
     padding:20px;
@@ -11,15 +14,15 @@ main{
     padding: 10px 4%;
     padding-top:20px;
     padding-bottom:20px;
-    background: #c2d2e9;
+    background: #f0f0f0;
 }
 main a.title{
-    background: #fdbfbfd3;
+    background: var(--theme-color);
     padding: 5px 20px;
     text-align:center;
 }
 main div.title{
-    background: #fdbfbfd3;
+    background: var(--theme-color);
     padding: 5px 20px;
     text-align:center;
     display:inline-block;
@@ -28,13 +31,13 @@ main div.title{
 
 /* 1-1. Popular Works */
 .popular_works{
-    background: #eeeeee;
+    background: #ffffff;
     padding: 30px 30px 20px;
 }
 #workboard.popular_works{
-    background: #eeeeee;
+    background: #ffffff;
 }
-#workboard.works-header{
+#workboard .works-header{
     display:flex;
     align-items: center;
 }
@@ -100,7 +103,7 @@ main div.title{
     display: grid;
     gap:10px;
     grid-template-columns: repeat(4,1fr);
-    background: #eeeeee;
+    background: #ffffff;
     place-content: center;
 }
 #main_popular.container_works a{
@@ -128,14 +131,14 @@ main div.title{
     
 }
 .popular_artists{
-    background: #eeeeee;
+    background: #ffffff;
     width:28%;
     padding: 30px 30px;
     
 }
 .popular_exhibition{
     width:70%;
-    background: #eeeeee;
+    background: #ffffff;
     padding: 30px 30px;
 }
 /* popular artists */
@@ -195,7 +198,7 @@ main div.title{
     display: inline-block;
     border-radius: 4px;
     padding: 7px 30px 7px 10px;
-    background-color: #fdbfbfd3;
+    background-color: var(--theme-color);
     cursor: pointer;
     white-space: nowrap;
   }

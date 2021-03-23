@@ -70,10 +70,10 @@ img{
 
 /* Main Menu */
 .top-nav{
-    background: #f1f1f1;;
+    background: #f8f8f8;;
     padding: 15px 15px;
-    border-top: 2px solid #999999;
-    border-bottom: 2px solid #999999;
+    border-top: 1px solid #c9c9c9;
+    border-bottom: 1px solid #c9c9c9;
 }
 #topnav-container{
     font-size: 1rem;
