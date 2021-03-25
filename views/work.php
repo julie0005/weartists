@@ -75,7 +75,7 @@ else{
         <!-- Header -->
         <header class="page-header wrapper">
             <div id=header_main>
-                <h1 class="bold logo"><a href="main.html">모두화가</a></h1>
+                <h1 class="bold logo"><a href="main.php">모두화가</a></h1>
                 <form class="search-container" id="search-form" onsubmit="return checkSearch()">
                     <input type="text" id="search-bar" placeholder="오늘은 어떤 그림을 구경할래요?">
                     <button type="submit" class="searchButton">
@@ -100,10 +100,10 @@ else{
         <main>
             <nav class="top-nav bold">
                 <div id=topnav-container>
-                    <a href="main.html">홈</a>
-                    <a href="./topic/index.html">주제</a>
-                    <a href="./workboard.html">워크<br>보드</a>
-                    <a href="./feed/post.html">피드</a>
+                    <a href="main.php">홈</a>
+                    <a href="./topic/index.php">주제</a>
+                    <a href="./workboard.php">워크<br>보드</a>
+                    <a href="./feed/index.php">피드</a>
                 </div>
             </nav>
             <div id="main-contents">
@@ -116,7 +116,7 @@ else{
                                     <div class=post-maininfo>
                                         <img class="user-profile" src=<?php echo "{$profile_dir}/{$profile_img}";?> alt=프로필>
                                         <h2 class="title text bold" name="title"><?php echo "{$title}";?></h2>
-                                        <p class="username text medium" name="author"><?php echo "{$author}";?></p>
+                                        <a href="./user/other.php?id=<?php echo"{$u_id}";?>"><p class="username text medium" name="author"><?php echo "{$author}";?></p></a>
                                     </div>
                                     <div class="post-subinfo">
                                         <p class="update"><?php echo "{$update_date}";?></p>
@@ -176,7 +176,7 @@ else{
                                 </div>
                                 
                             </article>
-                                <div class="comments-container">
+                                <div class="comments-container" id="comments-loc">
                                     <div class="comments-header">
                                         <div class=group>
                                             <h4 class="text">Comments</h4>
@@ -187,8 +187,8 @@ else{
                                     <div class="my-comment">
                                         <img class="user-profile" src="../temp/profile/<?php echo "{$v_photo}";?>" alt="<?php echo "{$v_photo}";?>">
                                         <div class="comments-post-container comments-post">
-                                            <input type="text" maxlength="200" id="comment-bar" placeholder="댓글 추가...">
-                                            <button type="button" id="commentbtn" class="comment-button medium" value="<?php echo "{$w_id}";?>">
+                                            <input type="text" maxlength="200" class="comment-bar" placeholder="댓글 추가...">
+                                            <button type="button" class="comment-button medium commentbtn" value="<?php echo "{$w_id}";?>">
                                                 댓글
                                             </button>
                                         </div>
@@ -216,7 +216,7 @@ else{
                                                         <?php if(isset($_SESSION['u_id']) && $visitorid==$cu_id){?>
                                                         <button type="button" class="deletebtn text" value="<?php echo"{$c_id}"?>">삭제</button>
                                                         <?php }?>
-                                                        <div class="comment-bar">
+                                                        <div class="comment-bar2">
                                                             <?php echo"{$contents}"?>
                                                         </div>
                                                         <button type="button" class="comment-comment-button medium" value="<?php echo "{$c_id}";?>">

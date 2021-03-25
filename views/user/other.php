@@ -30,6 +30,7 @@ if(isset($_GET['id'])){
 }
 else{
     echo "<script>alert('존재하지 않는 사용자입니다.'); location.href=history.back();</script>";
+    exit();
 }
 ?>
 <!DOCTYPE html>
@@ -72,9 +73,9 @@ else{
             <nav class="top-nav bold">
                 <div id=topnav-container>
                     <a href="../main.php">홈</a>
-                    <a href="../topic/index.html">주제</a>
+                    <a href="../topic/index.php">주제</a>
                     <a href="../workboard.php">워크<br>보드</a>
-                    <a href="../feed/post.html">피드</a>
+                    <a href="../feed/index.php">피드</a>
                 </div>
             </nav>
             <div id="main-contents" class="index">

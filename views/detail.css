@@ -148,7 +148,7 @@ button:focus{
   .comments-post{
       width: 100%;
   }
-  input#comment-bar{
+  input.comment-bar{
 	margin: 0 auto;
     width: 85%;
     height: 80px;
@@ -198,7 +198,7 @@ button:focus{
     display:flex;
     gap:20px;
   }
-  .my-ccomment #ccomment-bar{
+  .my-ccomment .ccomment-bar{
     height:50px;
     width:92%;
     margin: 0 auto;
@@ -247,7 +247,7 @@ button:focus{
   li.first .user{
     margin-bottom:3px;
   }
-  li.first .comment-bar{
+  li.first .comment-bar2{
     width:100%;
     word-break:break-all;
   }

@@ -11,12 +11,16 @@
         exit();
     }
     else{
+        $object=new stdClass();
+        $object->logged = true;
         $substatus=$_POST['substatus'];
         $target_id=$_POST['target_id'];
         $u_id=$_SESSION['u_id'];
-        $object=new stdClass();
-        $object->logged = true;
-        
+        if($u_id==$target_id){
+            $object->banned=true;
+            exit();
+        }
+        $object->banned=false;
         if($substatus==0){
             //아직 구독하지 않은 경우
             $result=mysqli_query($db, "INSERT INTO subscription(u_id, target_id) VALUES({$u_id},{$target_id})") or die("subscription insert fails.".mysqli_error($db));

@@ -2,16 +2,16 @@ $('.seeccomments').on('click', seeccomments);
 $('.deletebtn').on('click',deleteComments);
 $('.ccdeletebtn').on('click',deleteCComments);
 $('.comment-comment-button').on('click',showwriteCC);
-$('cchidebutton').on('click',hidewriteCC);
+$('.cchidebutton').on('click',hidewriteCC);
 $('.ccomment-button').on('click',writeCComments);
-$('#commentbtn').on('click',function(){
+$('.commentbtn').on('click',function(){
     //동기화 작업 필요.
     let w_id=$(this).attr('value');
-    let contents=document.querySelector("#comment-bar").value;
+    let contents=document.querySelector(".comment-bar").value;
     contents=contents.replace(/(<([^>]+)>)/ig,'');
     if(contents=="") return;
 
-    document.querySelector("#comment-bar").value=contents;   
+    document.querySelector(".comment-bar").value=contents;   
         $.ajax({
             url:"./ajax/ajax-comment.php",
             type:'POST',
@@ -34,7 +34,7 @@ $('#commentbtn').on('click',function(){
                         +"<div class='none-image'><p class='medium text'>"+v_name+"</p>"
                         +"<p class='update text'>"+update_date+"</p>"
                         +"<button type='button' class='deletebtn text' value="+c_id+">삭제</button>"
-                        +"<div class='comment-bar'>"+contents+"</div>"
+                        +"<div class='comment-bar2'>"+contents+"</div>"
                         +"<button type='button' class='comment-comment-button medium' value='"+c_id+"'>답글</button></div></div>"
                         +"<div class='ccomments'></div></li>"
                     $(".other-comments-container ul").prepend(elem);
@@ -145,7 +145,7 @@ function seeccomments(){
                     if(val.isMine){
                         $elem+="<button type='button' class='ccdeletebtn text' value='"+val.cc_id+"'>삭제</button>"
                     }
-                    $elem+="<div class='comment-bar'>"+val.contents+"</div>"
+                    $elem+="<div class='comment-bar2'>"+val.contents+"</div>"
                         +"</div></div>";
                     btn.parents("li.first").children(".ccomments").append($elem);
                     $(".ccdeletebtn").off('click').on('click',deleteCComments);
@@ -179,7 +179,7 @@ function showwriteCC(){
     let $elem="<div class='my-ccomment'>"
         +"<img class='user-profile' src='../temp/profile/"+v_photo+"' alt='"+v_photo+"'>"
         +"<div class='comments-post-container comments-post'>"
-        +"<input type='text' maxlength='200' id='ccomment-bar' placeholder='답글 추가...'>"
+        +"<input type='text' maxlength='200' class='ccomment-bar' placeholder='답글 추가...'>"
         +"<button type='button' class='ccomment-button medium' value='"+c_id+"'>답글</button></div></div>";
     btn.parents('.other-comments').after($elem);
     btn.replaceWith("<button type='button' class='cchidebutton medium' value="+c_id+">취소</button>");
@@ -199,10 +199,10 @@ function writeCComments(){
     //동기화 작업 필요.
     let btn=$(this);
     let c_id=$(this).attr('value');
-    let contents=document.querySelector("#ccomment-bar").value;
+    let contents=document.querySelector(".ccomment-bar").value;
     contents=contents.replace(/(<([^>]+)>)/ig,'');
     if(contents=="") return;
-    document.querySelector("#ccomment-bar").value=contents;   
+    document.querySelector(".ccomment-bar").value=contents;   
         $.ajax({
             url:"./ajax/ajax-ccomment.php",
             type:'POST',
@@ -226,7 +226,7 @@ function writeCComments(){
                         +"<p class='medium text user'>"+v_name+"</p>"
                         +"<p class='update text'>"+update_date+"</p>"
                         +"<button type='button' class='ccdeletebtn text' value='"+cc_id+"'>삭제</button>"
-                        +"<div class='comment-bar'>"+contents+"</div>";
+                        +"<div class='comment-bar2'>"+contents+"</div>";
                     btn.parents("li.first").children(".ccomments").append($elem);
                     btn.parents("li.first").children(".other-comments").find(".cchidebutton").replaceWith("<button type='button' class='comment-comment-button medium' value='"+c_id+"'>답글</button>");
                     btn.parents(".my-ccomment").remove();

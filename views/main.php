@@ -41,10 +41,10 @@
             </header>
             <nav class="top-nav bold">
                 <div id=topnav-container>
-                    <a href="main.html">Home</a>
+                    <a href="main.php">Home</a>
                     <a href="./topic/index.php">주제</a>
                     <a href="./workboard.php">워크보드</a>
-                    <a href="./feed/post.html">피드</a>
+                    <a href="./feed/index.php">피드</a>
                 </div>
             </nav>
         </div>

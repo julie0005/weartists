@@ -9,7 +9,7 @@
     height: 100%;
     left: 0;
     overflow: hidden;
-    background: #eef3f8;
+    background: #f7f7f7;
     color: rgb(0, 0, 0);
     border-right: 1px solid #e0e0e0;
   }
@@ -64,7 +64,7 @@
   .sidebar-navigation .header {
     font-size: 1rem;
     text-transform: uppercase;
-    background-color: rgb(221, 233, 248);
+    background-color: rgb(229, 236, 245);
     padding: 10px 15px 10px 30px;
   }
   

@@ -13,6 +13,10 @@ for( let i=0; i<subscribebtn.length; i++){
             },
             success:function(data){
                 if(data[0].logged){
+                    if(data[0].banned){
+                        alert("자신은 구독할 수 없습니다.");
+                        return;
+                    }
                     if(data[0].subscribe){
                         //구독 -> 구독중 (구독완료)
                         subscribebtn[i].innerHTML="구독중"+"<input type='text' style='display:none;' class='substatus' value='1'></input>";

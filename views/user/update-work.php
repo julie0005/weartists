@@ -70,7 +70,7 @@ else{
         <!-- Header -->
         <header class="page-header wrapper">
             <div id=header_main>
-                <h1 class="bold logo"><a href="main.html">모두화가</a></h1>
+                <h1 class="bold logo"><a href="main.php">모두화가</a></h1>
                 <form class="search-container" id="search-form" onsubmit="return checkSearch()">
                     <input type="text" id="search-bar" placeholder="오늘은 어떤 그림을 구경할래요?">
                     <button type="submit" class="searchButton">
@@ -94,9 +94,9 @@ else{
             <nav class="top-nav bold">
                 <div id=topnav-container>
                     <a href="../main.php">홈</a>
-                    <a href="../topic/index.html">주제</a>
+                    <a href="../topic/index.php">주제</a>
                     <a href="../workboard.php">워크<br>보드</a>
-                    <a href="../feed/post.html">피드</a>
+                    <a href="../feed/index.php">피드</a>
                 </div>
             </nav>
             <div id="main-contents">
@@ -124,11 +124,10 @@ else{
                 <!-- user header -->
                 <nav class="user-nav medium">
                     <div id=usernav-container>
-                        <a href="#">홈</a>
+                        <a href="./index.php">홈</a>
                         <a href="./gallary.php">갤러리</a>
-                        <a href="#">작가노트</a>
-                        <a href="#">상점</a>
-                        <a href="#">구독</a>
+                        <a href="./shop.php">상점</a>
+                        <a href="./subscribe.php">구독</a>
                     </div>
                 </nav>
                 <!-- user home -->
