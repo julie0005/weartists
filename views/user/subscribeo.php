@@ -48,11 +48,11 @@ else{
         <header class="page-header wrapper">
             <div id=header_main>
                 <h1 class="bold logo"><a href="../main.php">모두화가</a></h1>
-                <form class="search-container" id="search-form" onsubmit="return checkSearch()">
-                    <input type="text" id="search-bar" placeholder="오늘은 어떤 그림을 구경할래요?">
-                    <button type="submit" class="searchButton">
-                        <i class="fa fa-search"></i>
-                    </button>
+                <form class="search-container" id="search-form" action="../search/index.php" method="get" onsubmit="return checkSearch()">
+                        <input type="text" id="search-bar" name="query" maxlength="100" placeholder="오늘은 어떤 그림을 구경할래요?">
+                        <button type="submit" class="searchButton">
+                            <i class="fa fa-search"></i>
+                        </button>
                 </form>
             </div>
             <?php if(isset($_SESSION['u_id'])){?>

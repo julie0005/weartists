@@ -58,11 +58,11 @@ if(isset($_GET['idx'])){
         <header class="page-header wrapper">
             <div id=header_main>
                 <h1 class="bold logo"><a href="../main.php">모두화가</a></h1>
-                <form class="search-container" id="search-form" onsubmit="return checkSearch()">
-                    <input type="text" id="search-bar" placeholder="오늘은 어떤 그림을 구경할래요?">
-                    <button type="submit" class="searchButton">
-                        <i class="fa fa-search"></i>
-                    </button>
+                <form class="search-container" id="search-form" action="../search/index.php" method="get" onsubmit="return checkSearch()">
+                        <input type="text" id="search-bar" name="query" maxlength="100" placeholder="오늘은 어떤 그림을 구경할래요?">
+                        <button type="submit" class="searchButton">
+                            <i class="fa fa-search"></i>
+                        </button>
                 </form>
             </div>
             <?php if(isset($_SESSION['u_id'])){?>
@@ -130,7 +130,6 @@ if(isset($_GET['idx'])){
                     <div id=usernav-container>
                             <a href="other.php?id=<?php echo "{$u_id}"; ?>">홈</a>
                             <a href="./gallaryo.php?id=<?php echo "{$u_id}"; ?>">갤러리</a>
-                            <a href="#">작가노트</a>
                             <a href="./shopo.php?id=<?php echo "{$u_id}"; ?>">상점</a>
                             <a href="./subscribeo.php?id=<?php echo "{$u_id}"; ?>">구독</a>
                     </div>
@@ -242,6 +241,7 @@ if(isset($_GET['idx'])){
         
         <script src="../js/input_limit.js"></script>
        <script src="../js/masonry.js"></script>
+       <script src="../js/subscribe.js"></script>
        <script type="text/javascript">
             //갤러리 폴더 infinite scroll.  
             var next_page=2;

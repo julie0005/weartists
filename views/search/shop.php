@@ -1,3 +1,13 @@
+<?php
+    include "../../db.php";
+    if(isset($_GET['query'])){
+        $query=$_GET['query'];
+    }
+    else{
+        echo "<script>history.back();</script>";
+        exit();
+    }
+?>
 <!DOCTYPE html>
 <html lang="ko">
     <head>
@@ -13,41 +23,64 @@
         <!-- Header -->
        
         <div id="header_all">
-            <header class="page-header">
+            <header class="page-header wrapper">
                 <div id=header_main>
-                    <h1 class="bold logo"><a href="main.html">모두화가</a></h1>
-                    <form class="search-container">
-                        <input type="text" id="search-bar" placeholder="오늘은 어떤 그림을 구경할래요?">
+                    <h1 class="bold logo"><a href="main.php">모두화가</a></h1>
+                    <form class="search-container" id="search-form" action="index.php" method="get" onsubmit="return checkSearch()">
+                        <input type="text" id="search-bar" name="query" maxlength="100" placeholder="오늘은 어떤 그림을 구경할래요?">
                         <button type="submit" class="searchButton">
                             <i class="fa fa-search"></i>
                         </button>
                     </form>
                 </div>
+                <?php
+                    if(!isset($_SESSION['u_id'])){
+                ?>
                 <div id=header_account>
-                    <a href="../login.html">로그인</a>
-                    <a href="../register.html">회원가입</a>
+                    <a href="../login.php">로그인</a>
+                    <a href="../register.php">회원가입</a>
                 </div>
+                <?php } else{?>
+                    <div id=header_account>
+                        <a href="../user/index.php">MY</a>
+                        <a href="../logout.php">로그아웃</a>
+                    </div>
+                <?php } ?>
             </header>
             <nav class="top-nav bold">
                 <div id=topnav-container>
-                    <a href="../main.html">Home</a>
-                    <a href="../topic/index.html">주제</a>
-                    <a href="../workboard.html">워크보드</a>
-                    <a href="../feed/post.html">피드</a>
+                    <a href="../main.php">Home</a>
+                    <a href="../topic/index.php">주제</a>
+                    <a href="../workboard.php">워크보드</a>
+                    <a href="../feed/index.php">피드</a>
                 </div>
             </nav>
         </div>
 
-        <main>
+        <main id="search">
             <div id="search-header">
                 <div id="search-result">'<p id="search-word" class="bold">호랑이</p>'<p>&nbsp;에 대한 검색 결과</p></div>
                 <nav id="searchnav-container">
-                    <a class="searchnav-link"href="./index.html">통합</a>
-                    <a class="searchnav-link"href="./works.html">작품</a>
-                    <a class="searchnav-link" href="./post.html">작가노트</a>
-                    <a class="searchnav-link" href="./gallary.html">갤러리</a>
-                    <a class="searchnav-link" href="./artists.html">작가</a>
-                    <a class="searchnav-link" href="./shop.html">상점</a>
+                    <form class="searchnav-link" action="./index.php" method="get">
+                        <input type="hidden" name="query" maxlength="100" value="<?php echo "{$query}";?>">
+                        <button type="submit">통합</button>
+                    </form>
+                    <form class="searchnav-link" action="./works.php" method="get">
+                        <input type="hidden" name="query" maxlength="100" value="<?php echo "{$query}";?>">
+                        <button type="submit">작품</button>
+                    </form>
+                    <form class="searchnav-link" action="./gallary.php" method="get">
+                        <input type="hidden" name="query" maxlength="100" value="<?php echo "{$query}";?>">
+                        <button type="submit">갤러리</button>
+                    </form>
+                    <form class="searchnav-link" action="./artists.php" method="get">
+                        <input type="hidden" name="query" maxlength="100" value="<?php echo "{$query}";?>">
+                        <button type="submit">작가</button>
+                    </form>
+                    <form class="searchnav-link" action="./shop.php" method="get">
+                        <input type="hidden" name="query" maxlength="100" value="<?php echo "{$query}";?>">
+                        <button type="submit">상점</button>
+                    </form>
                 </nav>
             </div>
                 <div class="wrapper" id="works-wrapper">

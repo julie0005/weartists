@@ -18,7 +18,8 @@
         $u_id=$_SESSION['u_id'];
         if($u_id==$target_id){
             $object->banned=true;
-            exit();
+            $arr[]=$object;
+            exit(json_encode($arr));
         }
         $object->banned=false;
         if($substatus==0){
