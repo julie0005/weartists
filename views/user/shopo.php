@@ -19,6 +19,10 @@ if(isset($_SESSION['u_id'])){
 }
 if(isset($_GET['id'])){
     $u_id=$_GET['id'];
+    if(isset($visitorid) && $visitorid==$u_id){
+        echo "<script>location.href='./shop.php'</script>";
+        exit();
+    }
     $result=mysqli_query($db, "SELECT * FROM user WHERE u_id={$u_id}") or die("user 조회 실패".mysqli_error($db));
     $row=mysqli_fetch_assoc($result);
     $author=$row['nickname'];

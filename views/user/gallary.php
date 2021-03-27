@@ -232,15 +232,12 @@ if(isset($_GET['idx'])){
             //갤러리 폴더 infinite scroll.  
             var next_page=2;
             var sync=true;
+            <?php if(!isset($_GET['idx'])){?>
             $(window).on('load',function(){
                 $(document).on("scroll", function(){
-                    <?php
-                        if(isset($_GET['idx'])){
-                    ?>
-                        return;
-                    <?php } ?>
                    
                     if($(document).height()<=$(window).scrollTop()+$(window).height()+80 && sync==true){
+                        
                         sync=false;
                         $.ajax({
                             url: "../ajax/ajax-gallary.php",
@@ -258,7 +255,7 @@ if(isset($_GET['idx'])){
                                         var $elem=
                                             "<a href='./gallary.php?idx="+val.g_id+"' class='item' style='display:none;'>"
                                             +"<img src='../../temp/gallarythumb/"+val.thumbnail+"' alt="+val.thumbnail+">"
-                                            +"<p class='gallary-name bold' id='gallary-name-default'>"+val.title+"</p>"
+                                            +"<p class='gallary-name bold' id='gallary-name-default'>"+val.gallary_title+"</p>"
                                             +"</a>";
                                             $("#ajaxg").append($elem);
                                     });
@@ -277,22 +274,21 @@ if(isset($_GET['idx'])){
                     }
                 });
             });
+            <?php } ?>
 
        </script>
         <script type="text/javascript">
             //작품들 infinite scroll.
             var next_page=2;
             var sync=true;
+            <?php if(isset($_GET['idx'])){?>
             $(window).scrollTop(300);
             $(window).on('load',function(){
                 $(document).on("scroll", function(){
-                    <?php
-                        if(!isset($_GET['idx'])){
-                    ?>
-                        return;
-                    <?php } ?>
+                    
                     
                     if($(document).height()<=$(window).scrollTop()+$(window).height()+80 && sync==true){
+                        
                         sync=false;
                         $.ajax({
                             url: "../ajax/ajax-work.php",
@@ -305,7 +301,7 @@ if(isset($_GET['idx'])){
                             success : function(data){
                                 next_page+=1;
                                 if(data.length!=0){
-                                    console.log(next_page);
+                                    
                                     $.each(data,function(key,val){
                                         var $elem=
                                             "<a href='../work.php?id="+val.w_id+"' class='mason-item' style='display:none;'>"
@@ -331,6 +327,7 @@ if(isset($_GET['idx'])){
                                     });
                                 
                                 }
+                                
                                 sync=true;
                     
                             },
@@ -342,6 +339,7 @@ if(isset($_GET['idx'])){
                     }
                 });
             });
+            <?php }?>
         </script>
 
     

@@ -29,9 +29,9 @@
         <div id="header_all">
             <header class="page-header wrapper">
                 <div id=header_main>
-                    <h1 class="bold logo"><a href="main.php">모두화가</a></h1>
+                    <h1 class="bold logo"><a href="../main.php">모두화가</a></h1>
                     <form class="search-container" id="search-form" action="index.php" method="get" onsubmit="return checkSearch()">
-                        <input type="text" id="search-bar" name="query" maxlength="100" value="<?php echo"{$squery}";?>" placeholder="오늘은 어떤 그림을 구경할래요?">
+                        <input type="text" id="search-bar" name="query" maxlength="100" value='<?php echo"{$squery}";?>' placeholder="오늘은 어떤 그림을 구경할래요?">
                         <button type="submit" class="searchButton">
                             <i class="fa fa-search"></i>
                         </button>
@@ -66,23 +66,23 @@
                 <div id="search-result">'<p id="search-word" class="bold"><?php echo"{$squery}";?></p>'<p>&nbsp;에 대한 검색 결과</p></div>
                 <nav id="searchnav-container">
                     <form class="searchnav-link" action="./index.php" method="get">
-                        <input type="hidden" name="query" maxlength="100" value="<?php echo "{$squery}";?>">
+                        <input type="hidden" name="query" maxlength="100" value='<?php echo "{$squery}";?>'>
                         <button type="submit">통합</button>
                     </form>
                     <form class="searchnav-link" action="./works.php" method="get">
-                        <input type="hidden" name="query" maxlength="100" value="<?php echo "{$squery}";?>">
+                        <input type="hidden" name="query" maxlength="100" value='<?php echo "{$squery}";?>'>
                         <button type="submit">작품</button>
                     </form>
                     <form class="searchnav-link" action="./gallary.php" method="get">
-                        <input type="hidden" name="query" maxlength="100" value="<?php echo "{$squery}";?>">
+                        <input type="hidden" name="query" maxlength="100" value='<?php echo "{$squery}";?>'>
                         <button type="submit">갤러리</button>
                     </form>
                     <form class="searchnav-link" action="./artists.php" method="get">
-                        <input type="hidden" name="query" maxlength="100" value="<?php echo "{$squery}";?>">
+                        <input type="hidden" name="query" maxlength="100" value='<?php echo "{$squery}";?>'>
                         <button type="submit">작가</button>
                     </form>
                     <form class="searchnav-link" action="./shop.php" method="get">
-                        <input type="hidden" name="query" maxlength="100" value="<?php echo "{$squery}";?>">
+                        <input type="hidden" name="query" maxlength="100" value='<?php echo "{$squery}";?>'>
                         <button type="submit">상점</button>
                     </form>
                 </nav>

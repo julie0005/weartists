@@ -10,7 +10,7 @@
 		<div class="main-wrap">
 		<header>
 			<div class="logo-wrap">
-				<a href="./main.html"><h1 class="bold">모두화가</h1></a>
+				<a href="./main.php"><h1 class="bold">모두화가</h1></a>
 			</div>
 		</header>
 		<section class="login-input-section-wrap">

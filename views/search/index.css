@@ -69,11 +69,15 @@ main>p{
     font-size:1.2rem;
     margin-right:10px;
 }
+#search{
+  min-height:76%;
+}
 #search .wrapper{
     padding-top:30px;
     background: #ffffff;
     padding-bottom:10px;
     border-bottom: 1px solid #c9c9c9;
+    min-height:400px;
     
 }
 .works-container{
@@ -193,16 +197,22 @@ main>p{
   
   .dd-button {
     display: inline-block;
-    border: 1px solid gray;
     border-radius: 4px;
     padding: 7px 30px 7px 10px;
-    background-color: #ffffff;
+    background: rgb(191, 216, 238);
     cursor: pointer;
     white-space: nowrap;
     margin-left: 20px;
   }
+  button.dd-button{
+    margin:0px;
+    padding: 7px 10px;
+    text-align: center;
+    background: rgb(191, 216, 238);
+    border:none;
+  }
   
-  .dd-button:after {
+  .dropdown .dd-button:after {
     content: '';
     position: absolute;
     top: 50%;
@@ -216,7 +226,7 @@ main>p{
   }
   
   .dd-button:hover {
-    background-color: #eeeeee;
+    background-color: rgb(201, 224, 247);
   }
   
   
@@ -257,12 +267,16 @@ main>p{
 
   /* artist-container */
   .works-container li{
-      background-color: rgb(231, 227, 236);
-      width:100%;
-      height:100%;
-      padding:20px;
-      border:1px solid rgb(206, 206, 206);
-      text-align: center;
+    background-color: rgb(255, 255, 255);
+    width:100%;
+    height:100%;
+    padding:20px;
+    border:1px solid rgb(206, 206, 206);
+    text-align: center;
+  }
+  #subscribe.works-container li{
+    background-color: rgb(247, 247, 247);
+    border:1px solid rgb(230, 230, 230);
   }
   .works-container .artist-profile{
     width:80px;
@@ -270,26 +284,21 @@ main>p{
     border-radius: 70%;
     object-fit: cover;
     margin-bottom:10px;
-  }
-  .works-container .artist-name{
+    }
+    .works-container .artist-name{
       font-size:1.1rem;
-  }
-  .works-container .follower-info, .artist-followers{
+    }
+    .works-container .follower-info, .artist-followers{
     display:flex;
     justify-content: center;
     font-size:0.8rem;
     color:rgb(78, 78, 78);
-}
-.works-container .artist-explain{
+    }
+    .works-container .artist-explain{
     margin-top:10px;
-}
+    }
 
 /* shop grid */
-#shop-container .item{
-    display:block;
-    text-align: none;
-    overflow: hidden;
-}
 #shop-container .goods-info{
     padding:10px;
     padding-bottom:11px;
@@ -379,4 +388,26 @@ main>p{
     text-align: center;
     border:1px solid #c9c9c9;
   }
+
+  /* masonry */
+  .container_works{
+    margin: 0px auto;
+    margin-top:10px;
+    padding:10px 30px;
+    width:100%;
+  }
+.container_works .mason-item{
+    display:inline-block;
+    height:auto;
+    width:23.5%;
+    position:relative;
+    line-height:1;
+    margin-bottom:5px;
+}
+.container_works img{
+    width:100%;
+    height:100%;
+    object-fit: cover;
+    vertical-align: bottom;
+}
 

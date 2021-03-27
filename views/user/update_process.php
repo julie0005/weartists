@@ -60,13 +60,13 @@ $title=addslashes($_POST['title']);
             $ext=array_pop($tmp);
             $imgname=date("YmdHis").'.'.$ext;
             move_uploaded_file($_FILES['upload']['tmp_name'],"$uploads_dir/$imgname");
-            $query="UPDATE work SET title='{$title}', description='{$artist_statement}', g_id={$g_id}, image='{$imgname}', t_id={$t_id}, update_date=now() WHERE w_id={$w_id}";
+            $query="UPDATE work SET title='{$title}', description='{$artist_statement}', g_id={$g_id}, image='{$imgname}', t_id={$t_id}, edit_date=now() WHERE w_id={$w_id}";
             $result=mysqli_query($db,$query);
             if(!$result) die("work table data update fails.<br>\n".mysqli_error($db));
         }
         else{
             
-            $query="UPDATE work SET title='{$title}', description='{$artist_statement}', g_id={$g_id}, t_id={$t_id}, update_date=now() WHERE w_id={$w_id}";
+            $query="UPDATE work SET title='{$title}', description='{$artist_statement}', g_id={$g_id}, t_id={$t_id}, edit_date=now() WHERE w_id={$w_id}";
             $result=mysqli_query($db,$query);
             if(!$result) die("work table data update fails.<br>\n".mysqli_error($db));
         }

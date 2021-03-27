@@ -143,6 +143,7 @@ $paging=3;
                         $row2=mysqli_fetch_assoc($result2);
                         $author=$row2['nickname'];
                         $author_img=$row2['photo'];
+                        
 
                 ?>
                     <li>
@@ -151,7 +152,7 @@ $paging=3;
                                 <div class=post-maininfo>
                                     <img class="user-profile" src="<?php echo "{$profile_dir}/{$author_img}"?>" alt=<?php echo "{$author_img}"?>>
                                     <h2 class="title text bold"><?php echo "{$title}"?></h2>
-                                    <p class="username text medium"><?php echo "{$author}"?></p>
+                                    <a href="../user/other.php?id=<?php echo "{$authorid}"?>"><p class="username text medium"><?php echo "{$author}"?></p></a>
                                 </div>
                                 <div class="post-subinfo">
                                     <p class="update"><?php echo "{$update_date}"?></p>
@@ -244,7 +245,6 @@ $paging=3;
                         type:"POST",
                         dataType:'json',
                         data:{
-                            //작가노트 type : 1, 작품 type : 0
                             'type':0,
                             'w_id':w_id,
                             'u_id':<?php if(isset($visitorid)){echo "{$visitorid}";} else {echo "-1";}?>
@@ -296,7 +296,7 @@ $paging=3;
                                         "<li><article class='gallary-container'><div class='post-info'><div class=post-maininfo>"
                                         +"<img class='user-profile' src='<?php echo "{$profile_dir}/";?>"+val.author_img+"' alt='"+val.author_img+"'>"
                                         +"<h2 class='title text bold'>"+val.title+"</h2>"
-                                        +"<p class='username text medium'>"+val.author+"</p></div>"
+                                        +"<a href='../user/other.php?id="+val.authorid+"'><p class='username text medium'>"+val.author+"</p></a></div>"
                                         +"<div class='post-subinfo'><p class='update'>"+val.update_date+"</p>"
                                         +"<p class='pageview'>"+val.views+"회</p></div></div>"
                                         +"<div class='body-contents'><img class='body-image' src='<?php echo "{$image_dir}/";?>"+val.image+"' alt='"+val.image+"'></div>"

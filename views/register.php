@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lnag="ko">
     <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <meta charset="UTF-8">
         <title>회원가입</title>
         <link rel="stylesheet" href="register.css">
@@ -21,36 +22,46 @@
             <div id="content">
                 <form id="register-form" action="./register_ok.php" method="POST" onsubmit="return registerCheck()">
                 <!-- ID -->
-                <div>
+                <div id='idcheck' class='dpcheck'>
                     <h3 class="join_title">
                         <label for="id" class="medium">아이디</label>
                     </h3>
+                    <div style="display:flex;">
                     <span class="box int_id">
                         <input type="text" id="id" name="id" class="int" maxlength="20" >
                         <span id="alertTxt">사용불가</span>
                     </span>
+                    <button type='button' id='IDdup' class='dupcheck'>중복<br>확인</button>
+                    </div>
                     <span class="error_next_box"></span>
                 </div>
 
-                <div>
+                <div id='nickcheck' class='dpcheck'>
                     <h3 class="join_title">
                         <label for="nickname" class="medium">닉네임</label>
                     </h3>
+                    <div style="display:flex;">
                     <span class="box int_nickname">
                         <input type="text" id="nickname" name="nickname" class="int" maxlength="10" >
                         <span id="alertTxt">사용불가</span>
                     </span>
+                    <button type='button' id='NIdup' class='dupcheck'>중복<br>확인</button>
+                    </div>
                     <span class="error_next_box"></span>
                 </div>
 
                 <!-- EMAIL -->
-                <div>
+                <div id='emailcheck' class='dpcheck'>
                     <h3 class="join_title">
                         <label for="email" class="medium">이메일</label>
                     </h3>
+                    <div style="display:flex;">
                     <span class="box int_email">
                         <input type="text" id="email" name="email" class="int" maxlength="50" >
+                        <span id="alertTxt"></span>
                     </span>
+                    <button type='button' id='EMdup' class='dupcheck'>중복<br>확인</button>
+                    </div>
                     <span class="error_next_box"></span>
                 </div>
 

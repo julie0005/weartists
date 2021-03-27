@@ -61,14 +61,14 @@ if(!isset($t_id) || $t_id==11){
                 <div id=topnav-container>
                     <a href="../main.php">홈</a>
                     <a href="./topic/index.php">주제</a>
-                    <a href="../workboard.php">워크<br>보드</a>
+                    <a href="../workboard.php">워크보드</a>
                     <a href="../feed/index.php">피드</a>
                 </div>
             </nav>
         </div>
         <!-- Contents_Home //most views, hot gallaries, hot artists -->
        
-        <main id="workboard" class="popular_contents">
+        <main id="workboard" class="popular_contents topicboard">
         
             <div class="popular_works">
                 <div class="works-header" style="display:flex;">
@@ -93,9 +93,23 @@ if(!isset($t_id) || $t_id==11){
                         
                     </label>
                 </div>
-                
+                <?php
+                    $query="SELECT COUNT(*) as cnt FROM user INNER JOIN work ON user.u_id=work.u_id WHERE work.t_id={$t_id}";
+                    $result=mysqli_query($db,$query);
+                    $row=mysqli_fetch_assoc($result);
+                    $cnt=$row['cnt'];
+                    if($cnt==0){
+                            
+                            echo "<div class='msg'>작품이 존재하지 않습니다.<br>해당 주제로 첫 게시글을 올리는 주인공이 되어보세요!<br><br>
+                                    <a href='../user/write-work.php' class='bold'>글쓰기</a>
+                                </div>";
+                        
+                    }
+                    if($cnt!=0){
+                ?>
                 <div id="ajax" class="container_works">
                     <?php
+                       
                         $query="SELECT user.nickname, work.* FROM user INNER JOIN work ON user.u_id=work.u_id WHERE work.t_id={$t_id} ORDER BY update_date DESC LIMIT 20";
                         $result=mysqli_query($db, $query) or die("work select fails".mysqli_error($db));
                         while($row=mysqli_fetch_assoc($result)){
@@ -110,6 +124,7 @@ if(!isset($t_id) || $t_id==11){
                             $s_id=$row['s_id'];
                             $update_date=$row['update_date'];
                             $nickname=$row['nickname'];
+                        
 
                     ?>
                         <a href="../work.php?id=<?php echo "{$w_id}"?>" class="mason-item">
@@ -130,6 +145,8 @@ if(!isset($t_id) || $t_id==11){
                     ?>
 
                 </div>
+                <?php } ?>
+                
             </div>
             
 

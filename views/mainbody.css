@@ -1,6 +1,18 @@
 :root{
     --theme-color:rgb(191, 216, 238);
   }
+  .msg{
+    text-align: center;
+    margin : 173px auto;
+    background-color: rgb(255, 255, 255);
+    width:100%;
+  }
+main.topicboard .popular_works{
+    min-height:520px;
+}
+main.topicboard{
+    min-height:76%;
+}
 /* footer */
 footer{
     padding:20px;
@@ -47,7 +59,7 @@ main div.title{
     padding:10px;
     width:auto;
 }
-#workboard .text_content{
+#workboard .text_content, #main_popular.container_works .text_content{
     position:absolute;
     left:0;
     top:0;
@@ -61,25 +73,25 @@ main div.title{
     opacity:0;
     transition: opacity 0.25s;
 }
-#workboard .text_content:hover{
+#workboard .text_content:hover, #main_popular.container_works .text_content:hover{
     opacity:1;
 }
-#workboard .text_content *{
+#workboard .text_content *, #main_popular.container_works .text_content *{
     color:white;
 }
-#workboard .text_content .title{
+#workboard .text_content .title, #main_popular.container_works .text_content .title{
     font-size:1.1rem;
     margin-bottom:10px;
 }
-#workboard .text_content .artists::before{
+#workboard .text_content .artists::before, #main_popular.container_works .text_content .artists::before{
     content: "- ";
     color:white;
     
 }
-#workboard .text_content .artists{
+#workboard .text_content .artists, #main_popular.container_works .text_content .artists{
     margin-bottom:10px;
 }
-.text_content .sub_description{
+.text_content .sub_description, #main_popular.container_works .text_content .sub_description{
     display:flex;
 }
 
@@ -110,8 +122,9 @@ main div.title{
     display:block;
     padding:0px;
     margin: 0 auto;
-    width:100%;
+    width:auto;
     height: 233px;
+    position:relative;
 }
 #main_popular.container_works img{
     width:100%;
@@ -249,4 +262,26 @@ main div.title{
   
   .dd-menu li:hover {
     background-color: #f6f6f6;
+  }
+
+  /* gallary name */
+  .popular_exhibition .item{
+    height:300px;
+  }
+  .popular_exhibition img{
+    height:75%;
+  }
+  .popular_exhibition .gallary-text{
+    height:25%;
+    padding:10px;
+  }
+  .popular_exhibition .gallary-name{
+    font-size:1.0rem;
+  }
+  .popular_exhibition .gallary-author{
+    font-size:0.9rem;
+  }
+  .popular_exhibition .item{
+    text-align: center;
+    border:1px solid #c9c9c9;
   }

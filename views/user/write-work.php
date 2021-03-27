@@ -5,6 +5,7 @@ include "../../db.php";
 $profile_dir="../../temp/profile";
 if(!isset($_SESSION['u_id'])){
     echo "<script>alert('로그인이 필요합니다.'); location.href='../login.php';</script>";
+    exit();
 }
 else{
     $u_id=$_SESSION['u_id'];

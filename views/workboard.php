@@ -162,15 +162,16 @@ include "../db.php";
                                     $(".mason-item").css('display','block');
                                     $("#ajax").masonry('reloadItems');
                                     $('#ajax').masonry('layout');
-                                    sync=true;
+                                    
                                 });
                                
                             }
-                            
+                            sync=true;
                     
                             },
                             error : function(err){
                                 console.log(err);
+                                sync=true;
                             }
                         });
                     }

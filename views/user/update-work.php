@@ -137,7 +137,7 @@ else{
                       <input type="text" value="<?php echo "{$w_id}";?>" name="w_id" style="display:none;"></input>
                       <input type="text" value="<?php echo "{$s_id}";?>" name="s_id" style="display:none;"></input>
                       <input type="text" value="work" name="category" style="display:none;"></input>
-                      <input type="text" id="title" name="title" style="width:100%; height:40px; font-size:1.0rem; font-weight:700;" value="<?php echo "{$title}";?>" maxlength="40"></input>
+                      <input type="text" id="title" name="title" style="width:100%; height:40px; font-size:1.0rem; font-weight:700;" value='<?php echo "$title";?>' maxlength="40"></input>
                         <div class="file-upload" style="margin-bottom:10px;">
                             <div class="image-upload-wrap">
                                 <input class="file-upload-input" type='file' name="upload" onchange="readURL(this);" accept="image/*" />

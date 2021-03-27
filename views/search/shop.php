@@ -1,7 +1,9 @@
 <?php
     include "../../db.php";
+    $profile_dir="../../temp/profile";
+    $img_dir="../../temp";
     if(isset($_GET['query'])){
-        $query=$_GET['query'];
+        $squery=$_GET['query'];
     }
     else{
         echo "<script>history.back();</script>";
@@ -13,10 +15,12 @@
     <head>
             <meta charset="UTF-8">
             <title>모두화가</title>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
             <link rel="stylesheet" href="../header.css">
             <link rel="stylesheet" href="./index.css">
-            
+            <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
+            <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.js"></script>
             <meta name="description" content="우리 모두는 화가입니다.">
     </head>
     <body>
@@ -25,9 +29,9 @@
         <div id="header_all">
             <header class="page-header wrapper">
                 <div id=header_main>
-                    <h1 class="bold logo"><a href="main.php">모두화가</a></h1>
+                    <h1 class="bold logo"><a href="../main.php">모두화가</a></h1>
                     <form class="search-container" id="search-form" action="index.php" method="get" onsubmit="return checkSearch()">
-                        <input type="text" id="search-bar" name="query" maxlength="100" placeholder="오늘은 어떤 그림을 구경할래요?">
+                        <input type="text" id="search-bar" name="query" maxlength="100" value='<?php echo"{$squery}";?>' placeholder="오늘은 어떤 그림을 구경할래요?">
                         <button type="submit" class="searchButton">
                             <i class="fa fa-search"></i>
                         </button>
@@ -59,26 +63,26 @@
 
         <main id="search">
             <div id="search-header">
-                <div id="search-result">'<p id="search-word" class="bold">호랑이</p>'<p>&nbsp;에 대한 검색 결과</p></div>
+                <div id="search-result">'<p id="search-word" class="bold"><?php echo"{$squery}";?></p>'<p>&nbsp;에 대한 검색 결과</p></div>
                 <nav id="searchnav-container">
                     <form class="searchnav-link" action="./index.php" method="get">
-                        <input type="hidden" name="query" maxlength="100" value="<?php echo "{$query}";?>">
+                        <input type="hidden" name="query" maxlength="100" value='<?php echo"{$squery}";?>'>
                         <button type="submit">통합</button>
                     </form>
                     <form class="searchnav-link" action="./works.php" method="get">
-                        <input type="hidden" name="query" maxlength="100" value="<?php echo "{$query}";?>">
+                        <input type="hidden" name="query" maxlength="100" value='<?php echo"{$squery}";?>'>
                         <button type="submit">작품</button>
                     </form>
                     <form class="searchnav-link" action="./gallary.php" method="get">
-                        <input type="hidden" name="query" maxlength="100" value="<?php echo "{$query}";?>">
+                        <input type="hidden" name="query" maxlength="100" value='<?php echo"{$squery}";?>'>
                         <button type="submit">갤러리</button>
                     </form>
                     <form class="searchnav-link" action="./artists.php" method="get">
-                        <input type="hidden" name="query" maxlength="100" value="<?php echo "{$query}";?>">
+                        <input type="hidden" name="query" maxlength="100" value='<?php echo"{$squery}";?>'>
                         <button type="submit">작가</button>
                     </form>
                     <form class="searchnav-link" action="./shop.php" method="get">
-                        <input type="hidden" name="query" maxlength="100" value="<?php echo "{$query}";?>">
+                        <input type="hidden" name="query" maxlength="100" value='<?php echo"{$squery}";?>'>
                         <button type="submit">상점</button>
                     </form>
                 </nav>
@@ -86,18 +90,23 @@
                 <div class="wrapper" id="works-wrapper">
                     <div class="search-title">
                         <div class="titleinfo">
+                        <?php
+                            $result=mysqli_query($db, "select count(*) as cnt from shop inner join work on shop.w_id=work.w_id inner join user on work.u_id=user.u_id where user.nickname like '%{$squery}%' or work.title like '%{$squery}%' or work.description like '%{$squery}%'");
+                            $row=mysqli_fetch_assoc($result);
+                            $cnt=$row['cnt'];
+                        ?>
                             <p class="bold maininfo">판매 작품</p>
-                            <p id="gallarycnt">528</p>
+                            <p id="gallarycnt"><?php echo "{$cnt}"; ?></p>
                             <label class="dropdown">
 
                                 <div class="dd-button">
-                                  인기 순
+                                  최신 순
                                 </div>
                               
                                 <input type="checkbox" class="dd-input" id="test">
                               
                                 <ul class="dd-menu">
-                                  <li>최신 순</li>
+                                  <li>인기 순</li>
                                   <li>1주일 내</li>
                                   <li>1달 내</li>
                                   <li>1년 내</li>
@@ -106,88 +115,32 @@
                               </label>
                         </div>
                     </div>
-                    
-                        <div class="works-container" id=shop-container>
-                            <a href="#" class="item" >
-                                <img src="../../resources/starry_night.jpg" alt="호랑이가 빛나는 밤">
+                    <?php if($cnt ==0){
+                        echo "<div class='msg'>검색 결과가 존재하지 않습니다.</div>";
+                    } ?>
+                        <div class="container_works" id=shop-container>
+                            <?php if($cnt!=0){
+                                $query="select shop.*, work.image, work.title, work.w_id, work.update_date, shop.price, user.nickname from shop inner join work on shop.w_id=work.w_id inner join user on work.u_id=user.u_id where user.nickname like '%{$squery}%' or work.title like '%{$squery}%' or work.description like '%{$squery}%' order by work.update_date desc limit 20";
+                                $result=mysqli_query($db, $query) or die("작가 불러오기 실패.".mysqli_error($db));    
+                                while($row=mysqli_fetch_assoc($result)){
+                                    $sw_id=$row['w_id'];
+                                    $su_name=$row['nickname'];
+                                    $stitle=$row['title'];
+                                    $simage=$row['image'];
+                                    $price=$row['price'];
+                            ?>
+                            <a href="#" class="mason-item">
+                                <img src="<?php echo "{$img_dir}"; ?>/<?php echo "{$simage}"; ?>" alt=<?php echo "{$simage}"; ?>>
                                 <div class="goods-info">
-                                    <p id="title-value">호랑이가 빛나는 밤</p>
+                                    <p id="title-value"><?php echo "{$stitle}"; ?></p>
                                     <div class="subinfo">
-                                        <div class="price"><p class="bold" id="price-value">15000</p>&nbsp;원</div>
-                                        <div class="artist">작가&nbsp;<p id="artist-value">발밤발밤</p></div>
+                                        <div class="price"><p class="bold" id="price-value"><?php echo "{$price}"; ?></p>&nbsp;원</div>
+                                        <div class="artist">작가&nbsp;<p id="artist-value"><?php echo "{$su_name}"; ?></p></div>
                                     </div>
                                 </div>
                             </a>
-                            <a href="#" class="item" >
-                                <img src="../../resources/starry_night.jpg" alt="호랑이가 빛나는 밤">
-                                <div class="goods-info">
-                                    <p id="title-value">호랑이가 빛나는 밤</p>
-                                    <div class="subinfo">
-                                        <div class="price"><p class="bold" id="price-value">15000</p>&nbsp;원</div>
-                                        <div class="artist">작가&nbsp;<p id="artist-value">발밤발밤</p></div>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="item" >
-                                <img src="../../resources/starry_night.jpg" alt="호랑이가 빛나는 밤">
-                                <div class="goods-info">
-                                    <p id="title-value">호랑이가 빛나는 밤</p>
-                                    <div class="subinfo">
-                                        <div class="price"><p class="bold" id="price-value">15000</p>&nbsp;원</div>
-                                        <div class="artist">작가&nbsp;<p id="artist-value">발밤발밤</p></div>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="item" >
-                                <img src="../../resources/starry_night.jpg" alt="호랑이가 빛나는 밤">
-                                <div class="goods-info">
-                                    <p id="title-value">호랑이가 빛나는 밤</p>
-                                    <div class="subinfo">
-                                        <div class="price"><p class="bold" id="price-value">15000</p>&nbsp;원</div>
-                                        <div class="artist">작가&nbsp;<p id="artist-value">발밤발밤</p></div>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="item" >
-                                <img src="../../resources/starry_night.jpg" alt="호랑이가 빛나는 밤">
-                                <div class="goods-info">
-                                    <p id="title-value">호랑이가 빛나는 밤</p>
-                                    <div class="subinfo">
-                                        <div class="price"><p class="bold" id="price-value">15000</p>&nbsp;원</div>
-                                        <div class="artist">작가&nbsp;<p id="artist-value">발밤발밤</p></div>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="item" >
-                                <img src="../../resources/starry_night.jpg" alt="호랑이가 빛나는 밤">
-                                <div class="goods-info">
-                                    <p id="title-value">호랑이가 빛나는 밤</p>
-                                    <div class="subinfo">
-                                        <div class="price"><p class="bold" id="price-value">15000</p>&nbsp;원</div>
-                                        <div class="artist">작가&nbsp;<p id="artist-value">발밤발밤</p></div>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="item" >
-                                <img src="../../resources/starry_night.jpg" alt="호랑이가 빛나는 밤">
-                                <div class="goods-info">
-                                    <p id="title-value">호랑이가 빛나는 밤</p>
-                                    <div class="subinfo">
-                                        <div class="price"><p class="bold" id="price-value">15000</p>&nbsp;원</div>
-                                        <div class="artist">작가&nbsp;<p id="artist-value">발밤발밤</p></div>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="item" >
-                                <img src="../../resources/starry_night.jpg" alt="호랑이가 빛나는 밤">
-                                <div class="goods-info">
-                                    <p id="title-value">호랑이가 빛나는 밤</p>
-                                    <div class="subinfo">
-                                        <div class="price"><p class="bold" id="price-value">15000</p>&nbsp;원</div>
-                                        <div class="artist">작가&nbsp;<p id="artist-value">발밤발밤</p></div>
-                                    </div>
-                                </div>
-                            </a>
+                            <?php } } ?>
+                            
                         </div>
                     
                 </div>
@@ -197,7 +150,63 @@
         </main>
 
 
+        <script src="../js/input_limit.js"></script>
+        <script src="../js/masonry.js"></script>
+        <script type="text/javascript"> 
+            var next_page=2;
+            var sync=true;
+            $(window).on('load',function(){
+                $(document).on("scroll", function(){
+                    console.log("Scroll event");
+                    if($(document).height()<=$(window).scrollTop()+$(window).height()+80 && sync==true){
+                        sync=false;
+                        $.ajax({
+                            url: "../ajax/search/ajax-sshop.php",
+                            type: "POST",
+                            dataType:'json',
+                            data: {
+                                'page':next_page,
+                                'squery':<?php echo "'{$squery}'"; ?>
+                            },
+                            success : function(data){
+                                next_page+=1;
+                                if(data.length!=0){
+                                    console.log(next_page);
+                                    $.each(data,function(key,val){
+                                        var $elem=
+                                            "<a href='#' class='mason-item' style='display:none;'>"
+                                            +"<img class='mason-image' src='../../temp/"+val.image+"' alt="+val.image+">"
+                                            +"<div class='goods-info'>"
+                                            +"<p id='title-value'>"+val.title+"</p>"
+                                            +"<div class='subinfo'>"
+                                            +"<div class='price'><p class='bold' id='price-value'>"+val.price+"</p>&nbsp;원</div>"
+                                            +"<div class='artist'>작가&nbsp;<p id='artist-value'>"+val.su_name+"</p></div>"
+                                            +"</div></div></a>"
+                                            $("#ajax").append($elem);
+                                            
+                                    });
+                                    $('#ajax').imagesLoaded(function(){
+                                        $(".mason-item").css('display','block');
+                                        $("#ajax").masonry('reloadItems');
+                                        $('#ajax').masonry('layout');
+                                        
+                                    });
+                                
+                                }
+                                sync=true;
+                    
+                            },
+                            error : function(err){
+                                console.log(err);
+                                sync=true;
+                            }
+                        });
+                    }
+                });
+            });
+            
 
+        </script>
         
     </body>
 </html>

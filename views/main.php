@@ -6,6 +6,7 @@
     <head>
             <meta charset="UTF-8">
             <title>모두화가</title>
+            <script src="https://kit.fontawesome.com/03b31c0e0f.js" crossorigin="anonymous"></script>
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
             <link rel="stylesheet" href="header.css">
             <link rel="stylesheet" href="mainbody.css">
@@ -54,51 +55,76 @@
             <div class="popular_works">
                 <a class="title medium" href="#">인기 작품</a>
                 <div id="main_popular"class="container_works">
-                    <a href="#"><img src="../resources/starry_night.jpg" alt="별이 빛나는 밤"></a>
-                    <a href="#"><img src="../resources/tiger.jpg" alt="호랑이"></a>
-                    <a href="#"><img src="../resources/23identity.jpg" alt="다중인격"></a>
-                    <a href="#"><img src="../resources/forest.jpg" alt="숲"></a>
-                    <a href="#"><img src="../resources/superrealistic.jpg" alt="초현실"></a>
-                    <a href="#"><img src="../resources/wolf.jpg" alt="늑대"></a>
-                    <a href="#"><img src="../resources/withchild.jpg" alt="아이와함께"></a>
-                    <a href="#"><img src="../resources/moon_in_yard.jpg" alt="초원의달"></a>
+                    <?php
+                        $query="select work.*, user.nickname from work inner join user on user.u_id=work.u_id order by views+comments+likes desc limit 8";
+                        $result=mysqli_query($db, $query) or die("작품 인기순 집계 실패.".mysqli_error($db));
+                        while($row=mysqli_fetch_assoc($result)){
+                            $title=$row['title'];
+                            $nickname=$row['nickname'];
+                            $likes=$row['likes'];
+                            $comments=$row['comments'];
+                            $image=$row['image'];
+                            $w_id=$row['w_id'];
+                    ?>
+                    <a href="./work.php?id=<?php echo "{$w_id}";?>">
+                        <img src="../temp/<?php echo "{$image}"; ?>" alt="<?php echo "{$image}"; ?>">
+                        <div class="text_content">
+                                <p class="title"><?php echo "{$title}"; ?></p>
+                                <p class="artists"><?php echo "{$nickname}"; ?></p>
+                                <div class="sub_desciption">
+                                    <i class="fas fa-heart"></i>
+                                    <span class="likes"><?php echo "{$likes}"; ?></span>&nbsp;&nbsp;
+                                    <i class="fas fa-comment"></i>
+                                    <span class="comments"><?php echo "{$comments}"; ?></span>
+                                </div>
+                        </div>
+                    </a>
+                    <?php } ?>
                 </div>
             </div>
             <div class="popular_sub">
                 <div class="popular_artists">
                     <div class="title medium">인기 작가</div>
                     <ul class="container_artists">
+                    <?php
+                        $query="select user.u_id, user.nickname, user.profile, user.photo from user order by subscribers desc, works desc limit 3";
+                        $result=mysqli_query($db, $query) or die("작가 인기순 집계 실패.".mysqli_error($db));
+                        while($row=mysqli_fetch_assoc($result)){
+                            $author=$row['nickname'];
+                            $photo=$row['photo'];
+                            $u_id=$row['u_id'];
+                            $profile=$row['profile'];
+                    ?>
                         <li>
-                            <img src="../resources/arab.jpg" al="발밤프로필">
+                            <img src="../temp/profile/<?php echo "{$photo}";?>" al="<?php echo "{$photo}";?>">
                             <div class=artists_text>
-                                <a href="#"><p class="username bold">발밤</p></a>
-                                <p class="user_intro">유화, 수채화를 그리는 발밤입니다. :D</p>
+                                <a href="./user/other.php?id=<?php echo "{$u_id}";?>"><p class="username bold"><?php echo "{$author}";?></p></a>
+                                <p class="user_intro"><?php echo "{$profile}";?></p>
                             </div>
                         </li>
-                        <li>
-                            <img src="../resources/judo.png" al="이연프로필">
-                            <div class=artists_text>
-                                <a href="#"><p class="username bold">이연</p></a>
-                                <p class="user_intro">수채화, 펜화를 그립니다.</p>
-                            </div>
-                        </li>
-                        <li>
-                            <img src="../resources/judo2.PNG" al="노마드프로필">
-                            <div class=artists_text>
-                                <a href="#"><p class="username bold">노마드</p></a>
-                                <p class="user_intro">일러스트레이터, 포토샵 전문 작가 노마드입니다. :D</p>
-                            </div>
-                        </li>
+                        <?php } ?>
                     </ul>
                 </div>
                 <div class="popular_exhibition">
-                    <div class="title medium">인기 갤러리</div>
+                    <div class="title medium">랜덤 추천 갤러리</div>
+                    
                     <div class="contatiner_exhibition">
-                        <a href="#"><img src="../resources/last_farewell.jpg" al="마지막인사"></a>
-                        <a href="#"><img src="../resources/spiekermann.jpg" al="스피커맨"></a>
-                        <a href="#"><img src="../resources/art_festival.jpg" al="미술축제"></a>
-                        <a href="#" class="button bold">MORE</a>
+                    <?php
+                        $query="select gallary.*, user.u_id, user.nickname from gallary inner join user on gallary.u_id=user.u_id where title not in ('All') order by rand() limit 3";
+                        $result=mysqli_query($db,$query) or die("랜덤 추천 갤러리 조회 실패.".mysqli_error($db));
+                        while($row=mysqli_fetch_assoc($result)){
+                            $gu_id=$row['u_id'];
+                            $g_id=$row['g_id'];
+                            $thumbnail=$row['thumbnail'];
+                            $gallary_title=$row['title'];
+                            $gauthor=$row['nickname'];
+                    ?>
+                        <a href="./user/gallaryo.php?id=<?php echo "{$gu_id}"?>&idx=<?php echo "{$g_id}"?>" class="item"><img src="../temp/gallarythumb/<?php echo "{$thumbnail}"?>" alt=<?php echo "{$gallary_title}"?>>
+                        <div class="gallary-text"><p class="gallary-name bold" id="gallary-name-default"><?php echo "{$gallary_title}"?></p><p class="gallary-author"><?php echo "{$gauthor}" ?></p></div>
+                        </a>
+                    <?php } ?>
                     </div>
+                    
                 </div>
             </div>
 
