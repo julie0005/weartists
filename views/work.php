@@ -225,7 +225,8 @@ else{
                                                         <?php
                                                             $query2="select count(*) as cnt from ccomment where c_id={$c_id}";
                                                             $result2=mysqli_query($db,$query2) or die("ccomment count fails".mysqli_error($db));
-                                                            if(mysqli_num_rows($result2)!=0){
+                                                            $row2=mysqli_fetch_assoc($result2);
+                                                            if($row2['cnt']!=0){
                                                         ?>
                                                         <button type="button" class="seeccomments medium" value="<?php echo "{$c_id}";?>">답글 보기</button>
                                                         <?php }?>
