@@ -122,7 +122,7 @@
                     } ?>
                     <div id="ajax" class="container_works">
                         <?php
-                            $query="SELECT user.nickname, work.* FROM user INNER JOIN work ON user.u_id=work.u_id where work.title like '%{$squery}%' or work.description like '%{$squery}' or user.nickname like '%{$squery}' ORDER BY update_date DESC LIMIT 20";
+                            $query="SELECT user.nickname, work.* FROM user INNER JOIN work ON user.u_id=work.u_id where work.title like '%{$squery}%' or work.description like '%{$squery}%' or user.nickname like '%{$squery}%' ORDER BY update_date DESC LIMIT 20";
                             $result=mysqli_query($db, $query) or die("work select fails".mysqli_error($db));
                             while($row=mysqli_fetch_assoc($result)){
                                 $w_id=$row['w_id'];

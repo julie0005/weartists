@@ -138,8 +138,8 @@
                                             <button class="dd-button subscribebtn" style="width:80px; margin-top:10px;" value=<?php echo "{$u_id}"?>>
                                                 <?php
                                                     if(isset($_SESSION['u_id'])){
-                                                        $result=mysqli_query($db, "SELECT * FROM subscription WHERE u_id={$_SESSION['u_id']} AND target_id={$u_id}") or die("구독 조회 실패.".mysqli_error($db));
-                                                        if(mysqli_num_rows($result)==0){
+                                                        $result2=mysqli_query($db, "SELECT * FROM subscription WHERE u_id={$_SESSION['u_id']} AND target_id={$u_id}") or die("구독 조회 실패.".mysqli_error($db));
+                                                        if(mysqli_num_rows($result2)==0){
                                                             echo "구독";
                                                             $substatus=0;
                                                         }

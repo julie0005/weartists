@@ -137,7 +137,7 @@ else{
                       <input type="text" value="<?php echo "{$w_id}";?>" name="w_id" style="display:none;"></input>
                       <input type="text" value="<?php echo "{$s_id}";?>" name="s_id" style="display:none;"></input>
                       <input type="text" value="work" name="category" style="display:none;"></input>
-                      <input type="text" id="title" name="title" style="width:100%; height:40px; font-size:1.0rem; font-weight:700;" value='<?php echo "$title";?>' maxlength="40"></input>
+                      <input type="text" id="title" name="title" style="width:100%; height:40px; font-size:1.0rem; font-weight:700;" value="<?php $string=htmlspecialchars($title); echo "$string"?>" maxlength="40"></input>
                         <div class="file-upload" style="margin-bottom:10px;">
                             <div class="image-upload-wrap">
                                 <input class="file-upload-input" type='file' name="upload" onchange="readURL(this);" accept="image/*" />
@@ -226,6 +226,10 @@ else{
         
         <script type="text/javascript" src="../js/update-work.js"></script>
         <script type="text/javascript" src="../js/input_limit.js"></script>
+        <script>
+            var entityMap = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;', '/': '&#x2F;', '`': '&#x60;', '=': '&#x3D;' }; 
+            function escapeHtml (string) { return String(string).replace(/[&<>"'`=\/]/g, function (s) { return entityMap[s]; })};
+        </script>
         <script type="text/javascript">
             let price_input=document.querySelector('.price-input');
             if($("input:radio[name='isShop']:checked").val()=="true"){

@@ -60,7 +60,7 @@ if(!isset($t_id) || $t_id==11){
             <nav class="top-nav bold">
                 <div id=topnav-container>
                     <a href="../main.php">홈</a>
-                    <a href="./topic/index.php">주제</a>
+                    <a href="./index.php">주제</a>
                     <a href="../workboard.php">워크보드</a>
                     <a href="../feed/index.php">피드</a>
                 </div>

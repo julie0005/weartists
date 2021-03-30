@@ -187,7 +187,7 @@ $paging=3;
                                 <?php }?>
                                 <!-- 쇼핑 -->
                                 
-                                <button type="button"><i class="fa fa-expand" aria-hidden="true"></i></button>
+                                <button type="button" class="expand" value="<?php echo "{$image_dir}/{$image}"?>"><i class="fa fa-expand" aria-hidden="true"></i></button>
                                 <!--  -->
                                 <?php if(isset($_SESSION['u_id']) && $_SESSION['u_id']==$authorid){?>
                                 <form method=POST action="../user/update-work.php">
@@ -227,8 +227,16 @@ $paging=3;
                     Here is Aside
                 </div>
             </aside>
+            <div class="modal" style="display:none;">
+                <div class="bg"></div>
+                <div class="modalBox">
+                    <img class="body-image" src=<?php echo "{$image_dir}/{$image}";?> alt="작품">
+                    <button class="closeBtn bold">X</button>
+                </div>
+            </div>
         </main>
        <script src="../js/input_limit.js"></script>
+       <script src="../js/expand.js"></script>
         <script>
             //좋아요 스크립트
             //동시 접속. 나와 나는 동시 접속이 안되지만 나와 타인은 동시 접속이 가능하게하려면..?
@@ -311,12 +319,14 @@ $paging=3;
                                     if(val.s_id!=''){
                                         $elem+="<a><i class='fa fa-shopping-bag' aria-hidden='true'></i></a>";
                                     }
-                                    $elem+="<button type='button'><i class='fa fa-expand' aria-hidden='true'></i></button>"
+                                    $elem+="<button type='button' class='expand' value='<?php echo "{$image_dir}/";?>"+val.image+"'><i class='fa fa-expand' aria-hidden='true'></i></button>"
                                         +"<p class='medium likeCount'>"+val.likes+" likes</p></div>"
                                         +"<div class='description'><p name='description'>"+val.description+"</p></div></article>"
                                         +"<div class='comments-container'><div class='comments-header'><div class='group'>"
                                         +"<a href='../work.php?id="+val.w_id+"#comments-loc'><h4 class='text'>View Comments<h4></a>"
-                                        +"<p class='count text regular'>"+val.comments+"</p></div></div></div>";
+                                        +"<p class='count text regular'>"+val.comments+"</p></div></div></div>"
+                                        +"</li>"
+
                                     $("section.feed ul").append($elem);                   
                                 });
                             }

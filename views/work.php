@@ -126,7 +126,7 @@ else{
                                 <div class="body-contents">
                                     <a href="#"><i class="fas fa-chevron-left"></i></a>
                                     <img class="body-image" src=<?php echo "{$image_dir}/{$image}";?> alt="작품">
-                                    <a href="#"><i class="fas fa-chevron-right"></i></a> 
+                                    <a href="#"><i class="fas fa-chevron-right"></i></a>
                                 </div>
                                 <div class="icon-bar">
                                     <?php
@@ -153,7 +153,7 @@ else{
                                     <?php }?>
                                     <!-- 쇼핑 -->
                                     
-                                    <button type="button"><i class="fa fa-expand" aria-hidden="true"></i></button>
+                                    <button type="button" class="expand" value="<?php echo "{$image_dir}/{$image}";?>"><i class="fa fa-expand" aria-hidden="true"></i></button>
                                     <!--  -->
                                     <?php if(isset($_SESSION['u_id']) && $_SESSION['u_id']==$u_id){?>
                                     <form method=POST action="./user/update-work.php">
@@ -237,6 +237,7 @@ else{
                                         </ul>
                                     </div>
                                 </div>
+                                
                         </li>
                     </ul>
                 </section>
@@ -248,9 +249,16 @@ else{
             </div>
         </main>
         
-        
+        <div class="modal" style="display:none;">
+            <div class="bg"></div>
+            <div class="modalBox">
+                <img class="body-image" src=<?php echo "{$image_dir}/{$image}";?> alt="작품">
+                <button class="closeBtn bold">X</button>
+            </div>
+        </div>
        <script src="./js/input_limit.js"></script>
        <script src="./js/comment.js"></script>
+       <script src="./js/expand.js"></script>
         <script>
             //동시 접속. 나와 나는 동시 접속이 안되지만 나와 타인은 동시 접속이 가능하게하려면..?
             var accessableCount=1;

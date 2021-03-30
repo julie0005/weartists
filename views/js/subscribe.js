@@ -1,6 +1,7 @@
 $(document).on('click','.subscribebtn',function(){
-        let target=$(this).value;
-        let substatus=$(this).parents('li').children(".substatus").value;
+        let btn=$(this);
+        let target=$(this).attr('value');
+        let substatus=$(this).find(".substatus").attr('value');
         $.ajax({
             url:"../ajax/ajax-subscribe.php",
             type:'POST',
@@ -17,13 +18,12 @@ $(document).on('click','.subscribebtn',function(){
                     }
                     if(data[0].subscribe){
                         //구독 -> 구독중 (구독완료)
-                        $(this).html("구독중"+"<input type='text' style='display:none;' class='substatus' value='1'></input>");
-                        
+                        btn.html("구독중"+"<input type='text' style='display:none;' class='substatus' value='1'></input>");
                         alert(data[0].target+" 님을 구독하였습니다.");
                     }
                     else{
                         //구독중 -> 구독 (구독취소)
-                        $(this).html("구독"+"<input type='text' style='display:none;' class='substatus' value='0'></input>");
+                        btn.html("구독"+"<input type='text' style='display:none;' class='substatus' value='0'></input>");
                         alert(data[0].target+" 님을 구독 취소하였습니다.");
                     }
                 }

@@ -2,7 +2,7 @@
 function checkSearch(){
     let searchcontent=document.querySelector("#search-bar").value;
     document.querySelector("#search-bar").value=searchcontent.replace(/(<([^>]+)>)/ig,'');
-    document.querySelector("#search-bar").value=document.querySelector("#search-bar").value.replace(/[^0-9a-zㄱ-ㅎㅏ-ㅣ가-힣\(\)\^\!\?\:\s'"]/gi,'');
+    document.querySelector("#search-bar").value=document.querySelector("#search-bar").value.replace(/[^0-9a-zㄱ-ㅎㅏ-ㅣ가-힣\(\)\^\!\?\:\s]/gi,'');
     if(document.querySelector("#search-bar").value=='') return false;
     console.log('user searches for '+searchcontent);
     return true;

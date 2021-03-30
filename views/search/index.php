@@ -31,7 +31,7 @@
                 <div id=header_main>
                     <h1 class="bold logo"><a href="../main.php">모두화가</a></h1>
                     <form class="search-container" id="search-form" action="index.php" method="get" onsubmit="return checkSearch()">
-                        <input type="text" id="search-bar" name="query" maxlength="100" value='<?php echo"{$squery}";?>' placeholder="오늘은 어떤 그림을 구경할래요?">
+                        <input type="text" id="search-bar" name="query" maxlength="100" value="<?php echo htmlspecialchars($squery);?>" placeholder="오늘은 어떤 그림을 구경할래요?">
                         <button type="submit" class="searchButton">
                             <i class="fa fa-search"></i>
                         </button>
