@@ -200,6 +200,9 @@ if(!isset($t_id) || $t_id==11){
                                 });
                                
                             }
+                            else{
+                                sync=true;
+                            }
                             
                     
                             },

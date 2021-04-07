@@ -323,13 +323,15 @@ if(isset($_GET['idx'])){
                                         $(".mason-item").css('display','block');
                                         $("#ajax").masonry('reloadItems');
                                         $('#ajax').masonry('layout');
-                                        
+                                        sync=true;
                                         
                                     });
                                 
                                 }
+                                else{
+                                    sync=true;
+                                }
                                 
-                                sync=true;
                     
                             },
                             error : function(err){

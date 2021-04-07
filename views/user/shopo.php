@@ -220,11 +220,13 @@ else{
                                         $("#ajax").masonry('reloadItems');
                                         $('#ajax').masonry('layout');
                                         
-                                        
+                                        sync=true;
                                     });
                                 
                                 }
-                                sync=true;
+                                else{
+                                    sync=true;
+                                }
                     
                             },
                             error : function(err){

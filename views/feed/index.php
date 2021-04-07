@@ -330,8 +330,12 @@ $paging=3;
 
                                     $("section.feed ul").append($elem);                   
                                 });
+                                sync=true;
                             }
-                            sync=true;
+                            else{
+                                sync=true;
+                            }
+                            
                             $('.like').off('dblclick').dblclick(likeClick);
                             },
                             error : function(err){

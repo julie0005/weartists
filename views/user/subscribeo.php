@@ -197,9 +197,13 @@ else{
                                     });
                                     $('#ajax').imagesLoaded(function(){
                                         $("li.subitem").css('display','block');
+                                        sync=true;
                                     });
                                 }
-                                sync=true;
+                                else{
+                                    sync=true;
+                                }
+                                
                     
                             },
                             error : function(err){
