@@ -10,8 +10,8 @@
         exit();
     }
    
-    //default : 최신순
-    $ordercd="update_date";
+    //default : 인기 순
+    $ordercd="views+comments+likes";
 
     //$andcd="work.update_date>date_add(now().internal-1 year";
     
@@ -108,7 +108,7 @@
                             <label class="dropdown">
 
                                 <div class="dd-button">
-                                <li class='recent' value=''>최신 순</li>
+                                <li class='popular' value=''>인기 순</li>
                                 </div>
                               
                                 <input type="checkbox" class="dd-input" id="test">
@@ -129,9 +129,9 @@
                     } ?>
                     <div id="ajax" class="container_works">
                         <?php
-                            $query="SELECT user.nickname, work.* FROM user INNER JOIN work ON user.u_id=work.u_id where work.title like '%{$squery}%' or work.description like '%{$squery}%' or user.nickname like '%{$squery}%'";
+                            $query="SELECT user.nickname, work.* FROM user INNER JOIN work ON user.u_id=work.u_id where work.title like '%{$squery}%' or work.description like '%{$squery}%' or user.nickname like '%{$squery}%' ";
                             if(isset($andcd)){
-                                $query.="and {$andcd}";
+                                $query.="and {$andcd} ";
                             }
                             $query.="order by {$ordercd} desc limit 20";
                             $result=mysqli_query($db, $query) or die("work select fails".mysqli_error($db));
@@ -175,8 +175,11 @@
         <script src="../js/input_limit.js"></script>
         <script src="../js/masonry.js"></script>
         <script type="text/javascript">
+            //필터
+            var next_page=2;
+            var syncf=false;
             $(document).on('click','#filter li',function(){
-                var sync=true;
+                var syncf=true;
                 let btn=$(this);
                 let date=$(this).attr('value');
                 let btnc=$(this).clone();
@@ -197,19 +200,48 @@
                     },
                     success:function(data){
                         //여기서 container 안에 내용 비우고, ajax로 가져온 데이터로 대체하기.
+                        next_page=2;
+                        $('#ajax').empty();
+                        if(data.length!=0){
+                            $.each(data,function(key,val){
+                                var $elem=
+                                    "<a href='./work.php?id="+val.w_id+"' class='mason-item' style='display:none;'>"
+                                    +"<img class='mason-image' src='../../temp/"+val.image+"' alt="+val.image+">"
+                                    +"<div class='text_content'>"
+                                    +"<p class='title'>"+val.title+"</p>"
+                                    +"<p class='artists'>"+val.nickname+"</p>"
+                                    +"<div class='sub_description'>"
+                                    +"<i class='fas fa-heart'></i>&nbsp;"
+                                    +"<span class='likes'>"+val.likes+"</span>&nbsp;&nbsp;"
+                                    +"<i class='fas fa-comment'></i>&nbsp;"
+                                    +"<span class='comments'>"+val.comments+"</span>"
+                                    +"</div></div></a>";
+                                    $("#ajax").append($elem);
+                                    
+                            });
+                            $('#ajax').imagesLoaded(function(){
+                                $(".mason-item").css('display','block');
+                                $("#ajax").masonry('reloadItems');
+                                $('#ajax').masonry('layout');
+                                syncf=true;
+                            });
+                            
+                        }
+                        else{
+                            syncf=true;
+                        }
+                        
                     },
                     error:function(err){
                         console.log(err);
+                        syncf=true;
                     }
 
                 });
 
             });
 
-        </script>
-        <script type="text/javascript">
-        //페이징
-            var next_page=2;
+            //페이징
             var sync=true;
             $(window).scrollTop(200);
             $(window).on('load',function(){
@@ -228,7 +260,7 @@
                                 'page':next_page,
                                 'squery':<?php echo "'{$squery}'"; ?>,
                                 'orderby':classify,
-                                'date':date
+                                'datelimit':date
                             },
                             success : function(data){
                            
@@ -254,11 +286,14 @@
                                     $(".mason-item").css('display','block');
                                     $("#ajax").masonry('reloadItems');
                                     $('#ajax').masonry('layout');
+                                    sync=true;
                                     
                                 });
                                
                             }
-                            sync=true;
+                            else{
+                                sync=true;
+                            }
                     
                             },
                             error : function(err){
@@ -269,7 +304,6 @@
                     }
                 });
             });
-            
 
         </script>
         

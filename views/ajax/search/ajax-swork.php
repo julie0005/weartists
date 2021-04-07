@@ -10,7 +10,7 @@
     else{
         $orderby='update_date';
     }
-    $date=$_POST['date'];
+    $date=$_POST['datelimit'];
     $query="SELECT user.nickname, work.* FROM user INNER JOIN work ON user.u_id=work.u_id where work.title like '%{$squery}%' or work.description like '%{$squery}%' or user.nickname like '%{$squery}%' ";
     if($date!=''){
         $query.="and work.update_date>date_add(now(),interval-{$date})";
