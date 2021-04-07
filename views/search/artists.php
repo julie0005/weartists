@@ -9,6 +9,10 @@
         echo "<script>history.back();</script>";
         exit();
     }
+    //default : 인기 순
+    $ordercd="subscribers desc, works desc";
+
+    //$andcd="work.update_date>date_add(now().internal-1 year";
 ?>
 <!DOCTYPE html>
 <html lang="ko">
@@ -19,7 +23,7 @@
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
             <link rel="stylesheet" href="../header.css">
             <link rel="stylesheet" href="./index.css">
-            
+            <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.js"></script>
             <meta name="description" content="우리 모두는 화가입니다.">
     </head>
     <body>
@@ -100,16 +104,17 @@
                             <label class="dropdown">
 
                                 <div class="dd-button">
-                                  최신 순
+                                <li class='popular' value=''>인기 순</li>
                                 </div>
                               
                                 <input type="checkbox" class="dd-input" id="test">
                               
-                                <ul class="dd-menu">
-                                  <li>인기 순</li>
-                                  <li>1주일 내</li>
-                                  <li>1달 내</li>
-                                  <li>1년 내</li>
+                                <ul id="filter" class="dd-menu">
+                                  <li class='recent' value=''>최신 순</li>
+                                  <li class='popular' value=''>인기 순</li>
+                                  <li class='limit' value='1 week'>1주일 내</li>
+                                  <li class='limit' value='1 month'>1달 내</li>
+                                  <li class='limit' value='1 year'>1년 내</li>
                                 </ul>
                                 
                               </label>
@@ -121,7 +126,11 @@
                         <div class="works-container-wrapper">
                             <ul id="subscribe" class="works-container ajax">
                                 <?php if($cnt!=0){
-                                    $query="select photo, u_id, nickname, profile,subscribers from user where nickname like '%{$squery}%' or profile like '%{$squery}%' order by create_date desc limit 20";
+                                    $query="select photo, u_id, nickname, profile,subscribers from user where nickname like '%{$squery}%' or profile like '%{$squery}%' ";
+                                    if(isset($andcd)){
+                                        $query.="and {$andcd} ";
+                                    }
+                                    $query.="order by {$ordercd} limit 20";
                                     $result=mysqli_query($db, $query) or die("작가 불러오기 실패.".mysqli_error($db));    
                                     while($row=mysqli_fetch_assoc($result)){
                                         $user_photo=$row['photo'];
@@ -172,21 +181,92 @@
         <script src="../js/input_limit.js"></script>
         <script src="../js/subscribe.js"></script>
         <script>
-            // infinite scroll
-            //구독 폴더 infinite scroll.  
+            //필터
             var next_page=2;
+            var syncf=true;
+            $(document).on('click','#filter li',function(){
+                if(syncf==false) return;
+                var syncf=false;
+                let btn=$(this);
+                let date=$(this).attr('value');
+                let btnc=$(this).clone();
+                let classify=btn.attr('class');
+                if(btn.text()==btn.parents('.dropdown').find('.dd-button li').text()){
+                    return;
+                }
+                btn.parents('.dropdown').children('.dd-button').html(btnc);
+                $.ajax({
+                    url:"../ajax/search/ajax-ssub.php",
+                    type:"POST",
+                    dataType:'json',
+                    data:{
+                        'page':1,
+                        'squery':<?php echo "'{$squery}'"; ?>,
+                        'orderby':classify,
+                        'datelimit':date
+                    },
+                    success:function(data){
+                        //여기서 container 안에 내용 비우고, ajax로 가져온 데이터로 대체하기.
+                        next_page=2;
+                        $('.ajax').empty();
+                        $('.msg').remove();
+                        if(data.length!=0){
+                            $.each(data,function(key,val){
+                                let substatus=0;
+                                var $elem=
+                                    "<li class='subitem' style='display:none;'><div><img src='../../temp/profile/"+val.t_image+"' class='artist-profile' alt='"+val.t_image+"'>"
+                                    +"<a href='./other.php?id="+val.target_id+"' class='artist-name bold'>"+val.t_name+"</a>"
+                                    +"<div class='artist-info'><div class='follower-info'><p class='artist-followers'>"+val.t_subscribers+"</p>&nbsp;구독자</div>"
+                                    +"<button class='dd-button subscribebtn' style='width:80px; margin-top:10px;' value="+val.target_id+">";
+                                if(val.subscribed){
+                                    $elem+="구독중";
+                                    substatus=1;
+                                }
+                                else{
+                                    $elem+="구독";
+                                    substatus=0;
+                                }
+                                $elem+="<input type='text' style='display:none;' class='substatus' value='"+substatus+"'></input>"
+                                    +"</button></div></div></li>";
+                                    $(".ajax").append($elem);
+
+                            });
+                            $('.ajax').imagesLoaded(function(){
+                                $("li.subitem").css('display','block');
+                                syncf=true;
+                            });
+                        }
+                        else{
+                            $("<div class='msg'>검색 결과가 존재하지 않습니다.</div>").insertBefore('.works-container-wrapper');
+                            syncf=true;
+                        }
+                        
+                    },
+                    error:function(err){
+                        console.log(err);
+                        syncf=true;
+                    }
+
+                });
+
+            });
+            //페이징
             var sync=true;
             $(window).on('load',function(){
                 $(document).on("scroll", function(){
                     if($(document).height()<=$(window).scrollTop()+$(window).height()+80 && sync==true){
                         sync=false;
+                        let classify=$('.dropdown').find('.dd-button li').attr('class');
+                        let date=$('.dropdown').find('.dd-button li').attr('value');
                         $.ajax({
                             url: "../ajax/search/ajax-ssub.php",
                             type: "POST",
                             dataType:'json',
                             data: {
                                 'page':next_page,
-                                'squery':<?php echo "'{$squery}'"; ?>
+                                'squery':<?php echo "'{$squery}'"; ?>,
+                                'orderby':classify,
+                                'datelimit':date
                             },
                             success : function(data){
                                 
@@ -209,15 +289,19 @@
                                         }
                                         $elem+="<input type='text' style='display:none;' class='substatus' value='"+substatus+"'></input>"
                                             +"</button></div></div></li>";
-                                            $("#ajax").append($elem);
+                                            $(".ajax").append($elem);
 
                                     });
                                     $('.ajax').imagesLoaded(function(){
                                         $("li.subitem").css('display','block');
+                                        sync=true;
                                     });
                                     
                                 }
-                                sync=true;
+                                else{
+                                    sync=true;
+                                }
+                                
                     
                             },
                             error : function(err){

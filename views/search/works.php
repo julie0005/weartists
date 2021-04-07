@@ -177,9 +177,10 @@
         <script type="text/javascript">
             //필터
             var next_page=2;
-            var syncf=false;
+            var syncf=true;
             $(document).on('click','#filter li',function(){
-                var syncf=true;
+                if(syncf==false) return;
+                var syncf=false;
                 let btn=$(this);
                 let date=$(this).attr('value');
                 let btnc=$(this).clone();

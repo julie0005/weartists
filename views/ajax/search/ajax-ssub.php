@@ -4,7 +4,18 @@
     include "../../../db.php";
     $offset=($_POST['page']-1)*20;
     $squery=$_POST['squery'];
-    $query="select photo, u_id, nickname, profile,subscribers from user where nickname like '%{$squery}%' or profile like '%{$squery}%' order by create_date desc limit {$offset}, 20";
+    if($_POST['orderby']=="popular"){
+        $orderby='subscribers desc, works desc';
+    }
+    else{
+        $orderby='create_date desc';
+    }
+    $date=$_POST['datelimit'];
+    $query="select photo, u_id, nickname, profile,subscribers from user where (nickname like '%{$squery}%' or profile like '%{$squery}%') ";
+    if($date!=''){
+        $query.="and create_date>date_add(now(),interval-{$date}) ";
+    }
+    $query.="order by {$orderby} limit {$offset}, 20";
     $result=mysqli_query($db, $query) or die("subscribers select fails".mysqli_error($db));
     $arr=array();
     while($row=mysqli_fetch_assoc($result)){
@@ -13,7 +24,7 @@
         if(isset($_SESSION['u_id'])){
             $result2=mysqli_query($db, "SELECT COUNT(*) as cnt FROM subscription WHERE u_id={$_SESSION['u_id']} AND target_id={$u_id}") or die("구독 조회 실패.".mysqli_error($db));
             $row2=mysqli_fetch_assoc($result2);
-            $cnt=$row['cnt'];
+            $cnt=$row2['cnt'];
             if($cnt==0){
                 $object->subscribed=false;
             }
