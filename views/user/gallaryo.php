@@ -275,8 +275,9 @@ else{
                                 'u_id':<?php echo "{$u_id}"; ?>
                             },
                             success : function(data){
-                                next_page+=1;
+                                
                                 if(data.length!=0){
+                                    next_page+=1;
                                     console.log(next_page);
                                     $.each(data,function(key,val){
                                         var $elem=
@@ -326,8 +327,9 @@ else{
                                 'g_id':<?php echo "{$g_id}"; ?>
                             },
                             success : function(data){
-                                next_page+=1;
+                                
                                 if(data.length!=0){
+                                    next_page+=1;
                                     console.log(next_page);
                                     $.each(data,function(key,val){
                                         var $elem=

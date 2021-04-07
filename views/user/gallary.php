@@ -248,8 +248,9 @@ if(isset($_GET['idx'])){
                                 'u_id':<?php echo "{$u_id}"; ?>
                             },
                             success : function(data){
-                                next_page+=1;
+                                
                                 if(data.length!=0){
+                                    next_page+=1;
                                     console.log(next_page);
                                     $.each(data,function(key,val){
                                         var $elem=
@@ -299,9 +300,9 @@ if(isset($_GET['idx'])){
                                 'g_id':<?php echo "{$g_id}"; ?>
                             },
                             success : function(data){
-                                next_page+=1;
+                                
                                 if(data.length!=0){
-                                    
+                                    next_page+=1;
                                     $.each(data,function(key,val){
                                         var $elem=
                                             "<a href='../work.php?id="+val.w_id+"' class='mason-item' style='display:none;'>"

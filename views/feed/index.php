@@ -297,8 +297,9 @@ $paging=3;
                                 'paging':<?php echo "{$paging}";?>
                             },
                             success : function(data){
-                            next_page+=1;
+                            
                             if(data.length!=0){
+                                next_page+=1;
                                 $.each(data,function(key,val){
                                     var $elem=
                                         "<li><article class='gallary-container'><div class='post-info'><div class=post-maininfo>"

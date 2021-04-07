@@ -189,9 +189,9 @@
                                 'squery':<?php echo "'{$squery}'"; ?>
                             },
                             success : function(data){
-                                next_page+=1;
+                                
                                 if(data.length!=0){
-                                    
+                                    next_page+=1;
                                     $.each(data,function(key,val){
                                         let substatus=0;
                                         var $elem=
