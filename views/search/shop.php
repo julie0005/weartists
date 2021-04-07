@@ -9,6 +9,10 @@
         echo "<script>history.back();</script>";
         exit();
     }
+    //default : 인기 순
+    $ordercd="views+comments+likes";
+
+    //$andcd="work.update_date>date_add(now().internal-1 year";
 ?>
 <!DOCTYPE html>
 <html lang="ko">
@@ -100,16 +104,17 @@
                             <label class="dropdown">
 
                                 <div class="dd-button">
-                                  최신 순
+                                <li class='popular' value=''>인기 순</li>
                                 </div>
                               
                                 <input type="checkbox" class="dd-input" id="test">
                               
-                                <ul class="dd-menu">
-                                  <li>인기 순</li>
-                                  <li>1주일 내</li>
-                                  <li>1달 내</li>
-                                  <li>1년 내</li>
+                                <ul id="filter" class="dd-menu">
+                                  <li class='recent' value=''>최신 순</li>
+                                  <li class='popular' value=''>인기 순</li>
+                                  <li class='limit' value='1 week'>1주일 내</li>
+                                  <li class='limit' value='1 month'>1달 내</li>
+                                  <li class='limit' value='1 year'>1년 내</li>
                                 </ul>
                                 
                               </label>
@@ -118,9 +123,13 @@
                     <?php if($cnt ==0){
                         echo "<div class='msg'>검색 결과가 존재하지 않습니다.</div>";
                     } ?>
-                        <div class="container_works" id=shop-container>
+                        <div class="container_works ajax" id=shop-container>
                             <?php if($cnt!=0){
-                                $query="select shop.*, work.image, work.title, work.w_id, work.update_date, shop.price, user.nickname from shop inner join work on shop.w_id=work.w_id inner join user on work.u_id=user.u_id where user.nickname like '%{$squery}%' or work.title like '%{$squery}%' or work.description like '%{$squery}%' order by work.update_date desc limit 20";
+                                $query="select shop.*, work.*, user.nickname from shop inner join work on shop.w_id=work.w_id inner join user on work.u_id=user.u_id where user.nickname like '%{$squery}%' or work.title like '%{$squery}%' or work.description like '%{$squery}%'";
+                                if(isset($andcd)){
+                                    $query.="and {$andcd} ";
+                                }
+                                $query.="order by {$ordercd} desc limit 20";
                                 $result=mysqli_query($db, $query) or die("작가 불러오기 실패.".mysqli_error($db));    
                                 while($row=mysqli_fetch_assoc($result)){
                                     $sw_id=$row['w_id'];
@@ -153,20 +162,90 @@
         <script src="../js/input_limit.js"></script>
         <script src="../js/masonry.js"></script>
         <script type="text/javascript"> 
+            //필터
             var next_page=2;
+            var syncf=false;
+            $(document).on('click','#filter li',function(){
+                var syncf=true;
+                let btn=$(this);
+                let date=$(this).attr('value');
+                let btnc=$(this).clone();
+                let classify=btn.attr('class');
+                if(btn.text()==btn.parents('.dropdown').find('.dd-button li').text()){
+                    return;
+                }
+                btn.parents('.dropdown').children('.dd-button').html(btnc);
+                $.ajax({
+                    url: "../ajax/search/ajax-sshop.php",
+                    type:"POST",
+                    dataType:'json',
+                    data:{
+                        'page':1,
+                        'squery':<?php echo "'{$squery}'"; ?>,
+                        'orderby':classify,
+                        'datelimit':date
+                    },
+                    success:function(data){
+                        //여기서 container 안에 내용 비우고, ajax로 가져온 데이터로 대체하기.
+                        next_page=2;
+                        $('.ajax').empty();
+                        $('.msg').remove();
+                        if(data.length!=0){
+                            $.each(data,function(key,val){
+                                var $elem=
+                                "<a href='#' class='mason-item' style='display:none;'>"
+                                +"<img class='mason-image' src='../../temp/"+val.image+"' alt="+val.image+">"
+                                +"<div class='goods-info'>"
+                                +"<p id='title-value'>"+val.title+"</p>"
+                                +"<div class='subinfo'>"
+                                +"<div class='price'><p class='bold' id='price-value'>"+val.price+"</p>&nbsp;원</div>"
+                                +"<div class='artist'>작가&nbsp;<p id='artist-value'>"+val.su_name+"</p></div>"
+                                +"</div></div></a>"
+                                $(".ajax").append($elem);
+                                    
+                            });
+                            $('.ajax').imagesLoaded(function(){
+                                $(".mason-item").css('display','block');
+                                $(".ajax").masonry('reloadItems');
+                                $('.ajax').masonry('layout');
+                                syncf=true;
+                            });
+                            
+                        }
+                        else{
+                            $("<div class='msg'>검색 결과가 존재하지 않습니다.</div>").insertBefore('.ajax');
+                            syncf=true;
+                        }
+                        
+                    },
+                    error:function(err){
+                        console.log(err);
+                        syncf=true;
+                    }
+
+                });
+
+            });
+            
+            //페이징
             var sync=true;
             $(window).on('load',function(){
                 $(document).on("scroll", function(){
                     console.log("Scroll event");
                     if($(document).height()<=$(window).scrollTop()+$(window).height()+80 && sync==true){
                         sync=false;
+                        let classify=$('.dropdown').find('.dd-button li').attr('class');
+                        let date=$('.dropdown').find('.dd-button li').attr('value');
                         $.ajax({
                             url: "../ajax/search/ajax-sshop.php",
                             type: "POST",
                             dataType:'json',
                             data: {
                                 'page':next_page,
-                                'squery':<?php echo "'{$squery}'"; ?>
+                                'squery':<?php echo "'{$squery}'"; ?>,
+                                'orderby':classify,
+                                'datelimit':date
+                                 
                             },
                             success : function(data){
                                 
@@ -183,18 +262,21 @@
                                             +"<div class='price'><p class='bold' id='price-value'>"+val.price+"</p>&nbsp;원</div>"
                                             +"<div class='artist'>작가&nbsp;<p id='artist-value'>"+val.su_name+"</p></div>"
                                             +"</div></div></a>"
-                                            $("#ajax").append($elem);
+                                            $(".ajax").append($elem);
                                             
                                     });
-                                    $('#ajax').imagesLoaded(function(){
+                                    $('.ajax').imagesLoaded(function(){
                                         $(".mason-item").css('display','block');
-                                        $("#ajax").masonry('reloadItems');
-                                        $('#ajax').masonry('layout');
-                                        
+                                        $(".ajax").masonry('reloadItems');
+                                        $('.ajax').masonry('layout');
+                                        sync=true;
                                     });
                                 
                                 }
-                                sync=true;
+                                else{
+                                    sync=true;
+                                }
+                               
                     
                             },
                             error : function(err){

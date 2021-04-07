@@ -202,6 +202,7 @@
                         //여기서 container 안에 내용 비우고, ajax로 가져온 데이터로 대체하기.
                         next_page=2;
                         $('#ajax').empty();
+                        $('.msg').remove();
                         if(data.length!=0){
                             $.each(data,function(key,val){
                                 var $elem=
@@ -228,6 +229,7 @@
                             
                         }
                         else{
+                            $("<div class='msg'>검색 결과가 존재하지 않습니다.</div>").insertBefore('#ajax');
                             syncf=true;
                         }
                         
