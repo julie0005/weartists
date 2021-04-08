@@ -14,6 +14,9 @@ main.topicboard .popular_works{
 main.topicboard{
     min-height:76%;
 }
+main#workboard{
+    min-height:76%;
+}
 /* footer */
 footer{
     padding:20px;
@@ -47,7 +50,7 @@ main div.title{
     background: #ffffff;
     padding: 30px 30px 20px;
 }
-#workboard.popular_works{
+#workboard .popular_works{
     background: #ffffff;
 }
 #workboard .works-header{

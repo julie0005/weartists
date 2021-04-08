@@ -30,6 +30,7 @@
         $object->comments=$row['comments'];
         $object->u_id=$row['u_id'];
         $object->s_id=$row['s_id'];
+        $object->w_id=$w_id;
         $object->update_date=$row['update_date'];
         $object->nickname=$row['nickname'];
         $arr[]=$object;

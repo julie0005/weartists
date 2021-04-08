@@ -2,6 +2,10 @@
 error_reporting(E_ALL);
 ini_set("display_errors",1);
 include "../db.php";
+    //default : 인기 순
+    $ordercd="views+comments+likes";
+
+    //$andcd="work.update_date>date_add(now().internal-1 year";
 ?>
 <!DOCTYPE html>
 <html lang="ko">
@@ -61,27 +65,47 @@ include "../db.php";
         
             <div class="popular_works">
                 <div class="works-header">
+                <?php
+                    $query="SELECT COUNT(*) as cnt FROM user INNER JOIN work ON user.u_id=work.u_id ";
+                    if(isset($andcd)){
+                        $query.="and {$andcd} ";
+                    }
+                    $query.="ORDER BY {$ordercd} DESC LIMIT 20";
+                    $result=mysqli_query($db, $query) or die("work cnt fails".mysqli_error($db));
+                    $row=mysqli_fetch_assoc($result);
+                    $cnt=$row['cnt'];
+                ?>
                     <label class="dropdown">
 
-                        <div class="dd-button">
-                          최신순
+                    <div class="dd-button">
+                        <li class='popular' value=''>인기 순</li>
                         </div>
-                      
+                        
                         <input type="checkbox" class="dd-input" id="test">
-                      
-                        <ul class="dd-menu">
-                          <li>인기순</li>
-                          <li>1주일 내</li>
-                          <li>1달 내</li>
-                          <li>1년 내</li>
+                        
+                        <ul id="filter" class="dd-menu">
+                            <li class='recent' value=''>최신 순</li>
+                            <li class='popular' value=''>인기 순</li>
+                            <li class='limit' value='1 week'>1주일 내</li>
+                            <li class='limit' value='1 month'>1달 내</li>
+                            <li class='limit' value='1 year'>1년 내</li>
                         </ul>
                         
                     </label>
                 </div>
-                
+                <?php 
+                    if($cnt==0){
+                        echo "<div class='msg'>작품이 존재하지 않습니다.</div>";
+                    }
+                    else{
+                ?>
                 <div id="ajax" class="container_works">
                     <?php
-                        $query="SELECT user.nickname, work.* FROM user INNER JOIN work ON user.u_id=work.u_id ORDER BY update_date DESC LIMIT 20";
+                        $query="SELECT user.nickname, work.* FROM user INNER JOIN work ON user.u_id=work.u_id ";
+                        if(isset($andcd)){
+                            $query.="and {$andcd} ";
+                        }
+                        $query.="ORDER BY {$ordercd} DESC LIMIT 20";
                         $result=mysqli_query($db, $query) or die("work select fails".mysqli_error($db));
                         while($row=mysqli_fetch_assoc($result)){
                             $w_id=$row['w_id'];
@@ -115,6 +139,7 @@ include "../db.php";
                     ?>
 
                 </div>
+                <?php } ?>
             </div>
             
 
@@ -122,7 +147,76 @@ include "../db.php";
         <script src="./js/input_limit.js"></script>
         <script src="./js/masonry.js"></script>
             <script type="text/javascript"> 
+            //필터
             var next_page=2;
+            var syncf=true;
+            $(document).on('click','#filter li',function(){
+                if(syncf==false) return;
+                var syncf=false;
+                let btn=$(this);
+                let date=$(this).attr('value');
+                let btnc=$(this).clone();
+                let classify=btn.attr('class');
+                if(btn.text()==btn.parents('.dropdown').find('.dd-button li').text()){
+                    return;
+                }
+                btn.parents('.dropdown').children('.dd-button').html(btnc);
+                $.ajax({
+                    url:"./ajax/ajax-workboard.php",
+                    type:"POST",
+                    dataType:'json',
+                    data:{
+                        'page':1,
+                        'orderby':classify,
+                        'datelimit':date
+                    },
+                    success:function(data){
+                        //여기서 container 안에 내용 비우고, ajax로 가져온 데이터로 대체하기.
+                        next_page=2;
+                        $('#ajax').empty();
+                        $('.msg').remove();
+                        if(data.length!=0){
+                                $.each(data,function(key,val){
+                                    var $elem=
+                                        "<a href='./work.php?id="+val.w_id+"' class='mason-item' style='display:none;'>"
+                                        +"<img class='mason-image' src='../temp/"+val.image+"' alt="+val.image+">"
+                                        +"<div class='text_content'>"
+                                        +"<p class='title'>"+val.title+"</p>"
+                                        +"<p class='artists'>"+val.nickname+"</p>"
+                                        +"<div class='sub_description'>"
+                                        +"<i class='fas fa-heart'></i>&nbsp;"
+                                        +"<span class='likes'>"+val.likes+"</span>&nbsp;&nbsp;"
+                                        +"<i class='fas fa-comment'></i>&nbsp;"
+                                        +"<span class='comments'>"+val.comments+"</span>"
+                                        +"</div></div></a>";
+                                        $("#ajax").append($elem);
+                                        
+                                });
+                                $('#ajax').imagesLoaded(function(){
+                                    $(".mason-item").css('display','block');
+                                    $("#ajax").masonry('reloadItems');
+                                    $('#ajax').masonry('layout');
+                                    syncf=true;
+                                });
+                               
+                            }
+                            else{
+                                $("<div class='msg'>작품이 존재하지 않습니다.</div>").insertAfter('.works-header');
+                                $('#ajax').css('height','0px');
+                                syncf=true;
+                            }
+                        
+                    },
+                    error:function(err){
+                        console.log(err);
+                        syncf=true;
+                    }
+
+                });
+
+            });
+            
+            //페이징
             var sync=true;
             $(window).scrollTop(300);
             $(window).on('load',function(){
@@ -130,13 +224,17 @@ include "../db.php";
                     console.log("Scroll event");
                     if($(document).height()<=$(window).scrollTop()+$(window).height()+80 && sync==true){
                         sync=false;
+                        let classify=$('.dropdown').find('.dd-button li').attr('class');
+                        let date=$('.dropdown').find('.dd-button li').attr('value');
                         console.log("ajax before next_page : "+next_page);
                         $.ajax({
                             url: "./ajax/ajax-workboard.php",
                             type: "POST",
                             dataType:'json',
                             data: {
-                                'page':next_page
+                                'page':next_page,
+                                'orderby':classify,
+                                'datelimit':date
                             },
                             success : function(data){
                             

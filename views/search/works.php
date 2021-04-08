@@ -125,7 +125,7 @@
                         </div>
                     </div>
                     <?php if($cnt ==0){
-                        echo "<div class='msg'>검색 결과가 존재하지 않습니다.</div>";
+                        echo "<div class='msg'>검색 결과가 존재하지 않습니다.</div> ";
                     } ?>
                     <div id="ajax" class="container_works">
                         <?php
@@ -207,7 +207,7 @@
                         if(data.length!=0){
                             $.each(data,function(key,val){
                                 var $elem=
-                                    "<a href='./work.php?id="+val.w_id+"' class='mason-item' style='display:none;'>"
+                                    "<a href='../work.php?id="+val.w_id+"' class='mason-item' style='display:none;'>"
                                     +"<img class='mason-image' src='../../temp/"+val.image+"' alt="+val.image+">"
                                     +"<div class='text_content'>"
                                     +"<p class='title'>"+val.title+"</p>"
@@ -271,7 +271,7 @@
                                 next_page+=1;
                                 $.each(data,function(key,val){
                                     var $elem=
-                                        "<a href='./work.php?id="+val.w_id+"' class='mason-item' style='display:none;'>"
+                                        "<a href='../work.php?id="+val.w_id+"' class='mason-item' style='display:none;'>"
                                         +"<img class='mason-image' src='../../temp/"+val.image+"' alt="+val.image+">"
                                         +"<div class='text_content'>"
                                         +"<p class='title'>"+val.title+"</p>"
