@@ -2,6 +2,12 @@
     --main-side:10%;
     --theme-color:rgb(191, 216, 238);
 }
+button{
+  border:none; box-shadow:none; border-radius:0; padding:0; overflow:visible; cursor:pointer}
+button:focus{
+  border:none;
+  outline:none;
+}
 html, body{
     width:100%;
     height:100%;
@@ -189,9 +195,28 @@ select:focus{
     font-size:1.0rem;
     margin-right:10px;
 }
-.user-title .more{
+.user-title .more *{
   font-size:0.9rem;
 }
+.user-title .more button{
+  margin-left:8px;
+}
+.user-title .gallary-add, .gallary-done, .gallary-name-edit{
+  display:none;
+}
+
+#ajaxg .item{
+  position:relative;
+}
+.gallary-delete{
+  z-index:0;
+  position:absolute;
+  top:0px;
+  right:0px;
+  font-size:1.2rem;
+  display:none;
+}
+
 
 .works-container{
     display: grid;
@@ -508,3 +533,5 @@ margin-top:10px;
 .price, .artist{
   display:flex;
 }
+
+
