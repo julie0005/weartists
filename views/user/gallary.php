@@ -157,9 +157,9 @@ if(isset($_GET['idx'])){
                                     $thumbnail=$row['thumbnail'];
                         ?>    
                                 <div class="item">
-                                <a href="./gallary.php?idx=<?php echo "{$g_id}"?>" ><img src="../../temp/gallarythumb/<?php echo "{$thumbnail}"?>" alt=<?php echo "{$gallary_title}"?>>
+                                <a href="./gallary.php?idx=<?php echo "{$g_id}"?>" ><img src="../../temp/gallarythumb/<?php echo "{$thumbnail}"?>" alt=<?php echo "{$gallary_title}"?>></a>
                                 <p class="gallary-name bold" id="gallary-name-default"><?php if($gallary_title!='All'){?><i class='far fa-edit gallary-name-edit'></i><?php }?> <?php echo "{$gallary_title}"?></p>
-                                </a><?php if($gallary_title!='All'){?><button class="gallary-delete" style="padding:5px; background:none"><i class="fas fa-minus-circle " style="color:red"></i></button><?php }?>
+                                <?php if($gallary_title!='All'){?><button class="gallary-delete" style="padding:5px; background:none"><i class="fas fa-minus-circle " style="color:red"></i></button><?php }?>
                                 
                                 </div>
                         <?php        
@@ -234,8 +234,10 @@ if(isset($_GET['idx'])){
                 <div class="bg"></div>
                 <div class="modalBox">
                     <div class="modalmsg">새 갤러리 이름을 입력해주세요</div>
+                    <div class="modalmsg" style="font-size:0.8rem;">(한글 및 영어 최대 22자)</div>
                     <input class="newname" type="text" id="gallary-input" maxlength=22>
-                    <button class="closeBtn">완료</button>
+                    <button class="doneBtn">완료</button>
+                    <i class="fas fa-times closeBtn"></i>
                 </div>
             </div>
             <div id="deletemodal"class="modal delete"  style="display:none;">
@@ -243,7 +245,9 @@ if(isset($_GET['idx'])){
                 <div class="modalBox">
                     <div class="modalmsg">삭제하시겠습니까?</div>
                     <label style="font-size:0.8rem;"><input class="rdelete" type="checkbox" id="recursive-delete" value="1">&nbsp;작품까지 모두 삭제하기</label>
-                    <button class="closeBtn">확인</button>
+                    
+                    <button class="doneBtn">확인</button>
+                    <i class="fas fa-times closeBtn"></i>
                 </div>
             </div>
             

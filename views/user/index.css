@@ -204,7 +204,9 @@ select:focus{
 .user-title .gallary-add, .gallary-done, .gallary-name-edit{
   display:none;
 }
-
+.gallary-name-edit{
+  cursor:pointer;
+}
 #ajaxg .item{
   position:relative;
 }
