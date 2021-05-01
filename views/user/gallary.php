@@ -123,7 +123,7 @@ if(isset($_GET['idx'])){
                 </nav>
                 <!-- user home -->
                 <?php if(!isset($_GET['idx'])){?>
-                
+                <input type="text" id="editmode" value="0" style="display:none"></input>
                 <div class="wrapper" id="gallary-wrapper">
                     <div class="subcontainer">
                     <div class="user-title">
@@ -136,7 +136,12 @@ if(isset($_GET['idx'])){
                             <p class="medium maininfo">갤러리</p>
                             <p id="postcnt"><?php echo "{$cnt}"?></p>
                         </div>
-                        <a href="#" class="more">수정하기</a>
+                        <div class="more">
+                            <button type="button" class="gallary-edit">수정하기</button>
+                            <button type="button" class="gallary-add bold dd-button" >추가 <i class="fas fa-plus-circle"></i></button>
+                            <button type="button" class="gallary-done bold dd-button" >완료</button>
+                        </div>
+                        
                     </div>
                     <div id="ajaxg" class="works-container">
                         <?php
@@ -151,9 +156,12 @@ if(isset($_GET['idx'])){
                                     $gallary_title=$row['title'];
                                     $thumbnail=$row['thumbnail'];
                         ?>    
-                                <a href="./gallary.php?idx=<?php echo "{$g_id}"?>" class="item"><img src="../../temp/gallarythumb/<?php echo "{$thumbnail}"?>" alt=<?php echo "{$gallary_title}"?>>
-                                <p class="gallary-name bold" id="gallary-name-default"><?php echo "{$gallary_title}"?></p>
-                                </a>
+                                <div class="item">
+                                <a href="./gallary.php?idx=<?php echo "{$g_id}"?>" ><img src="../../temp/gallarythumb/<?php echo "{$thumbnail}"?>" alt=<?php echo "{$gallary_title}"?>></a>
+                                <p class="gallary-name bold" id="gallary-name-default"><?php if($gallary_title!='All'){?><i class='far fa-edit gallary-name-edit'></i><?php }?> <?php echo "{$gallary_title}"?></p>
+                                <?php if($gallary_title!='All'){?><button class="gallary-delete" style="padding:5px; background:none"><i class="fas fa-minus-circle " style="color:red"></i></button><?php }?>
+                                
+                                </div>
                         <?php        
                                 }
                                 
@@ -222,10 +230,31 @@ if(isset($_GET['idx'])){
                     </div>
                 </div>
                 <?php }?>
+            <div id="gallarymodal"class="modal create"  style="display:none;">
+                <div class="bg"></div>
+                <div class="modalBox">
+                    <div class="modalmsg">새 갤러리 이름을 입력해주세요</div>
+                    <div class="modalmsg" style="font-size:0.8rem;">(한글 및 영어 최대 22자)</div>
+                    <input class="newname" type="text" id="gallary-input" maxlength=22>
+                    <button class="doneBtn">완료</button>
+                    <i class="fas fa-times closeBtn"></i>
+                </div>
             </div>
+            <div id="deletemodal"class="modal delete"  style="display:none;">
+                <div class="bg"></div>
+                <div class="modalBox">
+                    <div class="modalmsg">삭제하시겠습니까?</div>
+                    <label style="font-size:0.8rem;"><input class="rdelete" type="checkbox" id="recursive-delete" value="1">&nbsp;작품까지 모두 삭제하기</label>
+                    
+                    <button class="doneBtn">확인</button>
+                    <i class="fas fa-times closeBtn"></i>
+                </div>
+            </div>
+            
+        </div>
         </main>
         
-        
+        <script src="../js/gallary-edit.js"></script>
         <script src="../js/input_limit.js"></script>
        <script src="../js/masonry.js"></script>
        <script type="text/javascript">
@@ -256,12 +285,18 @@ if(isset($_GET['idx'])){
                                         var $elem=
                                             "<a href='./gallary.php?idx="+val.g_id+"' class='item' style='display:none;'>"
                                             +"<img src='../../temp/gallarythumb/"+val.thumbnail+"' alt="+val.thumbnail+">"
-                                            +"<p class='gallary-name bold' id='gallary-name-default'>"+val.gallary_title+"</p>"
+                                            +"<p class='gallary-name bold' id='gallary-name-default'><i class='far fa-edit gallary-name-edit'></i>  "+val.gallary_title+"</p>"
+                                            +"<i class='fas fa-minus-circle gallary-delete'></i>"
                                             +"</a>";
                                             $("#ajaxg").append($elem);
                                     });
                                     $('#ajaxg').imagesLoaded(function(){
                                         $(".item").css('display','block');
+                                        let editmode=$('#editmode').attr('value');
+                                        if(editmode==1){
+                                            $('.gallary-name-edit').css('display','inline-block');
+                                            $('.gallary-delete').css('display','inline-block');
+                                        }
                                     });
                                 }
                                 sync=true;
