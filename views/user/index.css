@@ -218,7 +218,11 @@ select:focus{
   font-size:1.2rem;
   display:none;
 }
-
+input.gnameedit{
+  border: 1px solid grey;
+  font-size:0.9rem;
+  width:130px;
+}
 
 .works-container{
     display: grid;

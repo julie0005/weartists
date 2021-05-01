@@ -158,8 +158,8 @@ if(isset($_GET['idx'])){
                         ?>    
                                 <div class="item">
                                 <a href="./gallary.php?idx=<?php echo "{$g_id}"?>" ><img src="../../temp/gallarythumb/<?php echo "{$thumbnail}"?>" alt=<?php echo "{$gallary_title}"?>></a>
-                                <p class="gallary-name bold" id="gallary-name-default"><?php if($gallary_title!='All'){?><i class='far fa-edit gallary-name-edit'></i><?php }?> <?php echo "{$gallary_title}"?></p>
-                                <?php if($gallary_title!='All'){?><button class="gallary-delete" style="padding:5px; background:none" value=<?php echo "{$g_id}"?>><i class="fas fa-minus-circle " style="color:red"></i></button><?php }?>
+                                <div class="gallary-name bold" id="gallary-name-default"><?php if($gallary_title!='All'){?><i class='far fa-edit gallary-name-edit' value='<?php echo "{$g_id}"?>'></i><?php }?> <p class="gtitle" style='display:inline-block'><?php echo "{$gallary_title}"?></p></div>
+                                <?php if($gallary_title!='All'){?><button class="gallary-delete" style="padding:5px; background:none" value='<?php echo "{$g_id}"?>'><i class="fas fa-minus-circle " style="color:red"></i></button><?php }?>
                                 
                                 </div>
                         <?php        
@@ -283,11 +283,10 @@ if(isset($_GET['idx'])){
                                     console.log(next_page);
                                     $.each(data,function(key,val){
                                         var $elem=
-                                            "<a href='./gallary.php?idx="+val.g_id+"' class='item' style='display:none;'>"
-                                            +"<img src='../../temp/gallarythumb/"+val.thumbnail+"' alt="+val.thumbnail+">"
-                                            +"<p class='gallary-name bold' id='gallary-name-default'><i class='far fa-edit gallary-name-edit'></i>  "+val.gallary_title+"</p>"
-                                            +"<i class='fas fa-minus-circle gallary-delete'></i>"
-                                            +"</a>";
+                                            "<div class='item'>"
+                                            +"<a href='./gallary.php?idx="+val.g_id+"'><img src='../../temp/gallarythumb/"+val.thumbnail+"' alt='"+val.gallary_title+"'></a>"
+                                            +"<div class='gallary-name bold' id='gallary-name-default'><i class='far fa-edit gallary-name-edit' value="+val.g_id+"></i> <p class='gtitle' style='display:inline-block'>"+val.gallary_title+"</p></div>"
+                                            +"<button class='gallary-delete'  style='padding:5px; background:none' value="+val.g_id+"><i class='fas fa-minus-circle ' style='color:red'></i></button></div>"
                                             $("#ajaxg").append($elem);
                                     });
                                     $('#ajaxg').imagesLoaded(function(){
