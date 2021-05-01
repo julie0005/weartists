@@ -11,18 +11,18 @@
         exit();
     }
     else{
-        $title=$_POST['title'];
+        $g_id=$_POST['g_id'];
+        $recursive=$_POST['recursive'];
         $u_id=$_SESSION['u_id'];
         $object=new stdClass();
         $object->logged = true;
-        
-        $query="INSERT into gallary(`u_id`, `title`, `thumbnail`) values({$u_id},'{$title}', 'blank.jpg')";
-        $result=mysqli_query($db, $query) or die("gallary insert fails.".mysqli_error($db));
-        $g_id=mysqli_insert_id($db);
-        $object->g_id = $g_id;
-        $object->title=$title;
-        $object->thumbnail='blank.jpg';
-        
+        if($recursive==true){
+            $query="DELETE FROM work WHERE g_id={$g_id}";
+            $result=mysqli_query($db, $query) or die("gallary works delete fails.".mysqli_error($db));
+        }
+        $query="DELETE FROM gallary WHERE g_id={$g_id}";
+        $result=mysqli_query($db, $query) or die("gallary delete fails.".mysqli_error($db));
+        $object->success=true;
         $arr[]=$object;
         unset($object);
         echo json_encode($arr);

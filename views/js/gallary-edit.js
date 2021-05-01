@@ -47,7 +47,7 @@ $('#gallarymodal .doneBtn').on('click', function(){
                 let elem="<div class='item'>"
                     +"<a href='./gallary.php?idx="+g_id+"'><img src='../../temp/gallarythumb/"+thumbnail+"' alt='"+title+"'></a>"   
                     +"<p class='gallary-name bold' id='gallary-name-default'><i class='far fa-edit gallary-name-edit'></i> "+title+"</p>"
-                    +"<button class='gallary-delete' style='padding:5px; background:none'><i class='fas fa-minus-circle ' style='color:red'></i></button></div>"
+                    +"<button class='gallary-delete' style='padding:5px; background:none' value="+g_id+"><i class='fas fa-minus-circle ' style='color:red'></i></button></div>"
                $('#ajaxg.works-container').append(elem);
                clear();
                $('.modal').css('display','none');
@@ -64,14 +64,47 @@ $('#gallarymodal .doneBtn').on('click', function(){
         
     });
 });
+var item;
+var dg_id;
+//갤러리 삭제
+$('#deletemodal .doneBtn').on('click', function(){
+    let recursive=$('.rdelete').is(':checked');
+    $.ajax({
+        url:"../ajax/ajax-gdelete.php",
+        type:'POST',
+        dataType:'json',
+        data:{
+            'g_id' : dg_id,
+            'recursive' : recursive
+        },
+        success:function(data){
+            if(data[0].logged && data[0].success){
+                item.remove();
+               $('.modal').css('display','none');
+            }
+            else{
+                //로그인하지 않은 사용자.
+                location.href="../login.php";
+            }
+            
+        },
+        error : function(err){
+            console.log(err);
+        }
+        
+    });
+    
+});
 $('#gallarymodal .closeBtn').on('click', function(){
     $('.modal').css('display','none');
 });
 $(document).on('click','.gallary-name-edit', function(){
 
 });
-
+//-버튼 누르면
 $(document).on('click','.gallary-delete',function(){
+    dg_id=$(this).attr('value');
+    item=$(this).parents('.item');
     $('#deletemodal.modal').css('display','flex');
 });
 //x 버튼 누르면

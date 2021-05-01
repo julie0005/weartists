@@ -159,7 +159,7 @@ if(isset($_GET['idx'])){
                                 <div class="item">
                                 <a href="./gallary.php?idx=<?php echo "{$g_id}"?>" ><img src="../../temp/gallarythumb/<?php echo "{$thumbnail}"?>" alt=<?php echo "{$gallary_title}"?>></a>
                                 <p class="gallary-name bold" id="gallary-name-default"><?php if($gallary_title!='All'){?><i class='far fa-edit gallary-name-edit'></i><?php }?> <?php echo "{$gallary_title}"?></p>
-                                <?php if($gallary_title!='All'){?><button class="gallary-delete" style="padding:5px; background:none"><i class="fas fa-minus-circle " style="color:red"></i></button><?php }?>
+                                <?php if($gallary_title!='All'){?><button class="gallary-delete" style="padding:5px; background:none" value=<?php echo "{$g_id}"?>><i class="fas fa-minus-circle " style="color:red"></i></button><?php }?>
                                 
                                 </div>
                         <?php        
