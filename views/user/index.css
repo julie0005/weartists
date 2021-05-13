@@ -201,11 +201,21 @@ select:focus{
 .user-title .more button{
   margin-left:8px;
 }
-.user-title .gallary-add, .gallary-done, .gallary-name-edit{
+.user-title .gallary-add, .gallary-done, .gallary-name-edit, .gallary-photo-edit{
   display:none;
 }
-.gallary-name-edit{
+.gallary-photo-edit{
+  position:absolute;
+  top:10px;
+  left:10px;
+  font-size:1.1rem;
+}
+.gallary-name-edit, .gallary-photo-edit{
   cursor:pointer;
+}
+.gthumbnail, .ngthumbnail{
+  border: 1px solid rgb(202, 202, 202);
+  background:white;
 }
 #ajaxg .item{
   position:relative;

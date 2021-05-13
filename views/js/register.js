@@ -76,7 +76,7 @@ function checkId() {
         isValid[5]=false;
     } else {
         error[0].style.display = "none";
-        msg[0].innerHTML = "사용가능";
+        msg[0].innerHTML = "중복 확인 필요";
         msg[0].style.display = "block";
         msg[0].style.color = "#03c75a";
         isValid[0]=true;
@@ -98,7 +98,7 @@ function checkName() {
         isValid[6]=false;
     } else {
         error[1].style.display = "none";
-        msg[1].innerHTML = "사용가능";
+        msg[1].innerHTML = "중복 확인 필요";
         msg[1].style.display = "block";
         msg[1].style.color = "#03c75a";
         isValid[1]=true;
@@ -160,7 +160,7 @@ function isEmailCorrect() {
         isValid[7]=false;
     } else {
         error[2].style.display = "none"; 
-        msg[2].innerHTML = "사용가능";
+        msg[2].innerHTML = "중복 확인 필요";
         msg[2].style.display = "block";
         msg[2].style.color = "#03c75a";
         isValid[2]=true;

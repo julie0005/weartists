@@ -56,24 +56,21 @@ img{
   }
   .modalBox{
     position:relative;
-    background-color: rgba(255, 255, 255, 0);
-    height:100%;
     vertical-align: middle;
-  }
-  #gallarymodal .modalBox, #deletemodal .modalBox{
     background-color: rgb(240, 240, 240);
     border-radius:10px;
     margin:auto auto;
-    height:220px;
-    width:330px;
     padding:30px;
     text-align: center;
   }
   #deletemodal .modalBox{
-      height:160px;
-      width:330px;
+      height:135px;
+      width:280px;
       padding:20px;
   }
+#updatemodal .modalBox{
+    padding:30px 20px;
+}
   .modalBox img{
       max-height:95%;
       object-fit: cover;
@@ -101,10 +98,12 @@ img{
     font-size:20px;
   }
   .modalmsg, .newname{
-      margin: 8px auto;
       text-align: center;
   }
-  #gallarymodal .modalBox button, #deletemodal .modalBox button{
+  .sub{
+    margin: 0px 0px 8px 0px;
+  }
+  .modalBox button{
       font-size:1.0rem;
       padding:2px;
       width:60px;
@@ -113,6 +112,7 @@ img{
   }
 
 .newname{
+    margin: 8px auto;
     width:100%;
     border:none;
     height:30px;

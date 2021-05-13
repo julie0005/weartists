@@ -20,8 +20,18 @@
             $query="DELETE FROM work WHERE g_id={$g_id}";
             $result=mysqli_query($db, $query) or die("gallary works delete fails.".mysqli_error($db));
         }
+
+        $query="select thumbnail from gallary where g_id={$g_id}";
+        $result=mysqli_query($db, $query) or die("gallary thumb select fails.".mysqli_error($db));
+        $row=mysqli_fetch_assoc($result);
+        $img=$row['thumbnail'];
+        if($img!="blank.jpg"){
+            unlink("../../temp/gallarythumb/{$img}");
+        }
         $query="DELETE FROM gallary WHERE g_id={$g_id}";
         $result=mysqli_query($db, $query) or die("gallary delete fails.".mysqli_error($db));
+        
+        
         $object->success=true;
         $arr[]=$object;
         unset($object);

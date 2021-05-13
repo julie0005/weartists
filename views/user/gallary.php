@@ -157,9 +157,10 @@ if(isset($_GET['idx'])){
                                     $thumbnail=$row['thumbnail'];
                         ?>    
                                 <div class="item">
+                                <?php if($gallary_title!='All'){?><i class='far fa-edit gallary-photo-edit' value='<?php echo "{$g_id}"?>'></i><?php }?>
                                 <a href="./gallary.php?idx=<?php echo "{$g_id}"?>" ><img src="../../temp/gallarythumb/<?php echo "{$thumbnail}"?>" alt=<?php echo "{$gallary_title}"?>></a>
                                 <div class="gallary-name bold" id="gallary-name-default"><?php if($gallary_title!='All'){?><i class='far fa-edit gallary-name-edit' value='<?php echo "{$g_id}"?>'></i><?php }?> <p class="gtitle" style='display:inline-block'><?php echo "{$gallary_title}"?></p></div>
-                                <?php if($gallary_title!='All'){?><button class="gallary-delete" style="padding:5px; background:none" value='<?php echo "{$g_id}"?>'><i class="fas fa-minus-circle " style="color:red"></i></button><?php }?>
+                                <?php if($gallary_title!='All'){?><button class="gallary-delete" style="padding:5px; background:none" value='<?php echo "{$g_id}"?>'><i class="fas fa-minus-circle " ></i></button><?php }?>
                                 
                                 </div>
                         <?php        
@@ -234,8 +235,11 @@ if(isset($_GET['idx'])){
                 <div class="bg"></div>
                 <div class="modalBox">
                     <div class="modalmsg">새 갤러리 이름을 입력해주세요</div>
-                    <div class="modalmsg" style="font-size:0.8rem;">(한글 및 영어 최대 22자)</div>
-                    <input class="newname" type="text" id="gallary-input" maxlength=22>
+                    <div class="sub modalmsg" style="font-size:0.8rem; margin-bottom:7px">(한글 및 영어 최대 22자)</div>
+                    <input class="newname" type="text" id="gallary-input" style="margin-bottom:20px" maxlength=22>
+                    <div class="modalmsg">썸네일(선택)</div>
+                    <div class="sub modalmsg" style="font-size:0.8rem; margin-bottom:7px" >(이미지 파일만 가능)</div>
+                    <input class="gthumbnail" type="file" id="gthumbnail" name="gthumbnail" accept="image/*">
                     <button class="doneBtn">완료</button>
                     <i class="fas fa-times closeBtn"></i>
                 </div>
@@ -247,6 +251,16 @@ if(isset($_GET['idx'])){
                     <label style="font-size:0.8rem;"><input class="rdelete" type="checkbox" id="recursive-delete" value="1">&nbsp;작품까지 모두 삭제하기</label>
                     
                     <button class="doneBtn">확인</button>
+                    <i class="fas fa-times closeBtn"></i>
+                </div>
+            </div>
+            <div id="updatemodal"class="modal update"  style="display:none;">
+                <div class="bg"></div>
+                <div class="modalBox">
+                    <div class="modalmsg">썸네일 수정하기</div>
+                    <div class="sub modalmsg" style="font-size:0.8rem; margin-bottom:7px" >(이미지 파일만 가능, 빈 파일일 경우 기본 이미지 선택)</div>
+                    <input class="ngthumbnail" type="file" id="ngthumbnail" name="ngthumbnail" accept="image/*">
+                    <button class="doneBtn">완료</button>
                     <i class="fas fa-times closeBtn"></i>
                 </div>
             </div>
@@ -283,10 +297,10 @@ if(isset($_GET['idx'])){
                                     console.log(next_page);
                                     $.each(data,function(key,val){
                                         var $elem=
-                                            "<div class='item'>"
+                                            "<div class='item'>"+"<i class='far fa-edit gallary-photo-edit' value="+val.g_id+"></i>"
                                             +"<a href='./gallary.php?idx="+val.g_id+"'><img src='../../temp/gallarythumb/"+val.thumbnail+"' alt='"+val.gallary_title+"'></a>"
                                             +"<div class='gallary-name bold' id='gallary-name-default'><i class='far fa-edit gallary-name-edit' value="+val.g_id+"></i> <p class='gtitle' style='display:inline-block'>"+val.gallary_title+"</p></div>"
-                                            +"<button class='gallary-delete'  style='padding:5px; background:none' value="+val.g_id+"><i class='fas fa-minus-circle ' style='color:red'></i></button></div>"
+                                            +"<button class='gallary-delete'  style='padding:5px; background:none' value="+val.g_id+"><i class='fas fa-minus-circle '></i></button></div>"
                                             $("#ajaxg").append($elem);
                                     });
                                     $('#ajaxg').imagesLoaded(function(){

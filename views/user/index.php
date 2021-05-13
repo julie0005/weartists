@@ -17,10 +17,16 @@ else{
         $row=mysqli_fetch_assoc($result);
         $author=$row['nickname'];
         $profile_photo=$row['photo'];
-        $works=$row['works'];
-        $subscribers=$row['subscribers'];
         $profile=$row['profile'];
     }
+    $query="SELECT COUNT(*) as cnt FROM work WHERE u_id={$u_id}";
+    $result=mysqli_query($db,$query) or die("work count fails");
+    $row=mysqli_fetch_assoc($result);
+    $works=$row['cnt'];
+    $query="select count(*) as cnt from subscription where target_id={$u_id}";
+    $result=mysqli_query($db,$query) or die("subscribers count fails");
+    $row=mysqli_fetch_assoc($result);
+    $subscribers=$row['cnt'];
 
 }
 ?>
@@ -246,6 +252,6 @@ else{
        <script src="../js/input_limit.js">
 
        </script>
-       </script src="../js/subscribe.js"></script>
+       <script src="../js/subscribe.js"></script>
     </body>
 </html>
